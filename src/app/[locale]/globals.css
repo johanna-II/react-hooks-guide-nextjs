@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* 이모지 아이콘 스타일 */
+.emoji-icon {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+  line-height: 1;
+}
+
+/* 섹션 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 각 섹션의 콘텐츠에 페이드 효과 적용 */
+section > div {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* 탭 전환 시 부드러운 효과 */
+main {
+  transition: opacity 0.3s ease-out;
+}
+
+/* 모바일 최적화 스타일 */
+@media (max-width: 1023px) {
+
+  /* 터치 최적화 */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* 스크롤바 숨김 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 모바일에서 더 나은 터치 경험 */
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* 모바일에서 더 나은 폰트 크기 */
+  .mobile-text {
+    font-size: 16px;
+    /* iOS에서 자동 확대 방지 */
+  }
+
+  /* 모바일에서 더 나은 간격 */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+}
+
+/* 코드 하이라이팅 스타일 */
+pre {
+  background: #1e293b;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid #475569;
+}
+
+pre code {
+  font-family: 'Fira Code', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* TypeScript/JavaScript 코드 하이라이팅 */
+.language-typescript,
+.language-jsx,
+.language-javascript {
+  color: #e2e8f0;
+}
+
+.language-typescript .keyword,
+.language-jsx .keyword,
+.language-javascript .keyword {
+  color: #93c5fd;
+}
+
+.language-typescript .string,
+.language-jsx .string,
+.language-javascript .string {
+  color: #86efac;
+}
+
+.language-typescript .number,
+.language-jsx .number,
+.language-javascript .number {
+  color: #fbbf24;
+}
+
+.language-typescript .comment,
+.language-jsx .comment,
+.language-javascript .comment {
+  color: #64748b;
+  font-style: italic;
+}
+
+.language-typescript .function,
+.language-jsx .function,
+.language-javascript .function {
+  color: #a78bfa;
+}
+
+.language-typescript .operator,
+.language-jsx .operator,
+.language-javascript .operator {
+  color: #f1f5f9;
+}
+
+/* 코드 블록 호버 효과 */
+pre:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 1px #60a5fa20;
+  transition: all 0.2s ease-in-out;
+}
+
+/* 모바일 터치 제스처 최적화 */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* 모바일 스와이프 애니메이션 */
+.swipe-transition {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 모바일 햅틱 피드백 시뮬레이션 */
+.haptic-feedback {
+  animation: haptic-pulse 0.1s ease-in-out;
+}
+
+@keyframes haptic-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 모바일에서 더 나은 포커스 표시 */
+@media (max-width: 1023px) {
+
+  button:focus,
+  input:focus,
+  textarea:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* 섹션 전환 애니메이션 */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 스크롤바 숨기기 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* 스와이프 애니메이션 */
+  .swipe-transition {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 가장자리 스와이프 힌트 */
+  .edge-swipe-hint {
+    animation: edge-hint 2s ease-in-out infinite;
+  }
+
+  @keyframes edge-hint {
+    0%, 100% {
+      transform: translateX(0);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateX(-8px);
+      opacity: 0.8;
+    }
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+  }
+
+  /* 터치 조작 최적화 */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+}

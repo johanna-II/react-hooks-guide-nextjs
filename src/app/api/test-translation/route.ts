@@ -14,7 +14,6 @@ export async function GET() {
   }
   
   try {
-    const client = getDeepLClient(apiKey, apiUrl);
     const testText = 'Hook의 장점';
     
     const response = await fetch(apiUrl || 'https://api.deepl.com/v2/translate', {

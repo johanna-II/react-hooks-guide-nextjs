@@ -23,7 +23,7 @@ export function parseHTMLToReact(html: string): React.ReactNode {
   };
   
   // Decode entities first
-  let decodedHtml = decodeEntities(html);
+  const decodedHtml = decodeEntities(html);
   
   // Parse HTML into React elements
   const parseNode = (text: string, key: number = 0): React.ReactNode => {
@@ -85,14 +85,16 @@ export function parseHTMLToReact(html: string): React.ReactNode {
     }
     
     // Create the element
-    const TagComponent = tagName as keyof JSX.IntrinsicElements;
+    const TagComponent = tagName as keyof React.JSX.IntrinsicElements;
     
     return (
       <React.Fragment key={key}>
         {beforeText}
-        <TagComponent className={className || undefined}>
-          {parseNode(content, key + 1)}
-        </TagComponent>
+        {React.createElement(
+          tagName,
+          { className: className || undefined, key: `tag-${key}` },
+          parseNode(content, key + 1)
+        )}
         {parseNode(afterText, key + 2)}
       </React.Fragment>
     );

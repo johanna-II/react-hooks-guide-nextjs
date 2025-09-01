@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import type { NavigationProps, NavigationItem } from '@/types/components';
+import type { NavigationProps } from '@/types/components';
 
 interface NavigationBarProps extends NavigationProps {
   scrollToSection: (sectionId: string) => void;

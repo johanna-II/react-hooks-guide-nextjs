@@ -1,5 +1,4 @@
 import { NavigationSection } from '@/types';
-import { koreanTexts } from '@/lib/korean-texts';
 
 export const NAVIGATION_SECTIONS: NavigationSection[] = [
   { id: 'hero', label: 'Home', icon: '🏠' },

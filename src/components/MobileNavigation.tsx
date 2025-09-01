@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { NAVIGATION_SECTIONS } from '@/constants/navigation';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface MobileNavigationProps {
   activeSection: string;
@@ -12,6 +13,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(({
   activeSection, 
   onSectionChange 
 }) => {
+  const t = useOptimizedTranslations();
   // 렌더링 로그를 조건부로 출력하여 중복 방지 (개발 환경에서만)
   const prevActiveSection = useRef(activeSection);
   if (process.env.NODE_ENV === 'development' && prevActiveSection.current !== activeSection) {
@@ -75,7 +77,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(({
         onTouchStart={(e) => e.stopPropagation()}
         onTouchEnd={(e) => e.stopPropagation()}
         className="lg:hidden fixed top-4 right-4 z-40 p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg hover:shadow-xl transition-all active:scale-95"
-        aria-label="메뉴 열기"
+        aria-label={t('navigation.menuOpen')}
         data-interactive
       >
         <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
@@ -141,7 +143,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(({
           {/* 푸터 정보 */}
           <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
             <div className="text-center text-sm text-slate-400">
-              <p>탭하여 섹션을 이동하세요</p>
+              <p>{t('navigation.tapToMove')}</p>
             </div>
           </div>
         </div>

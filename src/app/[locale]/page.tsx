@@ -1,7 +1,8 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useDeepLTranslations } from '@/contexts/TranslationContext';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+
 
 const ReactHooksGuide = dynamic(
   () => import('@/components/ReactHooksGuide').then((mod) => mod.ReactHooksGuide),
@@ -12,7 +13,7 @@ const ReactHooksGuide = dynamic(
 );
 
 function LoadingComponent() {
-  const t = useDeepLTranslations();
+  const t = useOptimizedTranslations();
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex items-center justify-center">

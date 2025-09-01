@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDeepLTranslations } from '@/contexts/TranslationContext';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { NAVIGATION_SECTIONS, WHY_HOOKS_DATA } from '@/constants/navigation';
@@ -13,9 +13,10 @@ import AdvancedPatterns from './AdvancedPatterns';
 import { MobileNavigation } from './MobileNavigation';
 import { MobileMainContent } from './MobileMainContent';
 import { LanguageSwitcher } from './common';
+import { HTMLText } from '@/utils/html-parser';
 
 const ReactHooksGuide: React.FC = React.memo(() => {
-  const t = useDeepLTranslations();
+  const t = useOptimizedTranslations();
   const activeSection = useIntersectionObserver('section[id]');
   const scrollToSection = useScrollToSection();
   // 초기 모바일 상태를 서버와 클라이언트에서 동일하게 설정
@@ -218,18 +219,16 @@ const ReactHooksGuide: React.FC = React.memo(() => {
               
               <div className="grid gap-4">
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-purple-400 mb-2">Hook의 장점</h3>
+                  <h3 className="text-lg font-bold text-purple-400 mb-2">{t('guide.hookAdvantages')}</h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
-                    클래스 컴포넌트의 this 바인딩 문제가 없고, 
-                    컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다.
+                    {t('guide.hookAdvantagesDesc')}
                   </p>
                 </div>
                 
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-orange-400 mb-2">언제 사용할까?</h3>
+                  <h3 className="text-lg font-bold text-orange-400 mb-2">{t('guide.whenToUse')}</h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
-                    함수형 컴포넌트에서 상태 관리, 사이드 이펙트 처리, 
-                    컴포넌트 간 로직 공유가 필요할 때 사용합니다.
+                    {t('guide.whenToUse.desc2')}
                   </p>
                 </div>
               </div>
@@ -241,17 +240,17 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="why-hooks" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-3xl border border-green-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>🚀</span> Hooks가 필요한 이유
+              {t('guide.whyHooksNeeded')}
             </h2>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {WHY_HOOKS_DATA.map((item, index) => (
                 <div key={index} className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-300 hover:scale-105 group h-full flex flex-col">
                   <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>{item.icon}</div>
-                  <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-1.5 sm:mb-2 flex-grow">{item.desc}</p>
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{t(item.titleKey)}</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-1.5 sm:mb-2 flex-grow">{t(item.descKey)}</p>
                   <div className="text-[10px] sm:text-xs text-slate-400 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {item.detail}
+                    {t(item.detailKey)}
                   </div>
                 </div>
               ))}
@@ -263,11 +262,10 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="core-hooks" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl border border-purple-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              🎣 핵심 Hooks 완벽 가이드
+              🎣 {t('guide.coreHooks.title')}
             </h2>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              React의 기본 Hooks들을 실시간 데모와 함께 학습하세요. <br />
-              각 Hook의 동작 원리와 실제 사용법을 체험할 수 있습니다.
+              {t('guide.coreHooks.description')}
             </p>
             
             <HooksTabs />
@@ -278,25 +276,25 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="rules" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-3xl border border-orange-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              📋 Hooks 사용 규칙
+              {t('guide.hooksRules')}
             </h2>
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
-                  <h3 className="text-xl font-bold text-red-400 mb-4">절대 하지 말아야 할 것</h3>
+                  <h3 className="text-xl font-bold text-red-400 mb-4">{t('guide.rules.dontTitle')}</h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
                       <span className="text-red-400 mr-2">•</span>
-                      <span>조건문, 반복문, 중첩 함수 안에서 Hook 호출</span>
+                      <span>{t('guide.rules.dont.conditional')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-red-400 mr-2">•</span>
-                      <span>일반 JavaScript 함수에서 Hook 호출</span>
+                      <span>{t('guide.rules.dont.regular')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-red-400 mr-2">•</span>
-                      <span>클래스 컴포넌트에서 Hook 사용</span>
+                      <span>{t('guide.rules.dont.class')}</span>
                     </li>
                   </ul>
                 </div>
@@ -304,19 +302,19 @@ const ReactHooksGuide: React.FC = React.memo(() => {
               
               <div className="space-y-6">
                 <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
-                  <h3 className="text-xl font-bold text-green-400 mb-4">올바른 사용법</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-4">{t('guide.rules.doTitle')}</h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
                       <span className="text-green-400 mr-2">•</span>
-                      <span>React 함수형 컴포넌트 최상위에서만 호출</span>
+                      <span>{t('guide.rules.do.topLevel')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-green-400 mr-2">•</span>
-                      <span>커스텀 Hook 최상위에서만 호출</span>
+                      <span>{t('guide.rules.do.customHook')}</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-green-400 mr-2">•</span>
-                      <span>Hook 호출 순서는 항상 동일하게 유지</span>
+                      <span>{t('guide.rules.do.sameOrder')}</span>
                     </li>
                   </ul>
                 </div>
@@ -324,11 +322,9 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             </div>
             
             <div className="mt-8 p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-              <h3 className="text-xl font-bold text-yellow-400 mb-4">왜 이런 규칙이 필요한가요?</h3>
+              <h3 className="text-xl font-bold text-yellow-400 mb-4">{t('guide.rules.whyTitle')}</h3>
               <p className="text-slate-300 leading-relaxed">
-                React는 Hook의 호출 순서에 의존하여 상태를 올바르게 연결합니다. 
-                조건문이나 반복문 안에서 Hook을 호출하면 호출 순서가 달라져서 
-                상태가 잘못 연결될 수 있습니다. 이것이 &quot;Rules of Hooks&quot;의 핵심입니다.
+                {t('guide.rules.whyDesc')}
               </p>
             </div>
           </div>
@@ -338,11 +334,10 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="optimization" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-3xl border border-indigo-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>⚡</span> 성능 최적화 마스터하기
+              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>⚡</span> {t('guide.optimization.title')}
             </h2>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              React.memo, useMemo, useCallback 등을 활용한 성능 최적화 기법을 <br />
-              실시간 데모와 함께 학습하세요.
+              {t('guide.optimization.description')}
             </p>
             <OptimizationDemos />
           </div>
@@ -352,12 +347,10 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="react19" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl border border-blue-500/20 p-8">
             <h3 className="text-3xl font-bold text-white mb-8 text-center">
-              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>✨</span> React 19의 혁신적인 새로운 Hook들
+              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>✨</span> {t('react19.newFeatures.title')}
             </h3>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              React 19에서는 개발자 경험을 크게 향상시키는 새로운 Hook들과 기능들이 추가되었습니다.
-              특히 <strong className="text-blue-400">Actions</strong>, <strong className="text-green-400">Form Actions</strong>, 
-              <strong className="text-purple-400">use() Hook</strong> 등이 핵심입니다.
+              {t('react19.newFeatures.description')}
             </p>
             
             <div className="space-y-8">
@@ -365,16 +358,18 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>🚀</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">Actions & useTransition</h4>
-                    <p className="text-slate-400">비동기 상태 관리의 혁신</p>
+                    <h4 className="text-2xl font-bold text-white">{t('react19.actionsAndUseTransition')}</h4>
+                    <p className="text-slate-400">{t('react19.actionsAndUseTransition.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  React 19의 <strong className="text-blue-400">Actions</strong>는 async 함수를 transitions에서 사용할 수 있게 해줍니다.
-                  pending 상태, 에러 처리, 낙관적 업데이트를 자동으로 관리합니다.
+                  {t.rich('react19.actions.description', {
+                    strong: (chunks) => <strong className="text-blue-400">{chunks}</strong>
+                  })}
+                  {t('react19.actions.autoManagement')}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
-                  <p className="text-sm text-green-400 mb-3">🎉 React 19의 새로운 방식:</p>
+                  <p className="text-sm text-green-400 mb-3">{t('react19.newWay')}</p>
                   <pre className="text-sm text-slate-400 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
                     <code className="language-typescript">{`// Before React 19
 const [isPending, setIsPending] = useState(false);
@@ -410,13 +405,19 @@ const handleSubmit = () => {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">📝</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">Form Actions & useActionState</h4>
-                    <p className="text-slate-400">폼 처리가 놀랍도록 간단해짐</p>
+                    <h4 className="text-2xl font-bold text-white">{t('react19.formActionsAndUseActionState')}</h4>
+                    <p className="text-slate-400">{t('react19.formActionsAndUseActionState.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  <strong className="text-green-400">useActionState</strong>와 <strong className="text-blue-400">Form Actions</strong>로 
-                  폼 처리가 훨씬 간단해졌습니다. 자동 폼 리셋, 에러 처리, pending 상태를 자동으로 관리합니다.
+                  {t.rich('react19.formActions.withUseActionState', {
+                    strong: (chunks) => {
+                      if (chunks === 'useActionState') return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'Form Actions') return <strong className="text-blue-400">{chunks}</strong>;
+                      return <strong>{chunks}</strong>;
+                    }
+                  })}
+                  <HTMLText>{t('react19.formActions.simplifiedDesc')}</HTMLText>
                 </p>
                 
                 {/* FormActionDemo 통합 */}
@@ -427,25 +428,26 @@ const handleSubmit = () => {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">🎣</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">use() Hook</h4>
-                    <p className="text-slate-400">Promise와 Context를 더 쉽게</p>
+                    <h4 className="text-2xl font-bold text-white">{t('react19.useHook')}</h4>
+                    <p className="text-slate-400">{t('react19.useHook.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  새로운 <strong className="text-purple-400">use() Hook</strong>으로 Promise를 직접 읽을 수 있습니다. 
-                  조건문 안에서도 사용 가능한 유일한 Hook입니다.
+                  {t.rich('react19.use.description', {
+                    strong: (chunks) => <strong className="text-purple-400">{chunks}</strong>
+                  })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
                   <pre className="text-sm text-slate-400 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-                    <code className="language-typescript">{`// Promise를 직접 사용
+                    <code className="language-typescript">{`// ${t('react19.code.comment.conditionPromise')}
 const data = use(fetchPromise);
 
-// 조건부 사용 가능!
+// ${t('react19.code.comment.conditionUse')}
 if (condition) {
   const context = use(MyContext);
 }
 
-// React 19에서는 더 안전하고 예측 가능한 방식으로 작동`}</code>
+// ${t('react19.code.comment.safePredict')}`}</code>
                   </pre>
                 </div>
               </div>
@@ -454,18 +456,23 @@ if (condition) {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">🔧</span>
                   <div>
-                    <h4 className="text-xl font-bold text-white">useFormStatus & useOptimistic</h4>
-                    <p className="text-slate-400">폼 상태 관리의 새로운 패러다임</p>
+                    <h4 className="text-xl font-bold text-white">{t('react19.useFormStatusAndUseOptimistic')}</h4>
+                    <p className="text-slate-400">{t('react19.useFormStatusAndUseOptimistic.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  <strong className="text-orange-400">useFormStatus</strong>로 폼의 pending 상태를 쉽게 관리하고, &nbsp;
-                  <strong className="text-pink-400">useOptimistic</strong>으로 즉시 UI 업데이트를 구현할 수 있습니다.
+                  {t.rich('react19.formHooks.description', {
+                    strong: (chunks) => {
+                      if (chunks === 'useFormStatus') return <strong className="text-orange-400">{chunks}</strong>;
+                      if (chunks === 'useOptimistic') return <strong className="text-pink-400">{chunks}</strong>;
+                      return <strong>{chunks}</strong>;
+                    }
+                  })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
-                  <p className="text-sm text-green-400 mb-3">🎉 새로운 Form Hooks:</p>
+                  <p className="text-sm text-green-400 mb-3">{t('react19.newFormHooks')}</p>
                   <pre className="text-sm text-slate-400 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-                    <code className="language-typescript">{`// useFormStatus로 폼 상태 관리
+                    <code className="language-typescript">{`// ${t('react19.code.comment.formStatus')}
 function SubmitButton() {
   const { pending } = useFormStatus();
   
@@ -476,7 +483,7 @@ function SubmitButton() {
   );
 }
 
-// useOptimistic으로 즉시 UI 업데이트
+// ${t('react19.code.comment.optimistic')}
 const [optimisticMessages, addOptimisticMessage] = useOptimistic(
   messages,
   (state, newMessage) => [...state, { ...newMessage, sending: true }]
@@ -489,27 +496,32 @@ const [optimisticMessages, addOptimisticMessage] = useOptimistic(
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>🚀</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">Server Components & React Compiler</h4>
-                    <p className="text-slate-400">자동 최적화의 마법</p>
+                    <h4 className="text-2xl font-bold text-white">{t('react19.serverComponentsAndReactCompiler')}</h4>
+                    <p className="text-slate-400">{t('react19.serverComponentsAndReactCompiler.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  React 19의 새로운 컴파일러는 <strong className="text-green-400">useMemo</strong>, 
-                  <strong className="text-blue-400"> useCallback</strong>, <strong className="text-purple-400">React.memo</strong>를 
-                  자동으로 적용합니다. <br />개발자가 수동으로 최적화하지 않아도 React가 알아서 처리합니다.
+                  {t.rich('react19.compiler.description', {
+                    strong: (chunks) => {
+                      if (chunks === 'useMemo') return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'useCallback') return <strong className="text-blue-400">{chunks}</strong>;
+                      if (chunks === 'React.memo') return <strong className="text-purple-400">{chunks}</strong>;
+                      return <strong>{chunks}</strong>;
+                    }
+                  })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
-                  <p className="text-sm text-green-400 mb-3">🎉 더 이상 필요없어진 코드:</p>
+                  <p className="text-sm text-green-400 mb-3">{t('react19.noLongerNeeded')}</p>
                   <pre className="text-sm text-slate-400 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-                    <code className="language-typescript">{`// Before React 19
+                    <code className="language-typescript">{`// ${t('react19.code.beforeReact19')}
 const memoized = useMemo(() => expensive(), [deps]);
 const callback = useCallback(() => handler(), [deps]);
 const MemoizedComponent = React.memo(Component);
 
-// React 19 - 자동으로 최적화됨!
-const memoized = expensive(); // 자동으로 useMemo 적용
-const callback = () => handler(); // 자동으로 useCallback 적용
-const Component = () => <div>...</div>; // 자동으로 React.memo 적용`}</code>
+// ${t('react19.code.withReact19')}
+const memoized = expensive(); // ${t('react19.code.comment.autoMemo')}
+const callback = () => handler(); // ${t('react19.code.comment.autoCallback')}
+const Component = () => <div>...</div>; // ${t('react19.code.comment.autoMemoComponent')}`}</code>
                   </pre>
                 </div>
               </div>
@@ -518,27 +530,33 @@ const Component = () => <div>...</div>; // 자동으로 React.memo 적용`}</cod
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">💎</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">Resource Preloading APIs</h4>
-                    <p className="text-slate-400">성능 최적화의 새로운 차원</p>
+                    <h4 className="text-2xl font-bold text-white">{t('react19.resourcePreloadingAPIs')}</h4>
+                    <p className="text-slate-400">{t('react19.resourcePreloadingAPIs.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
-                  <strong className="text-yellow-400">prefetchDNS</strong>, <strong className="text-green-400">preconnect</strong>, 
-                  <strong className="text-blue-400"> preload</strong>, <strong className="text-purple-400">preinit</strong> 등 
-                  새로운 리소스 프리로딩 API들로 페이지 성능을 크게 향상시킬 수 있습니다.
+                  {t.rich('react19.resources.description', {
+                    strong: (chunks) => {
+                      if (chunks === 'prefetchDNS') return <strong className="text-yellow-400">{chunks}</strong>;
+                      if (chunks === 'preconnect') return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'preload') return <strong className="text-blue-400">{chunks}</strong>;
+                      if (chunks === 'preinit') return <strong className="text-purple-400">{chunks}</strong>;
+                      return <strong>{chunks}</strong>;
+                    }
+                  })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
-                  <p className="text-sm text-green-400 mb-3">🎉 새로운 Resource APIs:</p>
+                  <p className="text-sm text-green-400 mb-3">{t('react19.newResourceAPIs')}</p>
                   <pre className="overflow-x-auto">
                     <code className="language-typescript text-sm">
 {`import { prefetchDNS, preconnect, preload, preinit } from 'react-dom'
 
 function MyComponent() {
-  preinit('https://.../script.js', {as: 'script'}) // 즉시 로드 및 실행
-  preload('https://.../font.woff', { as: 'font' }) // 폰트 프리로드
-  preload('https://.../style.css', { as: 'style' }) // 스타일시트 프리로드
-  prefetchDNS('https://...') // DNS 프리페치
-  preconnect('https://...') // 연결 프리페치
+  preinit('https://.../script.js', {as: 'script'}) // ${t('react19.code.comment.preinit')}
+  preload('https://.../font.woff', { as: 'font' }) // ${t('react19.code.comment.preload')}
+  preload('https://.../style.css', { as: 'style' }) // ${t('react19.code.comment.preload')}
+  prefetchDNS('https://...') // ${t('react19.code.comment.prefetch')}
+  preconnect('https://...') // ${t('react19.code.comment.preconnect')}
   
   return <div>...</div>
 }`}
@@ -549,20 +567,20 @@ function MyComponent() {
             </div>
 
             <div className="mt-8 p-6 bg-blue-950/30 rounded-2xl border border-blue-500/20">
-              <h4 className="text-xl font-bold text-blue-400 mb-4">React 19 업그레이드 가이드</h4>
+              <h4 className="text-xl font-bold text-blue-400 mb-4">{t('react19.upgrade.guideTitle')}</h4>
               <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
                 <div>
-                  <p><strong>1단계:</strong> React 19.1.0으로 업그레이드</p>
-                  <p><strong>2단계:</strong> 새로운 Actions 패턴 적용</p>
-                  <p><strong>3단계:</strong> Form Actions로 폼 처리 현대화</p>
+                  <p><strong>{t('react19.upgrade.step1')}</strong> {t('react19.upgrade.step1.desc')}</p>
+                  <p><strong>{t('react19.upgrade.step2')}</strong> {t('react19.upgrade.step2.desc')}</p>
+                  <p><strong>{t('react19.upgrade.step3')}</strong> {t('react19.upgrade.step3.desc')}</p>
                 </div>
                 <div>
-                  <p><strong>4단계:</strong> React Compiler의 자동 최적화 활용</p>
-                  <p><strong>5단계:</strong> Resource Preloading APIs로 성능 향상</p>
+                  <p><strong>{t('react19.upgrade.step4')}</strong> {t('react19.upgrade.step4.desc')}</p>
+                  <p><strong>{t('react19.upgrade.step5')}</strong> {t('react19.upgrade.step5.desc')}</p>
                 </div>
               </div>
               <p className="text-sm text-blue-300 mt-4">
-                💡 React 19는 이전 버전과의 호환성을 유지하면서 점진적으로 새로운 기능을 도입할 수 있습니다.
+                💡 {t('react19.upgrade.tip')}
               </p>
             </div>
           </div>
@@ -572,11 +590,10 @@ function MyComponent() {
         <section id="advanced" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-pink-500/10 to-rose-500/10 rounded-3xl border border-pink-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              🧪 고급 패턴 실험실
+              🧪 {t('guide.advanced.title')}
             </h2>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              useCallback, useRef, useEffect 등 고급 Hook 패턴들을 실시간으로 실험해보세요.
-              각 패턴의 동작 원리와 최적화 효과를 직접 확인할 수 있습니다.
+              {t('guide.advanced.description')}
             </p>
             <AdvancedPatterns />
           </div>
@@ -595,11 +612,10 @@ function MyComponent() {
             </h3>
           </div>
           <p className="text-slate-400 mb-6 max-w-2xl mx-auto">
-            React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요.
-            실시간 데모와 함께하는 인터랙티브 학습 가이드입니다.
+            {t('guide.footer.description')}
           </p>
           <div className="flex items-center justify-center space-x-6 text-sm text-slate-500">
-            <span>Made with <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>❤️</span> for React Developers</span>
+            <span>{t('guide.footer.madeWith')} <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>❤️</span> {t('guide.footer.forDevelopers')}</span>
             <span>•</span>
             <span>React 19 Ready</span>
             <span>•</span>

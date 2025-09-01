@@ -4,6 +4,7 @@ import React from 'react';
 import { DemoContainer, Button } from './common';
 import { useCounter, useToggle } from '@/hooks';
 import { DemoType } from '@/types/common';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface MobileOptimizedDemoProps {
   title: string;
@@ -13,16 +14,17 @@ interface MobileOptimizedDemoProps {
 
 const CounterDemo: React.FC = React.memo(() => {
   const { count, increment, decrement } = useCounter();
+  const t = useOptimizedTranslations();
 
   return (
     <div className="text-center space-y-4">
       <div className="text-3xl font-bold text-white">{count}</div>
       <div className="flex gap-3 justify-center">
         <Button onClick={decrement} variant="danger" size="sm">
-          - 감소
+          - {t('demo.decrease')}
         </Button>
         <Button onClick={increment} variant="success" size="sm">
-          + 증가
+          + {t('demo.increase')}
         </Button>
       </div>
     </div>
@@ -54,6 +56,7 @@ ToggleDemo.displayName = 'ToggleDemo';
 
 const InputDemo: React.FC = React.memo(() => {
   const [value, setValue] = React.useState('');
+  const t = useOptimizedTranslations();
 
   return (
     <div className="space-y-4">
@@ -61,13 +64,13 @@ const InputDemo: React.FC = React.memo(() => {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="타이핑해보세요..."
+        placeholder={t('mobile.typingPlaceholder')}
         className="w-full px-3 py-2.5 bg-slate-700 border border-slate-600 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         data-interactive
       />
       <div className="p-3 bg-slate-800 rounded-lg">
-        <p className="text-slate-400 text-xs">입력된 값:</p>
-        <p className="text-sm font-bold text-blue-400">{value || '입력 없음'}</p>
+        <p className="text-slate-400 text-xs">{t('mobile.inputLabel')}</p>
+        <p className="text-sm font-bold text-blue-400">{value || t('mobile.noInput')}</p>
       </div>
     </div>
   );
@@ -78,6 +81,7 @@ InputDemo.displayName = 'InputDemo';
 const ListDemo: React.FC = React.memo(() => {
   const [items, setItems] = React.useState<string[]>([]);
   const [newItem, setNewItem] = React.useState('');
+  const t = useOptimizedTranslations();
 
   const addItem = () => {
     if (newItem.trim()) {
@@ -97,18 +101,18 @@ const ListDemo: React.FC = React.memo(() => {
           type="text"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
-          placeholder="새 항목..."
+          placeholder={t('demo.newItem')}
           className="flex-1 px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           data-interactive
         />
         <Button onClick={addItem} variant="primary" size="sm">
-          추가
+          {t('demo.add')}
         </Button>
       </div>
       
       <div className="space-y-2 max-h-48 overflow-y-auto">
         {items.length === 0 ? (
-          <p className="text-center text-slate-400 text-sm py-4">아직 항목이 없습니다</p>
+          <p className="text-center text-slate-400 text-sm py-4">{t('demo.noItems')}</p>
         ) : (
           items.map((item, index) => (
             <div key={index} className="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
@@ -118,7 +122,7 @@ const ListDemo: React.FC = React.memo(() => {
                 variant="danger"
                 size="sm"
               >
-                삭제
+                {t('demo.delete')}
               </Button>
             </div>
           ))

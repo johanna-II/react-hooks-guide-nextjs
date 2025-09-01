@@ -26,9 +26,28 @@ DEEPL_API_KEY=your-deepl-api-key-here
 
 ### 2. DeepL API 키 발급
 
-1. https://www.deepl.com/pro-api 에서 무료 계정 생성
+1. [DeepL Pro API](https://www.deepl.com/pro-api) 에서 무료 계정 생성
 2. 무료 플랜: 월 500,000자 제한
-3. API 키 복사하여 `.env.local`에 추가
+3. API 키 복사
+
+#### `.env.local` 파일 생성:
+
+**⚠️ 중요: API 키 타입에 맞는 URL을 사용해야 합니다!**
+
+```bash
+# OPTION 1: 무료 API (키가 :fx로 끝남)
+DEEPL_API_KEY=your_actual_api_key_here:fx  # 실제 API 키로 교체하세요!
+DEEPL_API_URL=https://api-free.deepl.com/v2/translate
+
+# OPTION 2: 유료 API (:fx 없음)  
+DEEPL_API_KEY=your_actual_api_key_here  # 실제 API 키로 교체하세요!
+DEEPL_API_URL=https://api.deepl.com/v2/translate
+```
+
+**❗ API 키 확인 방법:**
+- 무료 API: 키가 `:fx`로 끝남 → `api-free.deepl.com` 사용
+- 유료 API: 키에 `:fx` 없음 → `api.deepl.com` 사용
+- **잘못된 엔드포인트 사용 시 403 오류 발생!**
 
 ### 3. 의존성 설치
 

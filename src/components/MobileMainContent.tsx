@@ -6,6 +6,7 @@ import { MobileFooter } from './MobileFooter';
 import { Button } from './common';
 import { useSwipe } from '@/hooks';
 import { WHY_HOOKS_DATA } from '@/constants/navigation';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 import dynamic from 'next/dynamic';
 
 // 동적 로딩으로 번들 크기 최적화
@@ -20,145 +21,177 @@ interface MobileMainContentProps {
 
 const SECTIONS: string[] = ['hero', 'introduction', 'why-hooks', 'core-hooks', 'rules', 'optimization', 'react19', 'advanced'];
 
-const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.memo(({ onNavigate }) => (
-  <section id="hero" className="px-4 py-6 text-center">
-    <h1 className="text-3xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent mb-3">
-      HOOKS
-    </h1>
-    <h2 className="text-lg font-bold text-white mb-4">
-      React의 미래를 만나다
-    </h2>
-    <p className="text-sm text-slate-300 leading-relaxed mb-6">
-      React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요.
-    </p>
-    <div className="inline-flex flex-col gap-2">
-      <Button
-        onClick={() => onNavigate('introduction')}
-        variant="primary"
-        size="md"
-      >
-        시작하기
-      </Button>
-      <p className="text-xs text-slate-400 text-center">또는 좌측으로 스와이프</p>
-    </div>
-  </section>
-));
+const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.memo(({ onNavigate }) => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="hero" className="px-4 py-6 text-center">
+      <h1 className="text-3xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent mb-3">
+        {t('hero.title')}
+      </h1>
+      <h2 className="text-lg font-bold text-white mb-4">
+        {t('mobile.meetFuture')}
+      </h2>
+      <p className="text-sm text-slate-300 leading-relaxed mb-6">
+        {t('mobile.learnEverything')}
+      </p>
+      <div className="inline-flex flex-col gap-2">
+        <Button
+          onClick={() => onNavigate('introduction')}
+          variant="primary"
+          size="md"
+        >
+          {t('mobile.startButton')}
+        </Button>
+        <p className="text-xs text-slate-400 text-center">{t('mobile.swipeHint')}</p>
+      </div>
+    </section>
+  );
+});
 
 HeroSection.displayName = 'HeroSection';
 
-const IntroductionSection: React.FC = React.memo(() => (
-  <section id="introduction" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      초보자를 위한 React Hooks
-    </h2>
+const IntroductionSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="introduction" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('mobile.beginnerHooks')}
+      </h2>
 
-    <div className="space-y-4">
-      {[
-        { title: 'Hook이란?', desc: '함수형 컴포넌트에서 React의 상태와 생명주기 기능을 사용할 수 있게 해주는 함수입니다.', color: 'blue' },
-        { title: '왜 Hook을 사용할까?', desc: '컴포넌트 간에 상태 로직을 재사용하기 쉽고, 복잡한 컴포넌트를 더 쉽게 이해할 수 있습니다.', color: 'green' },
-        { title: 'Hook의 장점', desc: '클래스 컴포넌트의 this 바인딩 문제가 없고, 컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다.', color: 'purple' }
-      ].map((item, index) => (
-        <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-          <h3 className={`text-sm font-bold text-${item.color}-400 mb-1.5`}>{item.title}</h3>
-          <p className="text-xs text-slate-300">{item.desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-));
+      <div className="space-y-4">
+        {[
+          { title: t('mobile.whatIsHook'), desc: t('mobile.whatIsHook.desc'), color: 'blue' },
+          { title: t('mobile.whyUseHooks'), desc: t('mobile.whyUseHooks.desc'), color: 'green' },
+          { title: t('mobile.hookAdvantages'), desc: t('mobile.hookAdvantages.desc'), color: 'purple' }
+        ].map((item, index) => (
+          <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+            <h3 className={`text-sm font-bold text-${item.color}-400 mb-1.5`}>{item.title}</h3>
+            <p className="text-xs text-slate-300">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+});
 
 IntroductionSection.displayName = 'IntroductionSection';
 
-const WhyHooksSection: React.FC = React.memo(() => (
-  <section id="why-hooks" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      Hooks가 필요한 이유
-    </h2>
+const WhyHooksSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="why-hooks" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('whyHooks.title')}
+      </h2>
 
-    <div className="space-y-3">
-      {WHY_HOOKS_DATA.map((item, index) => (
-        <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-          <h3 className="text-sm font-bold text-white mb-1">{item.title}</h3>
-          <p className="text-xs text-slate-300">{item.desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-));
+      <div className="space-y-3">
+        {WHY_HOOKS_DATA.map((item, index) => (
+          <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+            <h3 className="text-sm font-bold text-white mb-1">{item.title}</h3>
+            <p className="text-xs text-slate-300">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+});
 
 WhyHooksSection.displayName = 'WhyHooksSection';
 
-const CoreHooksSection: React.FC = React.memo(() => (
-  <section id="core-hooks" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      핵심 Hooks 가이드
-    </h2>
-    <MobileHooksGuide />
-  </section>
-));
+const CoreHooksSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="core-hooks" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('guide.coreHooks.title')}
+      </h2>
+      <MobileHooksGuide />
+    </section>
+  );
+});
 
 CoreHooksSection.displayName = 'CoreHooksSection';
 
-const RulesSection: React.FC = React.memo(() => (
-  <section id="rules" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      Hooks 사용 규칙
-    </h2>
+const RulesSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="rules" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('guide.rules.title')}
+      </h2>
 
-    <div className="space-y-4">
-      <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-        <h3 className="text-sm font-bold text-red-400 mb-2">하지 말아야 할 것</h3>
-        <ul className="space-y-1.5 text-slate-300 text-xs">
-          <li>• 조건문, 반복문 안에서 Hook 호출</li>
-          <li>• 일반 JavaScript 함수에서 Hook 호출</li>
-          <li>• 클래스 컴포넌트에서 Hook 사용</li>
-        </ul>
-      </div>
+      <div className="space-y-4">
+        <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+          <h3 className="text-sm font-bold text-red-400 mb-2">{t('guide.rules.dontTitle')}</h3>
+          <ul className="space-y-1.5 text-slate-300 text-xs">
+            <li>• {t('guide.rules.dont.conditional')}</li>
+            <li>• {t('guide.rules.dont.regular')}</li>
+            <li>• {t('guide.rules.dont.class')}</li>
+          </ul>
+        </div>
 
-      <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-        <h3 className="text-sm font-bold text-green-400 mb-2">올바른 사용법</h3>
-        <ul className="space-y-1.5 text-slate-300 text-xs">
-          <li>• React 함수형 컴포넌트 최상위에서만 호출</li>
-          <li>• 커스텀 Hook 최상위에서만 호출</li>
-          <li>• Hook 호출 순서는 항상 동일하게 유지</li>
-        </ul>
+        <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
+          <h3 className="text-sm font-bold text-green-400 mb-2">{t('guide.rules.doTitle')}</h3>
+          <ul className="space-y-1.5 text-slate-300 text-xs">
+            <li>• {t('guide.rules.do.topLevel')}</li>
+            <li>• {t('guide.rules.do.customHook')}</li>
+            <li>• {t('guide.rules.do.sameOrder')}</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
-));
+    </section>
+  );
+});
 
 RulesSection.displayName = 'RulesSection';
 
-const OptimizationSection: React.FC = React.memo(() => (
-  <section id="optimization" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      성능 최적화
-    </h2>
-    <OptimizationDemos />
-  </section>
-));
+const OptimizationSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="optimization" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('guide.optimization.title')}
+      </h2>
+      <OptimizationDemos />
+    </section>
+  );
+});
 
 OptimizationSection.displayName = 'OptimizationSection';
 
-const React19Section: React.FC = React.memo(() => (
-  <section id="react19" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      React 19 새로운 기능
-    </h2>
-    <FormActionDemo />
-  </section>
-));
+const React19Section: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="react19" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('react19.title')} {t('react19.subtitle')}
+      </h2>
+      <FormActionDemo />
+    </section>
+  );
+});
 
 React19Section.displayName = 'React19Section';
 
-const AdvancedSection: React.FC = React.memo(() => (
-  <section id="advanced" className="px-4 py-6">
-    <h2 className="text-lg font-bold text-white text-center mb-4">
-      고급 패턴 실험실
-    </h2>
-    <AdvancedPatterns />
-  </section>
-));
+const AdvancedSection: React.FC = React.memo(() => {
+  const t = useOptimizedTranslations();
+  
+  return (
+    <section id="advanced" className="px-4 py-6">
+      <h2 className="text-lg font-bold text-white text-center mb-4">
+        {t('guide.advanced.title')}
+      </h2>
+      <AdvancedPatterns />
+    </section>
+  );
+});
 
 AdvancedSection.displayName = 'AdvancedSection';
 

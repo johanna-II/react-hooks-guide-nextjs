@@ -7,6 +7,9 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { isValidLocale, type Locale } from '@/i18n/types';
 import { TranslationProvider } from '@/contexts/TranslationContext';
+import { ServerTranslationProvider } from '@/contexts/ServerTranslationContext';
+import { getServerTranslations } from '@/lib/server-translations';
+
 import './globals.css';
 
 const geistSans = Geist({
@@ -94,6 +97,18 @@ export default async function LocaleLayout({
 
   // 메시지 로드
   const messages = await getMessages();
+  
+  // 서버사이드에서 번역 미리 처리 (API 키가 있을 때만)
+  let serverTranslations: Record<string, string> = {};
+  if (locale !== 'ko' && process.env.DEEPL_API_KEY && process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here') {
+    try {
+      serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
+    } catch (error) {
+      console.error('Failed to load server translations:', error);
+      // 에러 발생 시 빈 객체 사용
+      serverTranslations = {};
+    }
+  }
 
   return (
     <html lang={locale}>
@@ -101,9 +116,11 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <TranslationProvider>
-            {children}
-          </TranslationProvider>
+          <ServerTranslationProvider translations={serverTranslations} locale={locale}>
+            <TranslationProvider>
+              {children}
+            </TranslationProvider>
+          </ServerTranslationProvider>
         </NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />

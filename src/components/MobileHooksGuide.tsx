@@ -3,52 +3,55 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MobileOptimizedDemo } from './MobileOptimizedDemo';
 import { TouchOptimizedDemo } from './TouchOptimizedDemo';
-
-const MOBILE_HOOKS_DATA = [
-  {
-    title: 'useState',
-    description: '상태를 관리하는 가장 기본적인 Hook',
-    demoType: 'counter' as const,
-    example: `const [count, setCount] = useState(0);`,
-    touchDemo: 'gesture' as const
-  },
-  {
-    title: 'useEffect',
-    description: '컴포넌트의 생명주기를 관리하는 Hook',
-    demoType: 'toggle' as const,
-    example: `useEffect(() => {
-  // 컴포넌트가 마운트될 때 실행
-}, []);`,
-    touchDemo: 'swipe' as const
-  },
-  {
-    title: 'useRef',
-    description: 'DOM 요소에 직접 접근하거나 값을 저장하는 Hook',
-    demoType: 'input' as const,
-    example: `const inputRef = useRef(null);`,
-    touchDemo: 'drag' as const
-  },
-  {
-    title: 'useMemo',
-    description: '계산 결과를 메모이제이션하여 성능을 최적화하는 Hook',
-    demoType: 'list' as const,
-    example: `const memoizedValue = useMemo(() => {
-  return expensiveCalculation(data);
-}, [data]);`,
-    touchDemo: 'pinch' as const
-  },
-  {
-    title: 'useCallback',
-    description: '함수를 메모이제이션하여 성능을 최적화하는 Hook',
-    demoType: 'counter' as const,
-    example: `const memoizedCallback = useCallback(() => {
-  doSomething(a, b);
-}, [a, b]);`,
-    touchDemo: 'gesture' as const
-  }
-];
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 const MobileHooksGuideComponent: React.FC = () => {
+  const t = useOptimizedTranslations();
+  
+  const MOBILE_HOOKS_DATA = [
+    {
+      title: 'useState',
+      description: t('mobile.useState.description'),
+      demoType: 'counter' as const,
+      example: `const [count, setCount] = useState(0);`,
+      touchDemo: 'gesture' as const
+    },
+    {
+      title: 'useEffect',
+      description: t('mobile.useEffect.description'),
+      demoType: 'toggle' as const,
+      example: `useEffect(() => {
+  // 컴포넌트가 마운트될 때 실행
+}, []);`,
+      touchDemo: 'swipe' as const
+    },
+    {
+      title: 'useRef',
+      description: t('mobile.useRef.description'),
+      demoType: 'input' as const,
+      example: `const inputRef = useRef(null);`,
+      touchDemo: 'drag' as const
+    },
+    {
+      title: 'useMemo',
+      description: t('mobile.useMemo.description'),
+      demoType: 'list' as const,
+      example: `const memoizedValue = useMemo(() => {
+  return expensiveCalculation(data);
+}, [data]);`,
+      touchDemo: 'pinch' as const
+    },
+    {
+      title: 'useCallback',
+      description: t('mobile.useCallback.description'),
+      demoType: 'counter' as const,
+      example: `const memoizedCallback = useCallback(() => {
+  doSomething(a, b);
+}, [a, b]);`,
+      touchDemo: 'gesture' as const
+    }
+  ];
+
   const [activeTab, setActiveTab] = useState(0);
   const [showScrollHint, setShowScrollHint] = useState(true);
   const tabsContainerRef = useRef<HTMLDivElement>(null);
@@ -108,7 +111,7 @@ const MobileHooksGuideComponent: React.FC = () => {
         {/* 스크롤 힌트 */}
         {showScrollHint && (
           <div className="text-center mt-1 animate-fade-in">
-            <p className="text-[10px] text-slate-500">좌우 스크롤</p>
+            <p className="text-[10px] text-slate-500">{t('touch.scrollHint')}</p>
           </div>
         )}
       </div>
@@ -136,27 +139,27 @@ const MobileHooksGuideComponent: React.FC = () => {
 
         {/* 터치 최적화된 데모 */}
         <TouchOptimizedDemo
-          title="터치 데모"
-          description="터치 제스처로 직접 체험해보세요!"
+          title={t('mobile.touchDemo')}
+          description={t('mobile.touchDemo.description')}
           demoType={MOBILE_HOOKS_DATA[activeTab].touchDemo}
         />
 
         {/* 기존 모바일 최적화 데모 */}
         <MobileOptimizedDemo
-          title="기본 데모"
-          description="기본 기능을 체험해보세요!"
+          title={t('mobile.basicDemo')}
+          description={t('mobile.basicDemo.description')}
           demoType={MOBILE_HOOKS_DATA[activeTab].demoType}
         />
       </div>
 
       {/* 모바일 사용 팁 */}
       <div className="bg-blue-950/30 p-3 rounded-xl border border-blue-500/20">
-        <h4 className="text-xs font-bold text-blue-400 mb-1.5">사용 팁</h4>
+        <h4 className="text-xs font-bold text-blue-400 mb-1.5">{t('touch.useTip.title')}</h4>
         <ul className="text-[11px] text-blue-300 space-y-0.5">
-          <li>• 터치 제스처로 다양한 인터랙션을 체험해보세요</li>
-          <li>• 탭 버튼을 눌러 다른 Hook을 확인하세요</li>
-          <li>• 핀치 제스처로 확대/축소를 해보세요</li>
-          <li>• 드래그로 요소를 움직여보세요</li>
+          <li>• {t('touch.useTip.gesture')}</li>
+          <li>• {t('touch.useTip.tab')}</li>
+          <li>• {t('touch.useTip.pinch')}</li>
+          <li>• {t('touch.useTip.drag')}</li>
         </ul>
       </div>
     </div>

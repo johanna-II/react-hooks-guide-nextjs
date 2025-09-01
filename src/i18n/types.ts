@@ -23,7 +23,7 @@ export const localeMetadata: Record<Locale, LocaleMetadata> = {
   ja: { code: 'ja', name: '日本語', flag: '🇯🇵' }
 };
 
-// 번역 메시지 타입 (추후 실제 메시지 구조에 맞춰 확장)
+// Translation message types (extend according to actual message structure)
 export interface Messages {
   navigation: {
     home: string;

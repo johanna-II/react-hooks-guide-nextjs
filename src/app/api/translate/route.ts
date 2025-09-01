@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getDeepLClient } from '@/lib/deepl-client';
+import { capitalizeEnglishSentences } from '@/utils/text-formatting';
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
-const DEEPL_API_URL = process.env.DEEPL_API_URL || 'https://api-free.deepl.com/v2/translate';
+const DEEPL_API_URL = process.env.DEEPL_API_URL;
 
-// 번역 캐시 (서버 메모리)
+// Translation cache (server memory)
 const translationCache = new Map<string, string>();
-
-// 캐시 TTL: 24시간
-const CACHE_TTL = 24 * 60 * 60 * 1000;
 
 interface TranslationRequest {
   text: string;
@@ -34,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 캐시 확인
+    // Check cache
     const cacheKey = `${sourceLang}:${targetLang}:${text}`;
     const cached = translationCache.get(cacheKey);
     if (cached) {
@@ -44,48 +43,37 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // DeepL API 호출
-    const response = await fetch(DEEPL_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `DeepL-Auth-Key ${DEEPL_API_KEY}`,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        text,
-        target_lang: targetLang,
-        source_lang: sourceLang,
-        preserve_formatting: '1',
-        tag_handling: 'html'
-      })
+    // DeepL Client로 번역
+    const deeplClient = getDeepLClient(DEEPL_API_KEY, DEEPL_API_URL);
+    
+    let translation = await deeplClient.translate({
+      text,
+      targetLang: targetLang === 'EN' ? 'EN-US' : targetLang,
+      sourceLang,
+      preserveFormatting: true,
+      tagHandling: 'html'
     });
 
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('DeepL API error:', error);
-      return NextResponse.json(
-        { error: 'Translation failed' },
-        { status: response.status }
-      );
+    // 영어 번역인 경우 문장 첫 글자 대문자 처리
+    if (targetLang === 'EN') {
+      translation = capitalizeEnglishSentences(translation);
     }
 
-    const data = await response.json();
-    const translation = data.translations[0].text;
-
-    // 캐시 저장
+    // Save to cache
     translationCache.set(cacheKey, translation);
 
-    // 캐시 크기 제한 (1000개)
+    // Cache size limit (1000 items)
     if (translationCache.size > 1000) {
       const firstKey = translationCache.keys().next().value;
-      translationCache.delete(firstKey);
+      if (firstKey) {
+        translationCache.delete(firstKey);
+      }
     }
 
     return NextResponse.json({ 
       translation,
       cached: false 
     });
-
   } catch (error) {
     console.error('Translation error:', error);
     return NextResponse.json(
@@ -95,7 +83,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// 번역 상태 확인
+// Check translation status
 export async function GET() {
   return NextResponse.json({
     status: DEEPL_API_KEY ? 'configured' : 'not configured',

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface TouchDemoProps {
   title: string;
@@ -13,8 +14,9 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
   description, 
   demoType 
 }) => {
-  const [gesture, setGesture] = useState<string>('아직 제스처가 없습니다');
-  const [swipeDirection, setSwipeDirection] = useState<string>('스와이프 해보세요');
+  const t = useOptimizedTranslations();
+  const [gesture, setGesture] = useState<string>(t('touch.noGesture'));
+  const [swipeDirection, setSwipeDirection] = useState<string>(t('touch.swipeHint'));
   const [scale, setScale] = useState<number>(1);
   const [position, setPosition] = useState({ x: 100, y: 80 });
   const [isDragging, setIsDragging] = useState(false);
@@ -220,22 +222,22 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
       if (demoType === 'gesture') {
         if (Math.abs(deltaX) > threshold || Math.abs(deltaY) > threshold) {
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            setGesture(deltaX > 0 ? '오른쪽 스와이프' : '왼쪽 스와이프');
+            setGesture(deltaX > 0 ? t('touch.rightSwipe') : t('touch.leftSwipe'));
           } else {
-            setGesture(deltaY > 0 ? '아래 스와이프' : '위 스와이프');
+            setGesture(deltaY > 0 ? t('touch.downSwipe') : t('touch.upSwipe'));
           }
         } else {
-          setGesture('탭!');
+          setGesture(t('touch.tap'));
         }
       } else if (demoType === 'swipe') {
         if (Math.abs(deltaX) > threshold || Math.abs(deltaY) > threshold) {
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            setSwipeDirection(`${deltaX > 0 ? '오른쪽' : '왼쪽'}으로 스와이프`);
+            setSwipeDirection(deltaX > 0 ? t('touch.swipeRightTo') : t('touch.swipeLeftTo'));
           } else {
-            setSwipeDirection(`${deltaY > 0 ? '아래' : '위'}로 스와이프`);
+            setSwipeDirection(deltaY > 0 ? t('touch.swipeDownTo') : t('touch.swipeUpTo'));
           }
         } else {
-          setSwipeDirection('클릭!');
+          setSwipeDirection(t('touch.click'));
         }
       }
       
@@ -279,7 +281,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [demoType]);
+  }, [demoType, t]);
 
   const renderDemo = () => {
     switch (demoType) {
@@ -291,10 +293,10 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
                 isPressed ? 'scale-95' : 'scale-100'
               }`}
             >
-              터치
+              {t('touch.touch')}
             </div>
             <p className="text-base font-medium text-white transition-all duration-200">{gesture}</p>
-            <p className="text-xs text-slate-400">화면을 클릭하거나 터치하고 제스처를 해보세요</p>
+            <p className="text-xs text-slate-400">{t('touch.touchGestureHint')}</p>
           </div>
         );
       
@@ -308,7 +310,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
             >
               {swipeDirection}
             </div>
-            <p className="text-xs text-slate-400">좌우 또는 상하로 드래그하거나 스와이프해보세요</p>
+            <p className="text-xs text-slate-400">{t('touch.swipeOrDragHint')}</p>
           </div>
         );
       
@@ -319,10 +321,10 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
               className="w-32 h-32 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold transition-transform duration-200"
               style={{ transform: `scale(${scale})` }}
             >
-              핀치!
+              {t('touch.pinch')}
             </div>
-            <p className="text-base font-medium text-white">확대: {scale.toFixed(2)}x</p>
-            <p className="text-xs text-slate-400">두 손가락으로 핀치해보세요 (터치 전용)</p>
+            <p className="text-base font-medium text-white">{t('touch.scale')}: {scale.toFixed(2)}x</p>
+            <p className="text-xs text-slate-400">{t('touch.pinchHint')}</p>
           </div>
         );
       
@@ -352,10 +354,10 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
                   transition: isDragging ? 'transform 0.1s' : 'transform 0.1s, left 0s, top 0s'
                 }}
               >
-                드래그
+                {t('touch.drag')}
               </div>
             </div>
-            <p className="text-xs text-slate-400">원을 드래그해서 움직여보세요</p>
+            <p className="text-xs text-slate-400">{t('touch.dragHint')}</p>
           </div>
         );
       
@@ -381,7 +383,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(({
       {/* 터치 힌트 */}
       <div className="mt-3 p-2.5 bg-slate-900/50 rounded-lg">
         <p className="text-[10px] text-slate-400 text-center">
-          터치 & 마우스 지원
+          {t('touch.touchMouseSupport')}
         </p>
       </div>
     </div>

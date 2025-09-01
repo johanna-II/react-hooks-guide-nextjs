@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface HookExample {
   title: string;
@@ -9,17 +10,21 @@ interface HookExample {
   demo?: React.ReactNode;
 }
 
-const HOOK_EXAMPLES: Record<string, HookExample> = {
-  useState: {
-    title: 'useState',
-    description: '컴포넌트에 상태를 추가하는 Hook입니다.',
+export default function HooksTabs() {
+  const [activeTab, setActiveTab] = useState('useState');
+  const t = useOptimizedTranslations();
+
+  const HOOK_EXAMPLES: Record<string, HookExample> = {
+    useState: {
+      title: 'useState',
+      description: t('hooks.useState.descriptionDetail'),
     code: `const [count, setCount] = useState(0);
 
 return (
   <div>
-    <p>Count: {count}</p>
+    <p>{t('demo.count')}: {count}</p>
     <button onClick={() => setCount(count + 1)}>
-      Increment
+      {t('demo.increment')}
     </button>
   </div>
 );`,
@@ -27,7 +32,7 @@ return (
   },
   useEffect: {
     title: 'useEffect',
-    description: '컴포넌트의 생명주기와 관련된 작업을 처리하는 Hook입니다.',
+    description: t('hooks.useEffect.descriptionDetail'),
     code: `useEffect(() => {
   document.title = \`Count: \${count}\`;
   
@@ -40,7 +45,7 @@ return (
   },
   useRef: {
     title: 'useRef',
-    description: 'DOM 요소에 직접 접근하거나 값을 저장하는 Hook입니다.',
+    description: t('hooks.useRef.descriptionDetail'),
     code: `const inputRef = useRef<HTMLInputElement>(null);
 
 const focusInput = () => {
@@ -57,27 +62,24 @@ return (
   },
   useCallback: {
     title: 'useCallback',
-    description: '함수를 메모이제이션하여 불필요한 리렌더링을 방지합니다.',
+    description: t('hooks.useCallback.descriptionDetail'),
     code: `const memoizedCallback = useCallback(
   (increment) => {
     setCount(c => c + increment);
   },
-  [] // 의존성 배열
+  [] // dependency array
 );`,
     demo: <UseCallbackDemo />
   },
   useMemo: {
     title: 'useMemo',
-    description: '계산 결과를 메모이제이션하여 성능을 최적화합니다.',
+    description: t('hooks.useMemo.descriptionDetail'),
     code: `const expensiveValue = useMemo(() => {
   return computeExpensiveValue(a, b);
 }, [a, b]);`,
     demo: <UseMemoDemo />
   }
 };
-
-export default function HooksTabs() {
-  const [activeTab, setActiveTab] = useState('useState');
 
   const currentExample = HOOK_EXAMPLES[activeTab];
 
@@ -109,7 +111,7 @@ export default function HooksTabs() {
 
         {/* Code Example */}
         <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50 mb-6">
-          <h4 className="text-lg font-semibold text-blue-400 mb-3">💻 코드 예시</h4>
+          <h4 className="text-lg font-semibold text-blue-400 mb-3">💻 {t('hooks.codeExample')}</h4>
           <pre className="text-sm text-slate-300 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
             <code className="language-typescript">{currentExample.code}</code>
           </pre>
@@ -118,7 +120,7 @@ export default function HooksTabs() {
         {/* Interactive Demo */}
         {currentExample.demo && (
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50">
-            <h4 className="text-lg font-semibold text-green-400 mb-3">🎮 실시간 데모</h4>
+            <h4 className="text-lg font-semibold text-green-400 mb-3">🎮 {t('hooks.realTimeDemo')}</h4>
             <div className="p-4 bg-slate-800/50 rounded-lg">
               {currentExample.demo}
             </div>
@@ -133,29 +135,30 @@ export default function HooksTabs() {
 function UseStateDemo() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState('');
+  const t = useOptimizedTranslations();
 
   return (
     <div className="space-y-4" data-lpignore="true" data-form-type="other">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">Count: {count}</p>
+        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
         <div className="flex gap-2 justify-center">
           <button
             onClick={() => setCount(count - 1)}
             className="px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 border border-red-500/30"
           >
-            -
+            {t('demo.decrement')}
           </button>
           <button
             onClick={() => setCount(count + 1)}
             className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 border border-green-500/30"
           >
-            +
+            {t('demo.increment')}
           </button>
           <button
             onClick={() => setCount(0)}
             className="px-4 py-2 bg-blue-500/20 text-blue-300 rounded-lg hover:bg-blue-500/30 border border-blue-500/30"
           >
-            Reset
+            {t('demo.reset')}
           </button>
         </div>
       </div>
@@ -164,10 +167,10 @@ function UseStateDemo() {
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Type something..."
+          placeholder={t('hooks.typeSomething')}
           className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/50"
         />
-        <p className="text-sm text-slate-400 mt-2">Text: {text}</p>
+        <p className="text-sm text-slate-400 mt-2">{t('mobile.text')}: {text}</p>
       </div>
     </div>
   );
@@ -176,6 +179,7 @@ function UseStateDemo() {
 function UseEffectDemo() {
   const [count, setCount] = useState(0);
   const [effectCount, setEffectCount] = useState(0);
+  const t = useOptimizedTranslations();
 
   useEffect(() => {
     setEffectCount(prev => prev + 1);
@@ -189,8 +193,8 @@ function UseEffectDemo() {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">Count: {count}</p>
-        <p className="text-sm text-slate-400 mb-3">Effect 실행 횟수: {effectCount}</p>
+        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
+        <p className="text-sm text-slate-400 mb-3">{t('hooks.effectRunCount')}: {effectCount}</p>
         <button
           onClick={() => setCount(count + 1)}
           className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-lg hover:bg-purple-500/30 border border-purple-500/30"
@@ -199,7 +203,7 @@ function UseEffectDemo() {
         </button>
       </div>
       <div className="text-xs text-slate-500 text-center">
-        💡 브라우저 탭 제목이 변경되는 것을 확인하세요!
+        💡 {t('hooks.browserTabNotice')}
       </div>
     </div>
   );
@@ -208,6 +212,7 @@ function UseEffectDemo() {
 function UseRefDemo() {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [focusCount, setFocusCount] = useState(0);
+  const t = useOptimizedTranslations();
 
   const focusInput = () => {
     inputRef.current?.focus();
@@ -220,7 +225,7 @@ function UseRefDemo() {
         <input
           ref={inputRef}
           type="text"
-          placeholder="Click button to focus me..."
+          placeholder={t('hooks.clickToFocus')}
           className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-green-500/50"
         />
       </div>
@@ -229,9 +234,9 @@ function UseRefDemo() {
           onClick={focusInput}
           className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 border border-green-500/30"
         >
-          Focus Input
+          {t('demo.focusInput')}
         </button>
-        <p className="text-sm text-slate-400 mt-2">Focus 횟수: {focusCount}</p>
+        <p className="text-sm text-slate-400 mt-2">{t('hooks.focusCount')}: {focusCount}</p>
       </div>
     </div>
   );
@@ -240,6 +245,7 @@ function UseRefDemo() {
 function UseCallbackDemo() {
   const [count, setCount] = useState(0);
   const [renderCount, setRenderCount] = useState(0);
+  const t = useOptimizedTranslations();
 
   const increment = React.useCallback(() => {
     setCount(c => c + 1);
@@ -257,8 +263,8 @@ function UseCallbackDemo() {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">Count: {count}</p>
-        <p className="text-sm text-slate-400 mb-3">렌더링 횟수: {renderCount}</p>
+        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
+        <p className="text-sm text-slate-400 mb-3">{t('hooks.renderCount')}: {renderCount}</p>
         <div className="flex gap-2 justify-center">
           <button
             onClick={decrement}
@@ -275,7 +281,7 @@ function UseCallbackDemo() {
         </div>
       </div>
       <div className="text-xs text-slate-500 text-center">
-        💡 useCallback으로 함수가 메모이제이션되어 불필요한 리렌더링을 방지합니다!
+        💡 {t('hooks.optimizationTip')}
       </div>
     </div>
   );
@@ -285,6 +291,7 @@ function UseMemoDemo() {
   const [a, setA] = useState(1);
   const [b, setB] = useState(1);
   const [computeCount, setComputeCount] = useState(0);
+  const t = useOptimizedTranslations();
 
   const expensiveValue = React.useMemo(() => {
     setComputeCount(prev => prev + 1);
@@ -300,7 +307,7 @@ function UseMemoDemo() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm text-slate-400 mb-2">Value A</label>
+          <label className="block text-sm text-slate-400 mb-2">{t('hooks.valueA')}</label>
           <input
             type="number"
             value={a}
@@ -309,7 +316,7 @@ function UseMemoDemo() {
           />
         </div>
         <div>
-          <label className="block text-sm text-slate-400 mb-2">Value B</label>
+          <label className="block text-sm text-slate-400 mb-2">{t('hooks.valueB')}</label>
           <input
             type="number"
             value={b}
@@ -319,11 +326,11 @@ function UseMemoDemo() {
         </div>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-white mb-2">계산 결과: {expensiveValue.toLocaleString()}</p>
-        <p className="text-sm text-slate-400">계산 실행 횟수: {computeCount}</p>
+        <p className="text-lg font-bold text-white mb-2">{t('hooks.calculationResult')}: {expensiveValue.toLocaleString()}</p>
+        <p className="text-sm text-slate-400">{t('hooks.calculationCount')}: {computeCount}</p>
       </div>
       <div className="text-xs text-slate-500 text-center">
-        💡 A나 B가 변경될 때만 계산이 실행됩니다!
+        💡 {t('hooks.memoTip')}
       </div>
     </div>
   );

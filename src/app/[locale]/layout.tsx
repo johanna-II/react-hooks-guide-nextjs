@@ -100,11 +100,22 @@ export default async function LocaleLayout({
   
   // 서버사이드에서 번역 미리 처리 (API 키가 있을 때만)
   let serverTranslations: Record<string, string> = {};
-  if (locale !== 'ko' && process.env.DEEPL_API_KEY && process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here') {
+  const hasValidApiKey = process.env.DEEPL_API_KEY && 
+                        process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here' &&
+                        process.env.DEEPL_API_KEY.length > 10;
+  
+  console.log(`[${locale}] Server-side translation:`, {
+    hasValidApiKey,
+    apiKeyLength: process.env.DEEPL_API_KEY?.length || 0,
+    apiUrl: process.env.DEEPL_API_URL || 'not set'
+  });
+  
+  if (locale !== 'ko' && hasValidApiKey) {
     try {
       serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
+      console.log(`[${locale}] Server translations loaded:`, Object.keys(serverTranslations).length);
     } catch (error) {
-      console.error('Failed to load server translations:', error);
+      console.error(`[${locale}] Failed to load server translations:`, error);
       // 에러 발생 시 빈 객체 사용
       serverTranslations = {};
     }

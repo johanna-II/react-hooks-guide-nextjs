@@ -2,8 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDeepLClient } from '@/lib/deepl-client';
 import { capitalizeEnglishSentences } from '@/utils/text-formatting';
 
-const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
-const DEEPL_API_URL = process.env.DEEPL_API_URL;
+// 런타임에 환경변수 읽기
+function getDeepLConfig() {
+  return {
+    apiKey: process.env.DEEPL_API_KEY,
+    apiUrl: process.env.DEEPL_API_URL
+  };
+}
 
 // Translation cache (server memory)
 const translationCache = new Map<string, string>();
@@ -16,7 +21,9 @@ interface TranslationRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!DEEPL_API_KEY) {
+    const { apiKey, apiUrl } = getDeepLConfig();
+    
+    if (!apiKey) {
       return NextResponse.json(
         { error: 'Translation service not configured' },
         { status: 500 }
@@ -44,7 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     // DeepL Client로 번역
-    const deeplClient = getDeepLClient(DEEPL_API_KEY, DEEPL_API_URL);
+    const deeplClient = getDeepLClient(apiKey, apiUrl);
     
     let translation = await deeplClient.translate({
       text,
@@ -85,8 +92,17 @@ export async function POST(request: NextRequest) {
 
 // Check translation status
 export async function GET() {
+  const { apiKey, apiUrl } = getDeepLConfig();
+  
   return NextResponse.json({
-    status: DEEPL_API_KEY ? 'configured' : 'not configured',
-    cacheSize: translationCache.size
+    status: apiKey ? 'configured' : 'not configured',
+    cacheSize: translationCache.size,
+    // 디버깅 정보 (일부만 표시)
+    debug: {
+      hasApiKey: !!apiKey,
+      apiKeyLength: apiKey?.length || 0,
+      apiUrl: apiUrl || 'not set',
+      nodeEnv: process.env.NODE_ENV
+    }
   });
 }

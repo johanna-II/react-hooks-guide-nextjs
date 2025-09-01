@@ -110,25 +110,13 @@ export default async function LocaleLayout({
                           process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here' &&
                           process.env.DEEPL_API_KEY.length > 10;
     
-    console.log(`[${locale}] Server-side translation:`, {
-      hasValidApiKey,
-      apiKeyLength: process.env.DEEPL_API_KEY?.length || 0,
-      apiUrl: process.env.DEEPL_API_URL || 'not set',
-      vercelEnv: process.env.VERCEL_ENV,
-      nodeEnv: process.env.NODE_ENV
-    });
-    
     if (locale !== 'ko' && hasValidApiKey) {
       try {
         serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
-        console.log(`[${locale}] Server translations loaded:`, Object.keys(serverTranslations).length);
-      } catch (error) {
-        console.error(`[${locale}] Failed to load server translations:`, error);
+      } catch {
         serverTranslations = {};
       }
     }
-  } else {
-    console.log(`[${locale}] Skipping server-side translation in production (using client-side)`);
   }
 
   return (

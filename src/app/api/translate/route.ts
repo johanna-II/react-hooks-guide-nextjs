@@ -92,17 +92,10 @@ export async function POST(request: NextRequest) {
 
 // Check translation status
 export async function GET() {
-  const { apiKey, apiUrl } = getDeepLConfig();
+  const { apiKey } = getDeepLConfig();
   
   return NextResponse.json({
     status: apiKey ? 'configured' : 'not configured',
-    cacheSize: translationCache.size,
-    // 디버깅 정보 (일부만 표시)
-    debug: {
-      hasApiKey: !!apiKey,
-      apiKeyLength: apiKey?.length || 0,
-      apiUrl: apiUrl || 'not set',
-      nodeEnv: process.env.NODE_ENV
-    }
+    cacheSize: translationCache.size
   });
 }

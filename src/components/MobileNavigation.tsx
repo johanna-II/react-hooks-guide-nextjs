@@ -16,10 +16,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(({
   const t = useOptimizedTranslations();
   // 렌더링 로그를 조건부로 출력하여 중복 방지 (개발 환경에서만)
   const prevActiveSection = useRef(activeSection);
-  if (process.env.NODE_ENV === 'development' && prevActiveSection.current !== activeSection) {
-    console.log('MobileNavigation rendered with activeSection:', activeSection);
-    prevActiveSection.current = activeSection;
-  }
+  // Track active section changes in development
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);

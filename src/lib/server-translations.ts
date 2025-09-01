@@ -15,24 +15,13 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
   
   // 메모리 캐시 확인
   if (translationCache.has(cacheKey)) {
-    console.log(`[Server Translation] Using cache for ${locale}`);
     return translationCache.get(cacheKey)!;
   }
 
   const apiKey = process.env.DEEPL_API_KEY;
   const apiUrl = process.env.DEEPL_API_URL;
 
-  console.log('[Server Translation] Environment check:', {
-    locale,
-    hasApiKey: !!apiKey,
-    apiKeyLength: apiKey?.length || 0,
-    apiUrl: apiUrl || 'not set',
-    nodeEnv: process.env.NODE_ENV,
-    isValidKey: apiKey && apiKey !== 'your_deepl_api_key_here' && apiKey.length > 10
-  });
-
   if (!apiKey || apiKey === 'your_deepl_api_key_here') {
-    console.log('[Server Translation] DeepL API key not configured, returning empty object');
     return {}; // 빈 객체 반환 (클라이언트에서 처리)
   }
 
@@ -46,9 +35,6 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
     const texts = entries.map(([, text]) => text);
 
     // 배치 번역 실행
-    console.log(`Translating ${texts.length} texts to ${targetLang}...`);
-    const startTime = Date.now();
-    
     const translatedTexts = await deeplClient.translateBatch(
       texts,
       targetLang,
@@ -64,9 +50,6 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
         : translatedTexts[index];
       translations[key] = translatedText;
     });
-
-    const duration = Date.now() - startTime;
-    console.log(`Translation completed in ${duration}ms`);
 
     // Save to cache
     translationCache.set(cacheKey, translations);

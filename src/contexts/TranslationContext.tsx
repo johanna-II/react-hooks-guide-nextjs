@@ -56,7 +56,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
       if (response.status === 429 && retryCount < 3) {
         // 429 에러 시 지수 백오프로 재시도
         const delay = Math.pow(2, retryCount) * 1000; // 1초, 2초, 4초
-        console.log(`Rate limited. Retrying in ${delay}ms...`);
+        // Rate limited. Retrying with exponential backoff
         await new Promise(resolve => setTimeout(resolve, delay));
         return translateText(text, targetLang, retryCount + 1);
       }

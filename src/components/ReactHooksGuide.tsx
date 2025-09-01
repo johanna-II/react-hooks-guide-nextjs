@@ -33,9 +33,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
   
   // 콜백 함수들을 useCallback으로 최적화 (Hook 규칙 준수)
   const handleNavigationSectionChange = React.useCallback((sectionId: string) => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Section change requested:', sectionId);
-    }
+    // Handle section change
     setMobileActiveSection(sectionId);
     // 모바일에서는 scrollToSection 호출하지 않음 (MobileMainContent가 스크롤 처리)
   }, []);
@@ -59,15 +57,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
       // 모바일 판정: User Agent가 모바일이거나, 터치 디바이스이면서 작은 화면
       const isMobileDevice = isMobileUserAgent || (isTouchDevice && isSmallScreen);
       
-      if (process.env.NODE_ENV === 'development') {
-        console.log('Device Detection:', { 
-          isMobileUserAgent,
-          isTouchDevice,
-          isSmallScreen,
-          isMobileDevice,
-          userAgent: navigator.userAgent 
-        });
-      }
+      // Device detection completed
       
       if (isMobile !== isMobileDevice) {
         trackEvent.deviceSwitch(isMobileDevice ? 'mobile' : 'desktop');

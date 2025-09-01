@@ -21,7 +21,7 @@ if (typeof window === 'undefined') {
     });
   } catch {
     // Edge runtime에서는 https 모듈을 사용할 수 없음
-    console.log('Running in Edge runtime, using native fetch');
+    // Edge runtime에서는 native fetch 사용
   }
 }
 /* eslint-enable @typescript-eslint/no-require-imports */
@@ -131,7 +131,7 @@ class DeepLClient {
       if (response.status === 429 || response.status === 503) {
         if (retryCount < maxRetries) {
           const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
-          console.log(`Rate limited. Retrying in ${delay}ms...`);
+          // Rate limited. Retrying with exponential backoff
           await new Promise(resolve => setTimeout(resolve, delay));
           return this.executeTranslation(options, retryCount + 1);
         }
@@ -257,7 +257,7 @@ export function getDeepLClient(apiKey: string, apiUrl?: string): DeepLClient {
         // 403 오류가 발생했으므로 유료 API로 전환
         finalApiUrl = 'https://api.deepl.com/v2/translate';
       }
-      console.log(`Using DeepL API endpoint: ${finalApiUrl}`);
+      // Using detected DeepL API endpoint
     }
     
     deeplClient = new DeepLClient(apiKey, finalApiUrl);

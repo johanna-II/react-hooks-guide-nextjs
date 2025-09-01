@@ -48,7 +48,7 @@ export default function OptimizationDemos() {
   // useMemo로 계산 최적화
   const memoizedValue = useMemo(() => {
     if (isClient) {
-      console.log('Expensive calculation running...');
+      // Expensive calculation running
       setRenderCount(prev => prev + 1);
     }
     return expensiveValue * 2;

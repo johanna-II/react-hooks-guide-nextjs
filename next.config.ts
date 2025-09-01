@@ -3,14 +3,6 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
-// 빌드 시점 환경변수 확인
-console.log('=== Build Time Environment Check ===');
-console.log('DEEPL_API_KEY exists:', !!process.env.DEEPL_API_KEY);
-console.log('DEEPL_API_KEY length:', process.env.DEEPL_API_KEY?.length || 0);
-console.log('DEEPL_API_URL:', process.env.DEEPL_API_URL || 'not set');
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('===================================');
-
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   // Turbopack 설정 (experimental.turbo에서 이동됨)

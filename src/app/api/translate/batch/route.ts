@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
     const { apiKey, apiUrl } = getDeepLConfig();
     
     if (!apiKey) {
-      console.log('[Batch API] No API key found');
       return NextResponse.json(
         { error: 'Translation service not configured' },
         { status: 500 }

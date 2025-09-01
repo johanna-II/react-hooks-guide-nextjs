@@ -7,7 +7,7 @@ import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 const ReactHooksGuide = dynamic(
   () => import('@/components/ReactHooksGuide').then((mod) => mod.ReactHooksGuide),
   { 
-    ssr: false,
+    ssr: true,  // SSR 활성화로 서버사이드 번역 지원
     loading: () => <LoadingComponent />
   }
 );

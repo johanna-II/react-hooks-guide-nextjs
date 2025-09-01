@@ -15,14 +15,24 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
   
   // 메모리 캐시 확인
   if (translationCache.has(cacheKey)) {
+    console.log(`[Server Translation] Using cache for ${locale}`);
     return translationCache.get(cacheKey)!;
   }
 
   const apiKey = process.env.DEEPL_API_KEY;
   const apiUrl = process.env.DEEPL_API_URL;
 
+  console.log('[Server Translation] Environment check:', {
+    locale,
+    hasApiKey: !!apiKey,
+    apiKeyLength: apiKey?.length || 0,
+    apiUrl: apiUrl || 'not set',
+    nodeEnv: process.env.NODE_ENV,
+    isValidKey: apiKey && apiKey !== 'your_deepl_api_key_here' && apiKey.length > 10
+  });
+
   if (!apiKey || apiKey === 'your_deepl_api_key_here') {
-    console.log('DeepL API key not configured, returning original Korean texts');
+    console.log('[Server Translation] DeepL API key not configured, returning empty object');
     return {}; // 빈 객체 반환 (클라이언트에서 처리)
   }
 

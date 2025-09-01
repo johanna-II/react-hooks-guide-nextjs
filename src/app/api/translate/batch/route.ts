@@ -2,8 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDeepLClient } from '@/lib/deepl-client';
 import { capitalizeEnglishSentences } from '@/utils/text-formatting';
 
-const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
-const DEEPL_API_URL = process.env.DEEPL_API_URL;
+// 런타임에 환경변수 읽기
+function getDeepLConfig() {
+  return {
+    apiKey: process.env.DEEPL_API_KEY,
+    apiUrl: process.env.DEEPL_API_URL
+  };
+}
 
 // 배치 번역 캐시
 const batchCache = new Map<string, Map<string, string>>();
@@ -16,7 +21,10 @@ interface BatchTranslationRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!DEEPL_API_KEY) {
+    const { apiKey, apiUrl } = getDeepLConfig();
+    
+    if (!apiKey) {
+      console.log('[Batch API] No API key found');
       return NextResponse.json(
         { error: 'Translation service not configured' },
         { status: 500 }
@@ -62,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     // Execute batch translation if there are texts to translate
     if (textsToTranslate.length > 0) {
-      const deeplClient = getDeepLClient(DEEPL_API_KEY, DEEPL_API_URL);
+      const deeplClient = getDeepLClient(apiKey, apiUrl);
       
       try {
         const translatedTexts = await deeplClient.translateBatch(

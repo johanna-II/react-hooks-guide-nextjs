@@ -100,25 +100,35 @@ export default async function LocaleLayout({
   
   // 서버사이드에서 번역 미리 처리 (API 키가 있을 때만)
   let serverTranslations: Record<string, string> = {};
-  const hasValidApiKey = process.env.DEEPL_API_KEY && 
-                        process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here' &&
-                        process.env.DEEPL_API_KEY.length > 10;
   
-  console.log(`[${locale}] Server-side translation:`, {
-    hasValidApiKey,
-    apiKeyLength: process.env.DEEPL_API_KEY?.length || 0,
-    apiUrl: process.env.DEEPL_API_URL || 'not set'
-  });
+  // Vercel 배포 환경에서는 클라이언트 사이드 번역만 사용
+  // (빌드 시점에 환경변수가 제대로 전달되지 않는 문제 때문)
+  const isVercelProduction = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   
-  if (locale !== 'ko' && hasValidApiKey) {
-    try {
-      serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
-      console.log(`[${locale}] Server translations loaded:`, Object.keys(serverTranslations).length);
-    } catch (error) {
-      console.error(`[${locale}] Failed to load server translations:`, error);
-      // 에러 발생 시 빈 객체 사용
-      serverTranslations = {};
+  if (!isVercelProduction) {
+    const hasValidApiKey = process.env.DEEPL_API_KEY && 
+                          process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here' &&
+                          process.env.DEEPL_API_KEY.length > 10;
+    
+    console.log(`[${locale}] Server-side translation:`, {
+      hasValidApiKey,
+      apiKeyLength: process.env.DEEPL_API_KEY?.length || 0,
+      apiUrl: process.env.DEEPL_API_URL || 'not set',
+      vercelEnv: process.env.VERCEL_ENV,
+      nodeEnv: process.env.NODE_ENV
+    });
+    
+    if (locale !== 'ko' && hasValidApiKey) {
+      try {
+        serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
+        console.log(`[${locale}] Server translations loaded:`, Object.keys(serverTranslations).length);
+      } catch (error) {
+        console.error(`[${locale}] Failed to load server translations:`, error);
+        serverTranslations = {};
+      }
     }
+  } else {
+    console.log(`[${locale}] Skipping server-side translation in production (using client-side)`);
   }
 
   return (

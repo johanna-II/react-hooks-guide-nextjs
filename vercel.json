@@ -4,16 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["icn1"],
-  "env": {
-    "DEEPL_API_KEY": "@deepl-api-key",
-    "DEEPL_API_URL": "@deepl-api-url"
-  },
-  "build": {
-    "env": {
-      "DEEPL_API_KEY": "@deepl-api-key",
-      "DEEPL_API_URL": "@deepl-api-url"
-    }
-  },
   "functions": {
     "src/app/api/translate/route.ts": {
       "maxDuration": 30

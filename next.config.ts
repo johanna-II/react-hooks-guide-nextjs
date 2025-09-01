@@ -5,15 +5,12 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // 빌드 캐시 설정
-  experimental: {
-    // Turbopack 사용 시 캐싱 최적화
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  // Turbopack 설정 (experimental.turbo에서 이동됨)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },

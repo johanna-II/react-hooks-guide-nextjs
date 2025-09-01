@@ -5,25 +5,72 @@ import { useLocale } from 'next-intl';
 import { useServerTranslations } from '@/contexts/ServerTranslationContext';
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
+interface DebugInfo {
+  timestamp: string;
+  environment: {
+    deepl: {
+      hasApiKey: boolean;
+      apiKeyLength: number;
+      apiKeyPrefix: string;
+      apiUrl: string;
+      isValidKey: boolean;
+    };
+    vercel: {
+      nodeEnv: string;
+      vercelEnv: string;
+      isProduction: boolean;
+    };
+    runtime: {
+      nodeVersion: string;
+      platform: string;
+      uptime: number;
+    };
+  };
+  translationTest: {
+    status: string;
+    translation?: string;
+    cached?: boolean;
+    statusCode?: number;
+    error?: string;
+  };
+}
+
+interface ApiStatus {
+  status: string;
+  cacheSize: number;
+  debug: {
+    hasApiKey: boolean;
+    apiKeyLength: number;
+    apiUrl: string;
+    nodeEnv: string;
+  };
+  error?: string;
+}
+
 export function TranslationDebug() {
   const locale = useLocale();
   const serverTranslations = useServerTranslations();
   const t = useOptimizedTranslations();
-  const [debugInfo, setDebugInfo] = useState<any>(null);
-  const [apiStatus, setApiStatus] = useState<any>(null);
+  const [debugInfo, setDebugInfo] = useState<DebugInfo | null>(null);
+  const [apiStatus, setApiStatus] = useState<ApiStatus | null>(null);
 
   useEffect(() => {
     // API 상태 확인
     fetch('/api/translate')
       .then(res => res.json())
       .then(data => setApiStatus(data))
-      .catch(err => setApiStatus({ error: err.message }));
+      .catch(err => setApiStatus({ 
+        status: 'error', 
+        cacheSize: 0, 
+        debug: { hasApiKey: false, apiKeyLength: 0, apiUrl: 'error', nodeEnv: 'error' },
+        error: err.message 
+      }));
 
     // 디버그 정보 가져오기
     fetch('/api/debug')
       .then(res => res.json())
       .then(data => setDebugInfo(data))
-      .catch(err => setDebugInfo({ error: err.message }));
+      .catch(err => console.error('Debug API error:', err));
   }, []);
 
   // 개발 환경이 아니면 렌더링하지 않음

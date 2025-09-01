@@ -47,7 +47,7 @@ export function useThrottledCallback<T extends (...args: unknown[]) => unknown>(
   limit: number
 ): T {
   const inThrottle = useRef(false);
-  const lastArgs = useRef<Parameters<T>>();
+  const lastArgs = useRef<Parameters<T> | undefined>(undefined);
 
   const throttledCallback = useCallback(
     (...args: Parameters<T>) => {

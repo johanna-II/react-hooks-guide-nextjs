@@ -34,7 +34,7 @@ const CounterDemo: React.FC = React.memo(() => {
 CounterDemo.displayName = 'CounterDemo';
 
 const ToggleDemo: React.FC = React.memo(() => {
-  const [isOn, toggle] = useToggle();
+  const [isOn, { toggle }] = useToggle();
 
   return (
     <div className="text-center space-y-4">

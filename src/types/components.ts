@@ -3,7 +3,7 @@
  * SOLID 원칙에 따라 인터페이스 분리
  */
 
-import type { ReactNode, MouseEventHandler, HTMLAttributes } from 'react';
+import type { ReactNode, MouseEventHandler } from 'react';
 
 // 기본 컴포넌트 Props
 export interface BaseComponentProps {
@@ -93,10 +93,14 @@ export interface FormFieldProps extends BaseComponentProps {
   required?: boolean;
 }
 
-export interface InputProps extends FormFieldProps, HTMLAttributes<HTMLInputElement> {
+export interface InputProps extends FormFieldProps {
   type?: 'text' | 'email' | 'password' | 'number';
   value: string;
   onChange: (value: string) => void;
+  placeholder?: string;
+  autoComplete?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 // Layout 컴포넌트 Props

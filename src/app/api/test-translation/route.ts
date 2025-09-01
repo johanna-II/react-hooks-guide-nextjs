@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { getDeepLClient } from '@/lib/deepl-client';
 
 export async function GET() {
   const apiKey = process.env.DEEPL_API_KEY;

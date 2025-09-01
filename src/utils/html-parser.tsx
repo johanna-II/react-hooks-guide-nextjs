@@ -85,8 +85,6 @@ export function parseHTMLToReact(html: string): React.ReactNode {
     }
     
     // Create the element
-    const TagComponent = tagName as keyof React.JSX.IntrinsicElements;
-    
     return (
       <React.Fragment key={key}>
         {beforeText}

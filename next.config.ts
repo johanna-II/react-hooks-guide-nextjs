@@ -4,7 +4,30 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/config.ts');
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  // 빌드 캐시 설정
+  experimental: {
+    // Turbopack 사용 시 캐싱 최적화
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
+  },
+  // 빌드 최적화 설정
+  compiler: {
+    // 프로덕션 빌드에서 console 제거 (선택사항)
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // 이미지 최적화 설정
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+  // 캐시 설정
+  cacheMaxMemorySize: 1024 * 1024 * 256, // 256MB
 };
 
 export default withNextIntl(nextConfig);

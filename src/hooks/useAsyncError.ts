@@ -28,8 +28,8 @@ interface UseAsyncOptions<T = unknown> {
  * });
  * ```
  */
-export function useAsync<T = unknown>(
-  asyncFunction: () => Promise<T>,
+export function useAsync<T = unknown, P = void>(
+  asyncFunction: (params?: P) => Promise<T>,
   options: UseAsyncOptions<T> = {}
 ) {
   const [state, setState] = useState<AsyncState<T>>({
@@ -39,7 +39,7 @@ export function useAsync<T = unknown>(
   });
 
   const execute = useCallback(
-    async (params?: unknown) => {
+    async (params?: P) => {
       setState({ data: null, error: null, isLoading: true });
 
       let retries = options.retries || 0;
@@ -47,7 +47,7 @@ export function useAsync<T = unknown>(
 
       while (retries >= 0) {
         try {
-          const result = await asyncFunction.call(null, params);
+          const result = await asyncFunction(params);
           setState({ data: result, error: null, isLoading: false });
           options.onSuccess?.(result);
           return result;

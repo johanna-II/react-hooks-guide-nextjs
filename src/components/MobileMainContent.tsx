@@ -90,8 +90,8 @@ const WhyHooksSection: React.FC = React.memo(() => {
       <div className="space-y-3">
         {WHY_HOOKS_DATA.map((item, index) => (
           <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-            <h3 className="text-sm font-bold text-white mb-1">{item.title}</h3>
-            <p className="text-xs text-slate-300">{item.desc}</p>
+            <h3 className="text-sm font-bold text-white mb-1">{t(item.titleKey)}</h3>
+            <p className="text-xs text-slate-300">{t(item.descKey)}</p>
           </div>
         ))}
       </div>

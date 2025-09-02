@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+
 import { Button, Card, DemoContainer } from '@/components/common';
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
@@ -7,12 +8,14 @@ interface ListItem {
   value: string;
 }
 
-const FilteredList: React.FC<{ items: ListItem[]; filter: string; onRemove: (id: number) => void }> = React.memo(({ items, filter, onRemove }) => {
+const FilteredList: React.FC<{
+  items: ListItem[];
+  filter: string;
+  onRemove: (id: number) => void;
+}> = React.memo(({ items, filter, onRemove }) => {
   const t = useOptimizedTranslations();
   const filteredItems = useMemo(() => {
-    return items.filter(item => 
-      item.value.toLowerCase().includes(filter.toLowerCase())
-    );
+    return items.filter((item) => item.value.toLowerCase().includes(filter.toLowerCase()));
   }, [items, filter]);
 
   const isEmpty = filteredItems.length === 0;
@@ -22,19 +25,16 @@ const FilteredList: React.FC<{ items: ListItem[]; filter: string; onRemove: (id:
     <div className="min-h-[100px] max-h-40 overflow-y-auto bg-slate-900/50 rounded-lg p-2">
       {isEmpty ? (
         <p className="text-center text-slate-500 py-8 text-sm">
-          {!hasItems 
-            ? t('demo.useMemo.noItems')
-            : t('demo.useMemo.noFilteredItems')}
+          {!hasItems ? t('demo.useMemo.noItems') : t('demo.useMemo.noFilteredItems')}
         </p>
       ) : (
         filteredItems.map((item) => (
-          <div key={item.id} className="flex items-center justify-between p-2 bg-slate-800/50 rounded mb-1">
+          <div
+            key={item.id}
+            className="flex items-center justify-between p-2 bg-slate-800/50 rounded mb-1"
+          >
             <span className="text-slate-300 text-sm">{item.value}</span>
-            <Button 
-              onClick={() => onRemove(item.id)} 
-              variant="danger" 
-              size="sm"
-            >
+            <Button onClick={() => onRemove(item.id)} variant="danger" size="sm">
               {t('demo.removeItem')}
             </Button>
           </div>
@@ -54,12 +54,12 @@ export const UseMemoDemo: React.FC = React.memo(() => {
 
   const addItem = () => {
     const newItem: ListItem = { id: nextId, value: `Item ${nextId}` };
-    setItems(prev => [...prev, newItem]);
-    setNextId(prev => prev + 1);
+    setItems((prev) => [...prev, newItem]);
+    setNextId((prev) => prev + 1);
   };
 
   const removeItem = (id: number) => {
-    setItems(prev => prev.filter(item => item.id !== id));
+    setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   return (
@@ -78,7 +78,10 @@ export const UseMemoDemo: React.FC = React.memo(() => {
           <div>
             <p className="text-slate-400 mb-1">{t('demo.filteredItems')}</p>
             <p className="text-2xl font-bold text-green-400">
-              {items.filter(item => item.value.toLowerCase().includes(filter.toLowerCase())).length}
+              {
+                items.filter((item) => item.value.toLowerCase().includes(filter.toLowerCase()))
+                  .length
+              }
             </p>
           </div>
         </div>

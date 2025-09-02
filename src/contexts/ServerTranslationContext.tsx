@@ -9,11 +9,11 @@ interface ServerTranslationContextType {
 
 const ServerTranslationContext = createContext<ServerTranslationContextType | null>(null);
 
-export function ServerTranslationProvider({ 
-  children, 
+export function ServerTranslationProvider({
+  children,
   translations,
-  locale 
-}: { 
+  locale,
+}: {
   children: React.ReactNode;
   translations: Record<string, string>;
   locale: string;

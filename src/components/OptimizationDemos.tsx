@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useCallback, useRef } from 'react';
+
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface DemoBoxProps {
@@ -11,10 +12,10 @@ interface DemoBoxProps {
 
 function DemoBox({ title, children, className = '' }: DemoBoxProps) {
   return (
-    <div className={`backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 ${className}`}>
-      <h4 className="text-lg font-bold text-white mb-4">
-        {title}
-      </h4>
+    <div
+      className={`backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 ${className}`}
+    >
+      <h4 className="text-lg font-bold text-white mb-4">{title}</h4>
       {children}
     </div>
   );
@@ -49,7 +50,7 @@ export default function OptimizationDemos() {
   const memoizedValue = useMemo(() => {
     if (isClient) {
       // Expensive calculation running
-      setRenderCount(prev => prev + 1);
+      setRenderCount((prev) => prev + 1);
     }
     return expensiveValue * 2;
   }, [expensiveValue, isClient]);
@@ -58,9 +59,9 @@ export default function OptimizationDemos() {
   const heavyCalculation = useCallback((num: number) => {
     let isPrime = true;
     for (let i = 2; i <= Math.sqrt(num); i++) {
-      if (num % i === 0) { 
-        isPrime = false; 
-        break; 
+      if (num % i === 0) {
+        isPrime = false;
+        break;
       }
     }
     return isPrime;
@@ -73,35 +74,43 @@ export default function OptimizationDemos() {
         <p className="text-slate-300 leading-relaxed mb-4">
           {t('optimization.metrics.description')}
         </p>
-        
+
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-blue-500/20">
-            <h5 className="text-lg font-semibold text-blue-400 mb-2">{t('optimization.metrics.renderCount.title')}</h5>
+            <h5 className="text-lg font-semibold text-blue-400 mb-2">
+              {t('optimization.metrics.renderCount.title')}
+            </h5>
             <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.renderCount')}</p>
-            <p className="text-xs text-slate-400">
-              {t('optimization.metrics.renderCount.desc')}
-            </p>
+            <p className="text-xs text-slate-400">{t('optimization.metrics.renderCount.desc')}</p>
           </div>
-          
+
           <div className="bg-slate-800/50 p-4 rounded-lg border border-green-500/20">
-            <h5 className="text-lg font-semibold text-green-400 mb-2">{t('optimization.metrics.executionTime.title')}</h5>
+            <h5 className="text-lg font-semibold text-green-400 mb-2">
+              {t('optimization.metrics.executionTime.title')}
+            </h5>
             <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.executionTime')}</p>
-            <p className="text-xs text-slate-400">
-              {t('optimization.metrics.executionTime.desc')}
-            </p>
+            <p className="text-xs text-slate-400">{t('optimization.metrics.executionTime.desc')}</p>
           </div>
-          
+
           <div className="bg-slate-800/50 p-4 rounded-lg border border-purple-500/20">
-            <h5 className="text-lg font-semibold text-purple-400 mb-2">{t('optimization.metrics.uiResponsiveness.title')}</h5>
-            <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.uiResponsiveness')}</p>
+            <h5 className="text-lg font-semibold text-purple-400 mb-2">
+              {t('optimization.metrics.uiResponsiveness.title')}
+            </h5>
+            <p className="text-sm text-slate-300 mb-2">
+              {t('optimization.metrics.uiResponsiveness')}
+            </p>
             <p className="text-xs text-slate-400">
               {t('optimization.metrics.uiResponsiveness.desc')}
             </p>
           </div>
-          
+
           <div className="bg-slate-800/50 p-4 rounded-lg border border-orange-500/20">
-            <h5 className="text-lg font-semibold text-orange-400 mb-2">{t('optimization.metrics.memoryManagement.title')}</h5>
-            <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.memoryManagement')}</p>
+            <h5 className="text-lg font-semibold text-orange-400 mb-2">
+              {t('optimization.metrics.memoryManagement.title')}
+            </h5>
+            <p className="text-sm text-slate-300 mb-2">
+              {t('optimization.metrics.memoryManagement')}
+            </p>
             <p className="text-xs text-slate-400">
               {t('optimization.memoryManagement.explanation')}
             </p>
@@ -110,19 +119,26 @@ export default function OptimizationDemos() {
       </DemoBox>
 
       {/* Demo 1: Render Count 최적화 (React.memo 활용) */}
-      <DemoBox title={t('optimization.demoBox.renderCountOptimization')} className="border-blue-500/30">
+      <DemoBox
+        title={t('optimization.demoBox.renderCountOptimization')}
+        className="border-blue-500/30"
+      >
         <p className="text-slate-300 leading-relaxed mb-4">
-          <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong> 
+          <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong>
           {t('optimization.reactMemo.coreExplanation')} <br />
           {t('optimization.reactMemo.tryItBelow')}
         </p>
-        
+
         {/* 동작 원리 설명 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
-          <h5 className="text-lg font-semibold text-blue-400 mb-3">{t('optimization.workingPrinciple')}</h5>
+          <h5 className="text-lg font-semibold text-blue-400 mb-3">
+            {t('optimization.workingPrinciple')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.workingPrinciple.before')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.workingPrinciple.before')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.renderCount.whenParentChanges')}</li>
                 <li>• {t('optimization.renderCount.regardlessOfProps')}</li>
@@ -130,7 +146,9 @@ export default function OptimizationDemos() {
               </ul>
             </div>
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.workingPrinciple.after')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.workingPrinciple.after')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.workingPrinciple.afterBullet1')}</li>
                 <li>• {t('optimization.workingPrinciple.afterBullet2')}</li>
@@ -139,14 +157,16 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
               {t('optimization.renderCount.beforeOptimization')}
             </h5>
-            <p className="text-sm text-slate-400 mb-4">{t('optimization.renderCount.everyTimeRerendering')}</p>
+            <p className="text-sm text-slate-400 mb-4">
+              {t('optimization.renderCount.everyTimeRerendering')}
+            </p>
             <button
               onClick={() => setNonOptRenders(nonOptRenders + 1)}
               className="w-full px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-all border border-red-500/30"
@@ -156,7 +176,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-red-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-red-400">{nonOptRenders}</span>
-                <span className="block text-xs text-red-400/70 mt-1">{t('optimization.renderCount.renderCountLabel')}</span>
+                <span className="block text-xs text-red-400/70 mt-1">
+                  {t('optimization.renderCount.renderCountLabel')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -166,10 +188,12 @@ export default function OptimizationDemos() {
 
           <div className="backdrop-blur-xl bg-green-500/5 border border-green-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
               {t('optimization.renderCount.afterOptimization')}
             </h5>
-            <p className="text-sm text-slate-400 mb-4">{t('optimization.renderCount.onlyPropsChangeRerendering')}</p>
+            <p className="text-sm text-slate-400 mb-4">
+              {t('optimization.renderCount.onlyPropsChangeRerendering')}
+            </p>
             <button
               onClick={() => {}}
               className="w-full px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 transition-all border border-green-500/30"
@@ -179,7 +203,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-green-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-green-400">{optRenders}</span>
-                <span className="block text-xs text-green-400/70 mt-1">{t('optimization.renderCount.renderCountLabel')}</span>
+                <span className="block text-xs text-green-400/70 mt-1">
+                  {t('optimization.renderCount.renderCountLabel')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -187,44 +213,63 @@ export default function OptimizationDemos() {
             </p>
           </div>
         </div>
-        
+
         {/* 성능 비교 결과 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
-          <h5 className="text-lg font-semibold text-yellow-400 mb-3">{t('optimization.performanceComparisonResult')}</h5>
+          <h5 className="text-lg font-semibold text-yellow-400 mb-3">
+            {t('optimization.performanceComparisonResult')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.beforeOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.beforeOptimization')}
+              </p>
               <p className="text-2xl font-bold text-red-400">{nonOptRenders}</p>
-              <p className="text-xs text-slate-500">{t('optimization.renderCount.renderingCount')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.renderCount.renderingCount')}
+              </p>
             </div>
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.afterOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.afterOptimization')}
+              </p>
               <p className="text-2xl font-bold text-green-400">{optRenders}</p>
-              <p className="text-xs text-slate-500">{t('optimization.renderCount.renderingCount')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.renderCount.renderingCount')}
+              </p>
             </div>
           </div>
           <p className="text-xs text-slate-400 mt-3 text-center">
-            {nonOptRenders > optRenders ? 
-              t('optimization.renderCount.unnecessaryRendersPrevented').replace('{count}', (nonOptRenders - optRenders).toString()) : 
-              t('optimization.testIt')
-            }
+            {nonOptRenders > optRenders
+              ? t('optimization.renderCount.unnecessaryRendersPrevented').replace(
+                  '{count}',
+                  (nonOptRenders - optRenders).toString()
+                )
+              : t('optimization.testIt')}
           </p>
         </div>
       </DemoBox>
 
       {/* Demo 2: Execution Time 최적화 (useMemo 활용) */}
-      <DemoBox title={t('optimization.demoBox.executionTimeOptimization')} className="border-green-500/30">
+      <DemoBox
+        title={t('optimization.demoBox.executionTimeOptimization')}
+        className="border-green-500/30"
+      >
         <p className="text-slate-300 leading-relaxed mb-4">
-          <strong className="text-green-400">{t('optimization.executionTime.useMemoCore')}</strong> 
+          <strong className="text-green-400">{t('optimization.executionTime.useMemoCore')}</strong>
           {t('optimization.executionTime.useMemoDesc')}
         </p>
-        
+
         {/* 동작 원리 설명 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
-          <h5 className="text-lg font-semibold text-green-400 mb-3">{t('optimization.workingPrinciple')}</h5>
+          <h5 className="text-lg font-semibold text-green-400 mb-3">
+            {t('optimization.workingPrinciple')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.workingPrinciple.before')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.workingPrinciple.before')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.workingPrinciple.recalculateEveryTime')}</li>
                 <li>• {t('optimization.workingPrinciple.duplicateCalculation')}</li>
@@ -232,7 +277,9 @@ export default function OptimizationDemos() {
               </ul>
             </div>
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.workingPrinciple.afterUseMemo')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.workingPrinciple.afterUseMemo')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.workingPrinciple.firstCalculationOnly')}</li>
                 <li>• {t('optimization.workingPrinciple.recalculateWhenDepsChange')}</li>
@@ -241,14 +288,16 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
               {t('optimization.executionTime.beforeOptimization')}
             </h5>
-            <p className="text-sm text-slate-400 mb-4">{t('optimization.executionTime.recalculationEveryTime')}</p>
+            <p className="text-sm text-slate-400 mb-4">
+              {t('optimization.executionTime.recalculationEveryTime')}
+            </p>
             <button
               onClick={() => {
                 const t0 = performance.now();
@@ -263,7 +312,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-red-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-red-400">{nonOptTime}</span>
-                <span className="block text-xs text-red-400/70 mt-1">{t('optimization.executionTime.calculationTime')}</span>
+                <span className="block text-xs text-red-400/70 mt-1">
+                  {t('optimization.executionTime.calculationTime')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -273,10 +324,12 @@ export default function OptimizationDemos() {
 
           <div className="backdrop-blur-xl bg-green-500/5 border border-green-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
               {t('optimization.executionTime.afterOptimization')}
             </h5>
-            <p className="text-sm text-slate-400 mb-4">{t('optimization.executionTime.cachedResults')}</p>
+            <p className="text-sm text-slate-400 mb-4">
+              {t('optimization.executionTime.cachedResults')}
+            </p>
             <button
               onClick={() => {
                 const t0 = performance.now();
@@ -293,7 +346,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-green-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-green-400">{optTime}</span>
-                <span className="block text-xs text-green-400/70 mt-1">{t('optimization.executionTime.calculationTime')}</span>
+                <span className="block text-xs text-green-400/70 mt-1">
+                  {t('optimization.executionTime.calculationTime')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -301,46 +356,65 @@ export default function OptimizationDemos() {
             </p>
           </div>
         </div>
-        
+
         {/* 성능 비교 결과 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
-          <h5 className="text-lg font-semibold text-yellow-400 mb-3">{t('optimization.performanceComparisonResult')}</h5>
+          <h5 className="text-lg font-semibold text-yellow-400 mb-3">
+            {t('optimization.performanceComparisonResult')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.beforeOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.beforeOptimization')}
+              </p>
               <p className="text-2xl font-bold text-red-400">{nonOptTime}ms</p>
-              <p className="text-xs text-slate-500">{t('optimization.executionTime.calculationTimeLabel')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.executionTime.calculationTimeLabel')}
+              </p>
             </div>
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.afterOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.afterOptimization')}
+              </p>
               <p className="text-2xl font-bold text-green-400">{optTime}ms</p>
-              <p className="text-xs text-slate-500">{t('optimization.executionTime.calculationTimeLabel')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.executionTime.calculationTimeLabel')}
+              </p>
             </div>
           </div>
           {nonOptTime > 0 && optTime > 0 && (
             <p className="text-xs text-slate-400 mt-3 text-center">
-              {nonOptTime > optTime ? 
-                t('optimization.executionTime.performanceImprovement').replace('{percent}', ((nonOptTime - optTime) / nonOptTime * 100).toFixed(1)) : 
-                t('optimization.testIt')
-              }
+              {nonOptTime > optTime
+                ? t('optimization.executionTime.performanceImprovement').replace(
+                    '{percent}',
+                    (((nonOptTime - optTime) / nonOptTime) * 100).toFixed(1)
+                  )
+                : t('optimization.testIt')}
             </p>
           )}
         </div>
       </DemoBox>
 
       {/* Demo 3: UI Responsiveness 최적화 */}
-      <DemoBox title={t('optimization.demoBox.uiResponsivenessOptimization')} className="border-purple-500/30">
+      <DemoBox
+        title={t('optimization.demoBox.uiResponsivenessOptimization')}
+        className="border-purple-500/30"
+      >
         <p className="text-slate-300 leading-relaxed mb-4">
-          <strong className="text-purple-400">{t('optimization.uiResponsiveness.core')}</strong> 
+          <strong className="text-purple-400">{t('optimization.uiResponsiveness.core')}</strong>
           {t('optimization.uiResponsiveness.coreDesc')}
         </p>
-        
+
         {/* 동작 원리 설명 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
-          <h5 className="text-lg font-semibold text-purple-400 mb-3">{t('optimization.workingPrinciple')}</h5>
+          <h5 className="text-lg font-semibold text-purple-400 mb-3">
+            {t('optimization.workingPrinciple')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.workingPrinciple.before')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.workingPrinciple.before')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.uiResponsiveness.drawDotsEveryType')}</li>
                 <li>• {t('optimization.uiResponsiveness.unnecessaryDOMManipulation')}</li>
@@ -348,7 +422,9 @@ export default function OptimizationDemos() {
               </ul>
             </div>
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.uiResponsiveness.afterOptimization')}:</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.uiResponsiveness.afterOptimization')}:</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.uiResponsiveness.dotsNotRedrawn')}</li>
                 <li>• {t('optimization.uiResponsiveness.onlyNecessaryUpdates')}</li>
@@ -357,11 +433,11 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
               {t('optimization.uiResponsiveness.beforeOptimization')}
             </h5>
             <input
@@ -391,7 +467,7 @@ export default function OptimizationDemos() {
 
           <div className="backdrop-blur-xl bg-green-500/5 border border-green-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
               {t('optimization.uiResponsiveness.afterOptimization')}
             </h5>
             <input
@@ -402,32 +478,47 @@ export default function OptimizationDemos() {
               className="w-full px-4 py-2 bg-white/5 border border-green-500/30 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50"
             />
             <div className="mt-4 grid grid-cols-10 gap-1">
-              {Array(50).fill(null).map((_, i) => (
-                <div key={i} className="w-2 h-2 rounded-full bg-slate-700" />
-              ))}
+              {Array(50)
+                .fill(null)
+                .map((_, i) => (
+                  <div key={i} className="w-2 h-2 rounded-full bg-slate-700" />
+                ))}
             </div>
             <p className="text-xs text-slate-500 mt-3">
-              {t('optimization.uiResponsiveness.dotsNotRedrawn')} ({t('optimization.uiResponsiveness.smoothTypingExperience')})
+              {t('optimization.uiResponsiveness.dotsNotRedrawn')} (
+              {t('optimization.uiResponsiveness.smoothTypingExperience')})
             </p>
           </div>
         </div>
-        
+
         {/* 실시간 피드백 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
-          <h5 className="text-lg font-semibold text-yellow-400 mb-3">{t('optimization.realtimeFeedback')}</h5>
+          <h5 className="text-lg font-semibold text-yellow-400 mb-3">
+            {t('optimization.realtimeFeedback')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.beforeOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.beforeOptimization')}
+              </p>
               <p className="text-2xl font-bold text-red-400">{nonOptInput.length}</p>
-              <p className="text-xs text-slate-500">{t('optimization.uiResponsiveness.charactersTyped')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.uiResponsiveness.charactersTyped')}
+              </p>
               <p className="text-xs text-slate-400 mt-1">
-                {nonOptInput.length > 0 ? t('optimization.dotsBlinking') : t('optimization.noInput')}
+                {nonOptInput.length > 0
+                  ? t('optimization.dotsBlinking')
+                  : t('optimization.noInput')}
               </p>
             </div>
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.renderCount.afterOptimization')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.renderCount.afterOptimization')}
+              </p>
               <p className="text-2xl font-bold text-green-400">{optInput.length}</p>
-              <p className="text-xs text-slate-500">{t('optimization.uiResponsiveness.charactersTyped')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.uiResponsiveness.charactersTyped')}
+              </p>
               <p className="text-xs text-slate-400 mt-1">
                 {optInput.length > 0 ? t('optimization.dotsFixed') : t('optimization.noInput')}
               </p>
@@ -437,18 +528,27 @@ export default function OptimizationDemos() {
       </DemoBox>
 
       {/* Demo 4: Memory Management 최적화 */}
-      <DemoBox title={t('optimization.demoBox.memoryManagementOptimization')} className="border-orange-500/30">
+      <DemoBox
+        title={t('optimization.demoBox.memoryManagementOptimization')}
+        className="border-orange-500/30"
+      >
         <p className="text-slate-300 leading-relaxed mb-4">
-          <strong className="text-orange-400">{t('optimization.memoryManagement.useMemoCore')}</strong> 
+          <strong className="text-orange-400">
+            {t('optimization.memoryManagement.useMemoCore')}
+          </strong>
           {t('optimization.memoryManagement.useMemoDesc')}
         </p>
-        
+
         {/* 동작 원리 설명 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
-          <h5 className="text-lg font-semibold text-orange-400 mb-3">{t('optimization.workingPrinciple')}</h5>
+          <h5 className="text-lg font-semibold text-orange-400 mb-3">
+            {t('optimization.workingPrinciple')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.memoryManagement.noCleanup')}:</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.memoryManagement.noCleanup')}:</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.workingPrinciple.listenerKeepStacking')}</li>
                 <li>• {t('optimization.workingPrinciple.notRemovedFromMemory')}</li>
@@ -456,7 +556,9 @@ export default function OptimizationDemos() {
               </ul>
             </div>
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.memoryManagement.withCleanup')}:</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.memoryManagement.withCleanup')}:</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.memoryManagement.cleanupOnUnmount')}</li>
                 <li>• {t('optimization.workingPrinciple.efficientMemory')}</li>
@@ -465,11 +567,11 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         <div className="grid sm:grid-cols-2 gap-6">
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse"></span>
+              <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
               {t('optimization.memoryManagement.noCleanup')}
             </h5>
             <div className="flex gap-2">
@@ -489,7 +591,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-red-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-red-400">{nonOptListeners}</span>
-                <span className="block text-xs text-red-400/70 mt-1">{t('optimization.memoryManagement.activeListeners')}</span>
+                <span className="block text-xs text-red-400/70 mt-1">
+                  {t('optimization.memoryManagement.activeListeners')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -499,7 +603,7 @@ export default function OptimizationDemos() {
 
           <div className="backdrop-blur-xl bg-green-500/5 border border-green-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
-              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+              <span className="w-2 h-2 bg-green-500 rounded-full mr-2" />
               {t('optimization.memoryManagement.withCleanup')}
             </h5>
             <div className="flex gap-2">
@@ -527,7 +631,9 @@ export default function OptimizationDemos() {
             <div className="mt-4 p-3 bg-green-950/20 rounded-lg">
               <p className="text-center">
                 <span className="text-3xl font-bold text-green-400">{optListeners}</span>
-                <span className="block text-xs text-green-400/70 mt-1">{t('optimization.memoryManagement.activeListeners')}</span>
+                <span className="block text-xs text-green-400/70 mt-1">
+                  {t('optimization.memoryManagement.activeListeners')}
+                </span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-3">
@@ -535,31 +641,46 @@ export default function OptimizationDemos() {
             </p>
           </div>
         </div>
-        
+
         {/* 메모리 상태 모니터링 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
-          <h5 className="text-lg font-semibold text-yellow-400 mb-3">{t('optimization.memoryManagement.memoryStatusMonitoring')}</h5>
+          <h5 className="text-lg font-semibold text-yellow-400 mb-3">
+            {t('optimization.memoryManagement.memoryStatusMonitoring')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div className="text-center">
               <p className="text-slate-400 mb-1">{t('optimization.memoryManagement.noCleanup')}</p>
               <p className="text-2xl font-bold text-red-400">{nonOptListeners}</p>
-              <p className="text-xs text-slate-500">{t('optimization.memoryManagement.accumulatedListeners')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.memoryManagement.accumulatedListeners')}
+              </p>
               <p className="text-xs text-slate-400 mt-1">
-                {nonOptListeners > 0 ? t('optimization.memoryManagement.keepStacking') : t('optimization.noneYet')}
+                {nonOptListeners > 0
+                  ? t('optimization.memoryManagement.keepStacking')
+                  : t('optimization.noneYet')}
               </p>
             </div>
             <div className="text-center">
-              <p className="text-slate-400 mb-1">{t('optimization.memoryManagement.withCleanup')}</p>
+              <p className="text-slate-400 mb-1">
+                {t('optimization.memoryManagement.withCleanup')}
+              </p>
               <p className="text-2xl font-bold text-green-400">{optListeners}</p>
-              <p className="text-xs text-slate-500">{t('optimization.memoryManagement.currentListeners')}</p>
+              <p className="text-xs text-slate-500">
+                {t('optimization.memoryManagement.currentListeners')}
+              </p>
               <p className="text-xs text-slate-400 mt-1">
-                {optListeners > 0 ? t('optimization.memoryManagement.actuallyInUse') : t('optimization.noneYet')}
+                {optListeners > 0
+                  ? t('optimization.memoryManagement.actuallyInUse')
+                  : t('optimization.noneYet')}
               </p>
             </div>
           </div>
           {nonOptListeners > optListeners && (
             <p className="text-xs text-slate-400 mt-3 text-center">
-              {t('optimization.memoryManagement.noCleanupWarning').replace('{count}', (nonOptListeners - optListeners).toString())}
+              {t('optimization.memoryManagement.noCleanupWarning').replace(
+                '{count}',
+                (nonOptListeners - optListeners).toString()
+              )}
             </p>
           )}
         </div>
@@ -568,22 +689,27 @@ export default function OptimizationDemos() {
       {/* Demo 5: React.memo 최적화 (실시간 데모) */}
       <DemoBox title={t('optimization.reactMemoDemoTitle')} className="border-blue-500/30">
         <p className="text-slate-300 leading-relaxed mb-4">
-          <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong> 
+          <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong>
           {t.rich('optimization.reactMemo.detailedExplanation', {
             span: (chunks) => {
               if (chunks === 'Count 버튼') return <span className="text-green-400">{chunks}</span>;
-              if (chunks === 'Expensive 버튼') return <span className="text-orange-400">{chunks}</span>;
+              if (chunks === 'Expensive 버튼')
+                return <span className="text-orange-400">{chunks}</span>;
               return <span>{chunks}</span>;
-            }
+            },
           })}
         </p>
-        
+
         {/* 동작 원리 설명 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
-          <h5 className="text-lg font-semibold text-blue-400 mb-3">{t('optimization.workingPrinciple')}</h5>
+          <h5 className="text-lg font-semibold text-blue-400 mb-3">
+            {t('optimization.workingPrinciple')}
+          </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.reactMemo.countButtonTitle')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.reactMemo.countButtonTitle')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.reactMemo.countButtonBullet1')}</li>
                 <li>• {t('optimization.reactMemo.countButtonBullet2')}</li>
@@ -591,7 +717,9 @@ export default function OptimizationDemos() {
               </ul>
             </div>
             <div>
-              <p className="text-slate-300 mb-2"><strong>{t('optimization.reactMemo.expensiveButtonTitle')}</strong></p>
+              <p className="text-slate-300 mb-2">
+                <strong>{t('optimization.reactMemo.expensiveButtonTitle')}</strong>
+              </p>
               <ul className="text-slate-400 space-y-1 text-xs">
                 <li>• {t('optimization.reactMemo.expensiveButtonBullet1')}</li>
                 <li>• {t('optimization.reactMemo.expensiveButtonBullet2')}</li>
@@ -600,23 +728,23 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         {/* 실시간 테스트 버튼들 */}
         <div className="flex flex-wrap gap-3 mb-6">
           <button
-            onClick={() => setCount(c => c + 1)}
+            onClick={() => setCount((c) => c + 1)}
             className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 hover:scale-105 font-medium"
           >
             Count: {count}
           </button>
           <button
-            onClick={() => setExpensiveValue(v => v + 1)}
+            onClick={() => setExpensiveValue((v) => v + 1)}
             className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300 hover:scale-105 font-medium"
           >
             Expensive: {expensiveValue}
           </button>
         </div>
-        
+
         {/* 실시간 결과 표시 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
@@ -634,28 +762,40 @@ export default function OptimizationDemos() {
             </p>
           </div>
         </div>
-        
+
         {/* 시각적 피드백 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-purple-400 mb-2">{t('optimization.reactMemo.countButtonEffect')}</p>
+            <p className="text-sm font-semibold text-purple-400 mb-2">
+              {t('optimization.reactMemo.countButtonEffect')}
+            </p>
             <div className="flex items-center space-x-2">
-              <span className={`w-3 h-3 rounded-full ${count > 0 ? 'bg-green-400 animate-pulse' : 'bg-slate-600'}`}></span>
+              <span
+                className={`w-3 h-3 rounded-full ${count > 0 ? 'bg-green-400 animate-pulse' : 'bg-slate-600'}`}
+              />
               <span className="text-xs text-slate-400">
-                {count > 0 ? t('optimization.reactMemo.parentOnlyRerendered') : t('optimization.reactMemo.notClickedYet')}
+                {count > 0
+                  ? t('optimization.reactMemo.parentOnlyRerendered')
+                  : t('optimization.reactMemo.notClickedYet')}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-2">
               {t('optimization.reactMemo.countChangedExpensiveValueSame')}
             </p>
           </div>
-          
+
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-orange-400 mb-2">{t('optimization.reactMemo.expensiveButtonEffect')}</p>
+            <p className="text-sm font-semibold text-orange-400 mb-2">
+              {t('optimization.reactMemo.expensiveButtonEffect')}
+            </p>
             <div className="flex items-center space-x-2">
-              <span className={`w-3 h-3 rounded-full ${expensiveValue > 1 ? 'bg-red-400 animate-pulse' : 'bg-slate-600'}`}></span>
+              <span
+                className={`w-3 h-3 rounded-full ${expensiveValue > 1 ? 'bg-red-400 animate-pulse' : 'bg-slate-600'}`}
+              />
               <span className="text-xs text-slate-400">
-                {expensiveValue > 1 ? t('optimization.reactMemo.parentChildBothRerendered') : t('optimization.reactMemo.notClickedYet')}
+                {expensiveValue > 1
+                  ? t('optimization.reactMemo.parentChildBothRerendered')
+                  : t('optimization.reactMemo.notClickedYet')}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-2">
@@ -663,10 +803,12 @@ export default function OptimizationDemos() {
             </p>
           </div>
         </div>
-        
+
         {/* 단계별 테스트 가이드 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-4">
-          <h5 className="text-lg font-semibold text-yellow-400 mb-3">{t('optimization.testGuide.title')}</h5>
+          <h5 className="text-lg font-semibold text-yellow-400 mb-3">
+            {t('optimization.testGuide.title')}
+          </h5>
           <div className="space-y-2 text-sm">
             <div className="flex items-center space-x-2">
               <span className="text-blue-400 font-bold">1. </span>
@@ -686,17 +828,19 @@ export default function OptimizationDemos() {
             </div>
           </div>
         </div>
-        
+
         {/* 핵심 설명 */}
         <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <p className="text-sm text-slate-300 leading-relaxed">
-            <strong className="text-blue-400">{t('optimization.reactMemo.magic')}</strong> 
+            <strong className="text-blue-400">{t('optimization.reactMemo.magic')}</strong>
             {t.rich('optimization.reactMemo.detailedExplanation', {
               span: (chunks) => {
-                if (chunks === 'Count 버튼') return <span className="text-green-400">{chunks}</span>;
-                if (chunks === 'Expensive 버튼') return <span className="text-orange-400">{chunks}</span>;
+                if (chunks === 'Count 버튼')
+                  return <span className="text-green-400">{chunks}</span>;
+                if (chunks === 'Expensive 버튼')
+                  return <span className="text-orange-400">{chunks}</span>;
                 return <span>{chunks}</span>;
-              }
+              },
             })}
           </p>
         </div>
@@ -707,15 +851,18 @@ export default function OptimizationDemos() {
         <p className="text-slate-300 leading-relaxed mb-4">
           {t('optimization.useMemo.guideDescription')}
         </p>
-        
+
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-4">
           <p className="text-sm text-slate-400 mb-2">{t('optimization.useMemo.consoleMessage')}</p>
-          <p className="text-xs text-green-400 font-mono">&quot;Expensive calculation running...&quot;</p>
+          <p className="text-xs text-green-400 font-mono">
+            &quot;Expensive calculation running...&quot;
+          </p>
         </div>
-        
+
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
           <p className="text-sm text-slate-300 leading-relaxed">
-            <strong className="text-green-400">{t('optimization.useMemo.performanceTip')}</strong> {t('optimization.useMemo.performanceTipDesc')}
+            <strong className="text-green-400">{t('optimization.useMemo.performanceTip')}</strong>{' '}
+            {t('optimization.useMemo.performanceTipDesc')}
           </p>
         </div>
       </DemoBox>
@@ -724,7 +871,9 @@ export default function OptimizationDemos() {
       <DemoBox title={t('optimization.renderingOptimizationGuide')} className="border-pink-500/30">
         <div className="space-y-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <h5 className="text-lg font-semibold text-emerald-400 mb-2">{t('optimization.guide.goodExample')}</h5>
+            <h5 className="text-lg font-semibold text-emerald-400 mb-2">
+              {t('optimization.guide.goodExample')}
+            </h5>
             <p className="text-sm text-slate-300 mb-2">{t('optimization.guide.useUniqueId')}</p>
             <pre className="text-xs text-emerald-400 font-mono bg-slate-900/50 p-3 rounded border border-slate-600/50 overflow-x-auto">
               <code className="language-jsx">{`{items.map(item => (
@@ -732,9 +881,11 @@ export default function OptimizationDemos() {
 ))}`}</code>
             </pre>
           </div>
-          
+
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <h5 className="text-lg font-semibold text-red-400 mb-2">{t('optimization.guide.badExample')}</h5>
+            <h5 className="text-lg font-semibold text-red-400 mb-2">
+              {t('optimization.guide.badExample')}
+            </h5>
             <p className="text-sm text-slate-300 mb-2">{t('optimization.guide.useArrayIndex')}</p>
             <pre className="text-xs text-red-400 font-mono bg-slate-900/50 p-3 rounded border border-slate-600/50 overflow-x-auto">
               <code className="language-jsx">{`{items.map((item, index) => (
@@ -743,10 +894,11 @@ export default function OptimizationDemos() {
             </pre>
           </div>
         </div>
-        
+
         <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <p className="text-sm text-slate-300 leading-relaxed">
-            <strong className="text-pink-400">{t('optimization.guide.keyPointTitle')}</strong> {t('optimization.guide.keyPointDesc')}
+            <strong className="text-pink-400">{t('optimization.guide.keyPointTitle')}</strong>{' '}
+            {t('optimization.guide.keyPointDesc')}
           </p>
         </div>
       </DemoBox>

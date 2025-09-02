@@ -1,30 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+
 import { capitalizeEnglishSentences } from '@/utils/text-formatting';
+
+import type { NextRequest } from 'next/server';
 
 // 테스트용 엔드포인트 - 띄어쓰기 수정 기능 확인
 export async function POST(request: NextRequest) {
   try {
     const { text } = await request.json();
-    
+
     if (!text) {
-      return NextResponse.json(
-        { error: 'Text is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Text is required' }, { status: 400 });
     }
 
     const processed = capitalizeEnglishSentences(text);
-    
+
     return NextResponse.json({
       original: text,
-      processed: processed,
-      changes: text !== processed
+      processed,
+      changes: text !== processed,
     });
   } catch {
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
@@ -35,9 +32,9 @@ export async function GET() {
     'Clicking the Count button re-renders only the parent component',
     'the button clicked event fires',
     'component re-renders twice',
-    'props don\'t change',
+    "props don't change",
     'click the<span>button</span>now',
-    'Clicking the Count button re-renders only the parent component, while clicking the Expensive button re-renders both the parent and child components. React.memo prevents unnecessary calculations by reusing previous render results if props don\'t change.',
+    "Clicking the Count button re-renders only the parent component, while clicking the Expensive button re-renders both the parent and child components. React.memo prevents unnecessary calculations by reusing previous render results if props don't change.",
     'Actions in React 19 makes it possible to use async functions in transitions. Automatically manage pending status, error handling, and optimistic updates.',
     'The new use() Hook allows you to read Promises directly.',
     'makes it possible to handle state updates efficiently',
@@ -47,7 +44,7 @@ export async function GET() {
     'Form handling is much simpler &lt;strong&gt;with useActionState and&lt;/strong&gt; &lt;strong&gt;Form Actions&lt;/strong&gt;',
   ];
 
-  const results = testCases.map(test => ({
+  const results = testCases.map((test) => ({
     original: test,
     processed: capitalizeEnglishSentences(test),
   }));

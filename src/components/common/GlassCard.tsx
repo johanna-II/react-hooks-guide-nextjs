@@ -1,17 +1,18 @@
 'use client';
 
 import React from 'react';
-import { GlassCardProps } from '@/types';
 
-export const GlassCard: React.FC<GlassCardProps> = ({ 
-  children, 
-  className = '', 
-  gradient = '' 
+import type { GlassCardProps } from '@/types';
+
+export const GlassCard: React.FC<GlassCardProps> = ({
+  children,
+  className = '',
+  gradient = '',
 }) => {
   return (
     <div className={`relative group h-full ${className}`}>
       {gradient && (
-        <div 
+        <div
           className={`absolute inset-0 bg-gradient-to-r ${gradient} rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
           aria-hidden="true"
         />

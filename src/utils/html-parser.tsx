@@ -7,7 +7,7 @@ import React from 'react';
 export function parseHTMLToReact(html: string): React.ReactNode {
   // Simple regex-based HTML parser for specific tags
   const allowedTags = ['strong', 'em', 'span', 'br'];
-  
+
   // Convert HTML entities back to actual characters
   const decodeEntities = (text: string): string => {
     const entities: Record<string, string> = {
@@ -16,47 +16,47 @@ export function parseHTMLToReact(html: string): React.ReactNode {
       '&amp;': '&',
       '&quot;': '"',
       '&#39;': "'",
-      '&nbsp;': ' '
+      '&nbsp;': ' ',
     };
-    
+
     return text.replace(/&[a-z]+;|&#\d+;/gi, (match) => entities[match] || match);
   };
-  
+
   // Decode entities first
   const decodedHtml = decodeEntities(html);
-  
+
   // Parse HTML into React elements
   const parseNode = (text: string, key: number = 0): React.ReactNode => {
     // Find the first HTML tag
     const tagRegex = /<(\/?)(\w+)([^>]*)>/;
     const match = text.match(tagRegex);
-    
+
     if (!match) {
       // No more tags, return plain text
       return text;
     }
-    
+
     const [fullMatch, isClosing, tagName, attributes] = match;
     const tagIndex = text.indexOf(fullMatch);
-    
+
     // Get text before the tag
     const beforeText = text.slice(0, tagIndex);
-    
+
     // Check if this is an allowed tag
     if (!allowedTags.includes(tagName.toLowerCase())) {
       // Skip this tag and continue parsing
       return parseNode(text.replace(fullMatch, ''), key);
     }
-    
+
     if (isClosing) {
       // This shouldn't happen with proper HTML, skip it
       return parseNode(text.replace(fullMatch, ''), key);
     }
-    
+
     // Find the closing tag
     const closingTag = `</${tagName}>`;
     const closingIndex = text.indexOf(closingTag, tagIndex + fullMatch.length);
-    
+
     if (closingIndex === -1) {
       // No closing tag found, treat as self-closing or skip
       if (tagName === 'br') {
@@ -71,19 +71,19 @@ export function parseHTMLToReact(html: string): React.ReactNode {
       // Skip malformed tag
       return parseNode(text.replace(fullMatch, ''), key);
     }
-    
+
     // Extract content between tags
     const contentStart = tagIndex + fullMatch.length;
     const content = text.slice(contentStart, closingIndex);
     const afterText = text.slice(closingIndex + closingTag.length);
-    
+
     // Parse attributes (simple class extraction)
     let className = '';
     const classMatch = attributes.match(/class=["']([^"']+)["']/);
     if (classMatch) {
       className = classMatch[1];
     }
-    
+
     // Create the element
     return (
       <React.Fragment key={key}>
@@ -97,16 +97,16 @@ export function parseHTMLToReact(html: string): React.ReactNode {
       </React.Fragment>
     );
   };
-  
+
   const result = parseNode(decodedHtml);
-  
+
   // If result is a string (no HTML tags found), return it as-is
   if (typeof result === 'string') {
     return result;
   }
-  
-  // Wrap in Fragment if needed
-  return <>{result}</>;
+
+  // Return the result directly
+  return result;
 }
 
 /**

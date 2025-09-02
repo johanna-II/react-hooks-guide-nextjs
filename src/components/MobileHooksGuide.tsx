@@ -1,20 +1,22 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+
 import { MobileOptimizedDemo } from './MobileOptimizedDemo';
 import { TouchOptimizedDemo } from './TouchOptimizedDemo';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 const MobileHooksGuideComponent: React.FC = () => {
   const t = useOptimizedTranslations();
-  
+
   const MOBILE_HOOKS_DATA = [
     {
       title: 'useState',
       description: t('mobile.useState.description'),
       demoType: 'counter' as const,
       example: `const [count, setCount] = useState(0);`,
-      touchDemo: 'gesture' as const
+      touchDemo: 'gesture' as const,
     },
     {
       title: 'useEffect',
@@ -23,14 +25,14 @@ const MobileHooksGuideComponent: React.FC = () => {
       example: `useEffect(() => {
   // 컴포넌트가 마운트될 때 실행
 }, []);`,
-      touchDemo: 'swipe' as const
+      touchDemo: 'swipe' as const,
     },
     {
       title: 'useRef',
       description: t('mobile.useRef.description'),
       demoType: 'input' as const,
       example: `const inputRef = useRef(null);`,
-      touchDemo: 'drag' as const
+      touchDemo: 'drag' as const,
     },
     {
       title: 'useMemo',
@@ -39,7 +41,7 @@ const MobileHooksGuideComponent: React.FC = () => {
       example: `const memoizedValue = useMemo(() => {
   return expensiveCalculation(data);
 }, [data]);`,
-      touchDemo: 'pinch' as const
+      touchDemo: 'pinch' as const,
     },
     {
       title: 'useCallback',
@@ -48,8 +50,8 @@ const MobileHooksGuideComponent: React.FC = () => {
       example: `const memoizedCallback = useCallback(() => {
   doSomething(a, b);
 }, [a, b]);`,
-      touchDemo: 'gesture' as const
-    }
+      touchDemo: 'gesture' as const,
+    },
   ];
 
   const [activeTab, setActiveTab] = useState(0);
@@ -86,7 +88,10 @@ const MobileHooksGuideComponent: React.FC = () => {
     <div className="space-y-6">
       {/* 탭 네비게이션 - 모바일 최적화 */}
       <div className="relative">
-        <div ref={tabsContainerRef} className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide -mx-4 px-4">
+        <div
+          ref={tabsContainerRef}
+          className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide -mx-4 px-4"
+        >
           {MOBILE_HOOKS_DATA.map((hook, index) => (
             <button
               key={index}
@@ -107,7 +112,7 @@ const MobileHooksGuideComponent: React.FC = () => {
             </button>
           ))}
         </div>
-        
+
         {/* 스크롤 힌트 */}
         {showScrollHint && (
           <div className="text-center mt-1 animate-fade-in">
@@ -126,13 +131,11 @@ const MobileHooksGuideComponent: React.FC = () => {
           <p className="text-xs text-slate-300 mb-3 leading-relaxed">
             {MOBILE_HOOKS_DATA[activeTab].description}
           </p>
-          
+
           {/* 코드 예시 */}
           <div className="bg-slate-900/50 p-2.5 rounded-lg mb-3">
             <pre className="text-[11px] text-slate-300 font-mono overflow-x-auto">
-              <code className="language-typescript">
-                {MOBILE_HOOKS_DATA[activeTab].example}
-              </code>
+              <code className="language-typescript">{MOBILE_HOOKS_DATA[activeTab].example}</code>
             </pre>
           </div>
         </div>

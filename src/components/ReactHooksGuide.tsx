@@ -1,19 +1,21 @@
 'use client';
 
 import React from 'react';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useScrollToSection } from '@/hooks/useScrollToSection';
+
 import { NAVIGATION_SECTIONS, WHY_HOOKS_DATA } from '@/constants/navigation';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { trackEvent, measurePagePerformance } from '@/utils/analytics';
-import HooksTabs from './HooksTabs';
-import FormActionDemo from './FormActionDemo';
-import OptimizationDemos from './OptimizationDemos';
-import AdvancedPatterns from './AdvancedPatterns';
-import { MobileNavigation } from './MobileNavigation';
-import { MobileMainContent } from './MobileMainContent';
-import { LanguageSwitcher } from './common';
 import { HTMLText } from '@/utils/html-parser';
+
+import AdvancedPatterns from './AdvancedPatterns';
+import { LanguageSwitcher } from './common';
+import FormActionDemo from './FormActionDemo';
+import HooksTabs from './HooksTabs';
+import { MobileMainContent } from './MobileMainContent';
+import { MobileNavigation } from './MobileNavigation';
+import OptimizationDemos from './OptimizationDemos';
 
 const ReactHooksGuide: React.FC = React.memo(() => {
   const t = useOptimizedTranslations();
@@ -25,19 +27,19 @@ const ReactHooksGuide: React.FC = React.memo(() => {
     return window.innerWidth < 1024;
   });
   const [mobileActiveSection, setMobileActiveSection] = React.useState('hero');
-  
+
   // 페이지 성능 측정
   React.useEffect(() => {
     measurePagePerformance();
   }, []);
-  
+
   // 콜백 함수들을 useCallback으로 최적화 (Hook 규칙 준수)
   const handleNavigationSectionChange = React.useCallback((sectionId: string) => {
     // Handle section change
     setMobileActiveSection(sectionId);
     // 모바일에서는 scrollToSection 호출하지 않음 (MobileMainContent가 스크롤 처리)
   }, []);
-  
+
   const handleMainContentSectionChange = React.useCallback((sectionId: string) => {
     setMobileActiveSection(sectionId);
   }, []);
@@ -46,28 +48,29 @@ const ReactHooksGuide: React.FC = React.memo(() => {
     const checkMobile = () => {
       // User Agent를 우선적으로 확인 (PC 브라우저인지 확인)
       const userAgent = navigator.userAgent.toLowerCase();
-      const isMobileUserAgent = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-      
+      const isMobileUserAgent =
+        /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+
       // Chrome DevTools 모바일 에뮬레이션 감지
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      
+
       // 화면 크기 확인 (태블릿 이하)
       const isSmallScreen = window.innerWidth < 1024;
-      
+
       // 모바일 판정: User Agent가 모바일이거나, 터치 디바이스이면서 작은 화면
       const isMobileDevice = isMobileUserAgent || (isTouchDevice && isSmallScreen);
-      
+
       // Device detection completed
-      
+
       if (isMobile !== isMobileDevice) {
         trackEvent.deviceSwitch(isMobileDevice ? 'mobile' : 'desktop');
       }
       setIsMobile(isMobileDevice);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // isMobile 의도적으로 제외 - 리사이즈 이벤트 핸들러 내부에서 상태 확인
@@ -82,19 +85,19 @@ const ReactHooksGuide: React.FC = React.memo(() => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
         {/* 모바일 환경 표시 제거 - 깔끔한 UI */}
-        
+
         {/* 모바일 전용 네비게이션 */}
-        <MobileNavigation 
-          activeSection={mobileActiveSection} 
-          onSectionChange={handleNavigationSectionChange} 
+        <MobileNavigation
+          activeSection={mobileActiveSection}
+          onSectionChange={handleNavigationSectionChange}
         />
-        
+
         {/* 모바일 전용 메인 콘텐츠 */}
-        <MobileMainContent 
-          activeSection={mobileActiveSection} 
+        <MobileMainContent
+          activeSection={mobileActiveSection}
           onSectionChange={handleMainContentSectionChange}
         />
-        
+
         {/* 모바일에서 activeSection을 업데이트하기 위한 이벤트 리스너 */}
         <div style={{ display: 'none' }}>
           {NAVIGATION_SECTIONS.map((section) => (
@@ -104,8 +107,6 @@ const ReactHooksGuide: React.FC = React.memo(() => {
       </div>
     );
   }
-
-  
 
   // 데스크톱 환경 - 기존 레이아웃 유지
   return (
@@ -124,7 +125,15 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             {/* Logo */}
             <div className="flex items-center space-x-4 min-w-0 flex-shrink-0">
               <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-xl" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>⚛️</span>
+                <span
+                  className="text-xl"
+                  style={{
+                    fontFamily:
+                      '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                  }}
+                >
+                  ⚛️
+                </span>
               </div>
               <div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight">
@@ -175,7 +184,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   {chunks}
                 </span>
-              )
+              ),
             })}
           </h2>
           <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed px-4">
@@ -189,7 +198,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
               {t('guide.beginnerTitle')}
             </h2>
-            
+
             <div className="grid lg:grid-cols-2 gap-6">
               <div className="grid gap-4">
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
@@ -198,23 +207,27 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                     {t('guide.whatIsHookDesc')}
                   </p>
                 </div>
-                
+
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-green-400 mb-2">{t('guide.whyUseHooks')}</h3>
+                  <h3 className="text-lg font-bold text-green-400 mb-2">
+                    {t('guide.whyUseHooks')}
+                  </h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
                     {t('guide.whyUseHooksDesc')}
                   </p>
                 </div>
               </div>
-              
+
               <div className="grid gap-4">
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-purple-400 mb-2">{t('guide.hookAdvantages')}</h3>
+                  <h3 className="text-lg font-bold text-purple-400 mb-2">
+                    {t('guide.hookAdvantages')}
+                  </h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
                     {t('guide.hookAdvantagesDesc')}
                   </p>
                 </div>
-                
+
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
                   <h3 className="text-lg font-bold text-orange-400 mb-2">{t('guide.whenToUse')}</h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
@@ -232,13 +245,28 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
               {t('guide.whyHooksNeeded')}
             </h2>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {WHY_HOOKS_DATA.map((item, index) => (
-                <div key={index} className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-300 hover:scale-105 group h-full flex flex-col">
-                  <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>{item.icon}</div>
-                  <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{t(item.titleKey)}</h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-1.5 sm:mb-2 flex-grow">{t(item.descKey)}</p>
+                <div
+                  key={index}
+                  className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 hover:border-green-500/50 transition-all duration-300 hover:scale-105 group h-full flex flex-col"
+                >
+                  <div
+                    className="text-2xl sm:text-3xl mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-300"
+                    style={{
+                      fontFamily:
+                        '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">
+                    {t(item.titleKey)}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-1.5 sm:mb-2 flex-grow">
+                    {t(item.descKey)}
+                  </p>
                   <div className="text-[10px] sm:text-xs text-slate-400 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {t(item.detailKey)}
                   </div>
@@ -257,7 +285,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
               {t('guide.coreHooks.description')}
             </p>
-            
+
             <HooksTabs />
           </div>
         </section>
@@ -268,11 +296,13 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
               {t('guide.hooksRules')}
             </h2>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
-                  <h3 className="text-xl font-bold text-red-400 mb-4">{t('guide.rules.dontTitle')}</h3>
+                  <h3 className="text-xl font-bold text-red-400 mb-4">
+                    {t('guide.rules.dontTitle')}
+                  </h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
                       <span className="text-red-400 mr-2">•</span>
@@ -289,10 +319,12 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                   </ul>
                 </div>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
-                  <h3 className="text-xl font-bold text-green-400 mb-4">{t('guide.rules.doTitle')}</h3>
+                  <h3 className="text-xl font-bold text-green-400 mb-4">
+                    {t('guide.rules.doTitle')}
+                  </h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
                       <span className="text-green-400 mr-2">•</span>
@@ -310,12 +342,12 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8 p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-              <h3 className="text-xl font-bold text-yellow-400 mb-4">{t('guide.rules.whyTitle')}</h3>
-              <p className="text-slate-300 leading-relaxed">
-                {t('guide.rules.whyDesc')}
-              </p>
+              <h3 className="text-xl font-bold text-yellow-400 mb-4">
+                {t('guide.rules.whyTitle')}
+              </h3>
+              <p className="text-slate-300 leading-relaxed">{t('guide.rules.whyDesc')}</p>
             </div>
           </div>
         </section>
@@ -324,7 +356,15 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="optimization" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-3xl border border-indigo-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>⚡</span> {t('guide.optimization.title')}
+              <span
+                style={{
+                  fontFamily:
+                    '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                }}
+              >
+                ⚡
+              </span>{' '}
+              {t('guide.optimization.title')}
             </h2>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
               {t('guide.optimization.description')}
@@ -337,24 +377,44 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="react19" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-3xl border border-blue-500/20 p-8">
             <h3 className="text-3xl font-bold text-white mb-8 text-center">
-              <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>✨</span> {t('react19.newFeatures.title')}
+              <span
+                style={{
+                  fontFamily:
+                    '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                }}
+              >
+                ✨
+              </span>{' '}
+              {t('react19.newFeatures.title')}
             </h3>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
               {t('react19.newFeatures.description')}
             </p>
-            
+
             <div className="space-y-8">
               <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                 <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-4" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>🚀</span>
+                  <span
+                    className="text-4xl mr-4"
+                    style={{
+                      fontFamily:
+                        '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                    }}
+                  >
+                    🚀
+                  </span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">{t('react19.actionsAndUseTransition')}</h4>
-                    <p className="text-slate-400">{t('react19.actionsAndUseTransition.subtitle')}</p>
+                    <h4 className="text-2xl font-bold text-white">
+                      {t('react19.actionsAndUseTransition')}
+                    </h4>
+                    <p className="text-slate-400">
+                      {t('react19.actionsAndUseTransition.subtitle')}
+                    </p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.actions.description', {
-                    strong: (chunks) => <strong className="text-blue-400">{chunks}</strong>
+                    strong: (chunks) => <strong className="text-blue-400">{chunks}</strong>,
                   })}
                   {t('react19.actions.autoManagement')}
                 </p>
@@ -395,21 +455,27 @@ const handleSubmit = () => {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">📝</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">{t('react19.formActionsAndUseActionState')}</h4>
-                    <p className="text-slate-400">{t('react19.formActionsAndUseActionState.subtitle')}</p>
+                    <h4 className="text-2xl font-bold text-white">
+                      {t('react19.formActionsAndUseActionState')}
+                    </h4>
+                    <p className="text-slate-400">
+                      {t('react19.formActionsAndUseActionState.subtitle')}
+                    </p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.formActions.withUseActionState', {
                     strong: (chunks) => {
-                      if (chunks === 'useActionState') return <strong className="text-green-400">{chunks}</strong>;
-                      if (chunks === 'Form Actions') return <strong className="text-blue-400">{chunks}</strong>;
+                      if (chunks === 'useActionState')
+                        return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'Form Actions')
+                        return <strong className="text-blue-400">{chunks}</strong>;
                       return <strong>{chunks}</strong>;
-                    }
+                    },
                   })}
                   <HTMLText>{t('react19.formActions.simplifiedDesc')}</HTMLText>
                 </p>
-                
+
                 {/* FormActionDemo 통합 */}
                 <FormActionDemo />
               </div>
@@ -424,7 +490,7 @@ const handleSubmit = () => {
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.use.description', {
-                    strong: (chunks) => <strong className="text-purple-400">{chunks}</strong>
+                    strong: (chunks) => <strong className="text-purple-400">{chunks}</strong>,
                   })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
@@ -446,17 +512,23 @@ if (condition) {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">🔧</span>
                   <div>
-                    <h4 className="text-xl font-bold text-white">{t('react19.useFormStatusAndUseOptimistic')}</h4>
-                    <p className="text-slate-400">{t('react19.useFormStatusAndUseOptimistic.subtitle')}</p>
+                    <h4 className="text-xl font-bold text-white">
+                      {t('react19.useFormStatusAndUseOptimistic')}
+                    </h4>
+                    <p className="text-slate-400">
+                      {t('react19.useFormStatusAndUseOptimistic.subtitle')}
+                    </p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.formHooks.description', {
                     strong: (chunks) => {
-                      if (chunks === 'useFormStatus') return <strong className="text-orange-400">{chunks}</strong>;
-                      if (chunks === 'useOptimistic') return <strong className="text-pink-400">{chunks}</strong>;
+                      if (chunks === 'useFormStatus')
+                        return <strong className="text-orange-400">{chunks}</strong>;
+                      if (chunks === 'useOptimistic')
+                        return <strong className="text-pink-400">{chunks}</strong>;
                       return <strong>{chunks}</strong>;
-                    }
+                    },
                   })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
@@ -484,20 +556,35 @@ const [optimisticMessages, addOptimisticMessage] = useOptimistic(
 
               <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                 <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-4" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>🚀</span>
+                  <span
+                    className="text-4xl mr-4"
+                    style={{
+                      fontFamily:
+                        '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                    }}
+                  >
+                    🚀
+                  </span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">{t('react19.serverComponentsAndReactCompiler')}</h4>
-                    <p className="text-slate-400">{t('react19.serverComponentsAndReactCompiler.subtitle')}</p>
+                    <h4 className="text-2xl font-bold text-white">
+                      {t('react19.serverComponentsAndReactCompiler')}
+                    </h4>
+                    <p className="text-slate-400">
+                      {t('react19.serverComponentsAndReactCompiler.subtitle')}
+                    </p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.compiler.description', {
                     strong: (chunks) => {
-                      if (chunks === 'useMemo') return <strong className="text-green-400">{chunks}</strong>;
-                      if (chunks === 'useCallback') return <strong className="text-blue-400">{chunks}</strong>;
-                      if (chunks === 'React.memo') return <strong className="text-purple-400">{chunks}</strong>;
+                      if (chunks === 'useMemo')
+                        return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'useCallback')
+                        return <strong className="text-blue-400">{chunks}</strong>;
+                      if (chunks === 'React.memo')
+                        return <strong className="text-purple-400">{chunks}</strong>;
                       return <strong>{chunks}</strong>;
-                    }
+                    },
                   })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
@@ -520,26 +607,32 @@ const Component = () => <div>...</div>; // ${t('react19.code.comment.autoMemoCom
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">💎</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">{t('react19.resourcePreloadingAPIs')}</h4>
+                    <h4 className="text-2xl font-bold text-white">
+                      {t('react19.resourcePreloadingAPIs')}
+                    </h4>
                     <p className="text-slate-400">{t('react19.resourcePreloadingAPIs.subtitle')}</p>
                   </div>
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.resources.description', {
                     strong: (chunks) => {
-                      if (chunks === 'prefetchDNS') return <strong className="text-yellow-400">{chunks}</strong>;
-                      if (chunks === 'preconnect') return <strong className="text-green-400">{chunks}</strong>;
-                      if (chunks === 'preload') return <strong className="text-blue-400">{chunks}</strong>;
-                      if (chunks === 'preinit') return <strong className="text-purple-400">{chunks}</strong>;
+                      if (chunks === 'prefetchDNS')
+                        return <strong className="text-yellow-400">{chunks}</strong>;
+                      if (chunks === 'preconnect')
+                        return <strong className="text-green-400">{chunks}</strong>;
+                      if (chunks === 'preload')
+                        return <strong className="text-blue-400">{chunks}</strong>;
+                      if (chunks === 'preinit')
+                        return <strong className="text-purple-400">{chunks}</strong>;
                       return <strong>{chunks}</strong>;
-                    }
+                    },
                   })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
                   <p className="text-sm text-green-400 mb-3">{t('react19.newResourceAPIs')}</p>
                   <pre className="overflow-x-auto">
                     <code className="language-typescript text-sm">
-{`import { prefetchDNS, preconnect, preload, preinit } from 'react-dom'
+                      {`import { prefetchDNS, preconnect, preload, preinit } from 'react-dom'
 
 function MyComponent() {
   preinit('https://.../script.js', {as: 'script'}) // ${t('react19.code.comment.preinit')}
@@ -557,21 +650,31 @@ function MyComponent() {
             </div>
 
             <div className="mt-8 p-6 bg-blue-950/30 rounded-2xl border border-blue-500/20">
-              <h4 className="text-xl font-bold text-blue-400 mb-4">{t('react19.upgrade.guideTitle')}</h4>
+              <h4 className="text-xl font-bold text-blue-400 mb-4">
+                {t('react19.upgrade.guideTitle')}
+              </h4>
               <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
                 <div>
-                  <p><strong>{t('react19.upgrade.step1')}</strong> {t('react19.upgrade.step1.desc')}</p>
-                  <p><strong>{t('react19.upgrade.step2')}</strong> {t('react19.upgrade.step2.desc')}</p>
-                  <p><strong>{t('react19.upgrade.step3')}</strong> {t('react19.upgrade.step3.desc')}</p>
+                  <p>
+                    <strong>{t('react19.upgrade.step1')}</strong> {t('react19.upgrade.step1.desc')}
+                  </p>
+                  <p>
+                    <strong>{t('react19.upgrade.step2')}</strong> {t('react19.upgrade.step2.desc')}
+                  </p>
+                  <p>
+                    <strong>{t('react19.upgrade.step3')}</strong> {t('react19.upgrade.step3.desc')}
+                  </p>
                 </div>
                 <div>
-                  <p><strong>{t('react19.upgrade.step4')}</strong> {t('react19.upgrade.step4.desc')}</p>
-                  <p><strong>{t('react19.upgrade.step5')}</strong> {t('react19.upgrade.step5.desc')}</p>
+                  <p>
+                    <strong>{t('react19.upgrade.step4')}</strong> {t('react19.upgrade.step4.desc')}
+                  </p>
+                  <p>
+                    <strong>{t('react19.upgrade.step5')}</strong> {t('react19.upgrade.step5.desc')}
+                  </p>
                 </div>
               </div>
-              <p className="text-sm text-blue-300 mt-4">
-                💡 {t('react19.upgrade.tip')}
-              </p>
+              <p className="text-sm text-blue-300 mt-4">💡 {t('react19.upgrade.tip')}</p>
             </div>
           </div>
         </section>
@@ -595,17 +698,34 @@ function MyComponent() {
         <div className="max-w-6xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center space-x-4 mb-6">
             <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl" style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>⚛️</span>
+              <span
+                className="text-2xl"
+                style={{
+                  fontFamily:
+                    '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                }}
+              >
+                ⚛️
+              </span>
             </div>
             <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               React Hooks Guide
             </h3>
           </div>
-          <p className="text-slate-400 mb-6 max-w-2xl mx-auto">
-            {t('guide.footer.description')}
-          </p>
+          <p className="text-slate-400 mb-6 max-w-2xl mx-auto">{t('guide.footer.description')}</p>
           <div className="flex items-center justify-center space-x-6 text-sm text-slate-500">
-            <span>{t('guide.footer.madeWith')} <span style={{ fontFamily: '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif' }}>❤️</span> {t('guide.footer.forDevelopers')}</span>
+            <span>
+              {t('guide.footer.madeWith')}{' '}
+              <span
+                style={{
+                  fontFamily:
+                    '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
+                }}
+              >
+                ❤️
+              </span>{' '}
+              {t('guide.footer.forDevelopers')}
+            </span>
             <span>•</span>
             <span>React 19 Ready</span>
             <span>•</span>

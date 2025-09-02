@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+
 import { logError } from '@/utils/errors';
 
 interface AsyncState<T> {
@@ -19,7 +20,7 @@ interface UseAsyncOptions<T = unknown> {
 /**
  * useAsync - 비동기 작업 관리 Hook
  * 에러 처리, 로딩 상태, 재시도 로직 포함
- * 
+ *
  * @example
  * ```tsx
  * const { execute, data, error, isLoading } = useAsync(async () => {
@@ -35,7 +36,7 @@ export function useAsync<T = unknown, P = void>(
   const [state, setState] = useState<AsyncState<T>>({
     data: null,
     error: null,
-    isLoading: false
+    isLoading: false,
   });
 
   const execute = useCallback(
@@ -54,11 +55,9 @@ export function useAsync<T = unknown, P = void>(
         } catch (err) {
           lastError = err instanceof Error ? err : new Error(String(err));
           logError(lastError, 'useAsync');
-          
+
           if (retries > 0) {
-            await new Promise(resolve => 
-              setTimeout(resolve, options.retryDelay || 1000)
-            );
+            await new Promise((resolve) => setTimeout(resolve, options.retryDelay || 1000));
             retries--;
           } else {
             setState({ data: null, error: lastError, isLoading: false });
@@ -78,6 +77,6 @@ export function useAsync<T = unknown, P = void>(
   return {
     execute,
     reset,
-    ...state
+    ...state,
   };
 }

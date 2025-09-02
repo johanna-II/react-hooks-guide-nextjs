@@ -11,7 +11,7 @@ type ClassArray = ClassValue[];
  * 클래스명을 조합하는 유틸리티 함수
  * @param classes - 클래스명 배열 또는 객체
  * @returns 조합된 클래스명 문자열
- * 
+ *
  * @example
  * ```tsx
  * cn('btn', 'btn-primary', isActive && 'active')
@@ -64,11 +64,11 @@ export function responsive(
   }
 ): string {
   const classes = [base];
-  
+
   if (breakpoints.sm) classes.push(`sm:${breakpoints.sm}`);
   if (breakpoints.md) classes.push(`md:${breakpoints.md}`);
   if (breakpoints.lg) classes.push(`lg:${breakpoints.lg}`);
   if (breakpoints.xl) classes.push(`xl:${breakpoints.xl}`);
-  
+
   return classes.join(' ');
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+
 import type { UseCounterReturn } from '@/types/hooks';
 
 interface UseCounterOptions {
@@ -12,26 +13,24 @@ interface UseCounterOptions {
 
 /**
  * useCounter - 카운터 상태 관리 Hook
- * 
+ *
  * @param options - 카운터 설정 옵션
  * @returns 카운터 상태와 액션 함수들
- * 
+ *
  * @example
  * ```tsx
- * const { count, increment, decrement, reset } = useCounter({ 
- *   initialValue: 0, 
- *   min: 0, 
- *   max: 10 
+ * const { count, increment, decrement, reset } = useCounter({
+ *   initialValue: 0,
+ *   min: 0,
+ *   max: 10
  * });
  * ```
  */
 export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn => {
   const { initialValue = 0, min = -Infinity, max = Infinity, step = 1 } = options;
-  
+
   // 초기값 유효성 검사
-  const [count, setCount] = useState(() => 
-    Math.max(min, Math.min(initialValue, max))
-  );
+  const [count, setCount] = useState(() => Math.max(min, Math.min(initialValue, max)));
 
   const increment = useCallback(() => {
     setCount((prev) => {
@@ -51,19 +50,22 @@ export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn =>
     setCount(Math.max(min, Math.min(initialValue, max)));
   }, [initialValue, min, max]);
 
-  const setValue = useCallback((value: number) => {
-    const validValue = Math.max(min, Math.min(value, max));
-    setCount(validValue);
-  }, [min, max]);
+  const setValue = useCallback(
+    (value: number) => {
+      const validValue = Math.max(min, Math.min(value, max));
+      setCount(validValue);
+    },
+    [min, max]
+  );
 
-  return { 
-    count, 
-    increment, 
-    decrement, 
-    reset, 
+  return {
+    count,
+    increment,
+    decrement,
+    reset,
     setValue,
     min,
     max,
-    step
+    step,
   };
 };

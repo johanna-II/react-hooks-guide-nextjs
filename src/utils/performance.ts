@@ -17,7 +17,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 
   return function debounced(...args: Parameters<T>) {
     if (timeoutId) clearTimeout(timeoutId);
-    
+
     timeoutId = setTimeout(() => {
       fn(...args);
       timeoutId = null;
@@ -41,7 +41,7 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
     if (!inThrottle) {
       fn(...args);
       inThrottle = true;
-      
+
       setTimeout(() => {
         inThrottle = false;
       }, limit);
@@ -60,17 +60,18 @@ export function memoize<T extends (...args: unknown[]) => unknown>(
   getKey?: (...args: Parameters<T>) => string
 ): T {
   const cache = new Map<string, ReturnType<T>>();
-  
+
   return ((...args: Parameters<T>) => {
     const key = getKey ? getKey(...args) : JSON.stringify(args);
-    
-    if (cache.has(key)) {
-      return cache.get(key)!;
+
+    const cached = cache.get(key);
+    if (cached !== undefined) {
+      return cached;
     }
-    
+
     const result = fn(...args);
     cache.set(key, result as ReturnType<T>);
-    
+
     return result;
   }) as T;
 }
@@ -86,7 +87,7 @@ export function rafThrottle<T extends (...args: unknown[]) => unknown>(
 
   return function rafThrottled(...args: Parameters<T>) {
     if (rafId) return;
-    
+
     rafId = requestAnimationFrame(() => {
       fn(...args);
       rafId = null;
@@ -105,21 +106,21 @@ export function measurePerformance<T extends (...args: unknown[]) => unknown>(
 ): T {
   return ((...args: Parameters<T>) => {
     const start = performance.now();
-    
+
     try {
       const result = fn(...args);
-      
+
       // Promise인 경우
       if (result instanceof Promise) {
         return result.finally(() => {
           const duration = performance.now() - start;
-          console.log(`[Performance] ${label}: ${duration.toFixed(2)}ms`);
+          console.info(`[Performance] ${label}: ${duration.toFixed(2)}ms`);
         });
       }
-      
+
       const duration = performance.now() - start;
-      console.log(`[Performance] ${label}: ${duration.toFixed(2)}ms`);
-      
+      console.info(`[Performance] ${label}: ${duration.toFixed(2)}ms`);
+
       return result;
     } catch (error) {
       const duration = performance.now() - start;

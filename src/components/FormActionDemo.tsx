@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 import { HTMLText } from '@/utils/html-parser';
 
@@ -9,7 +10,7 @@ export default function FormActionDemo() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -21,8 +22,8 @@ export default function FormActionDemo() {
 
     // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
       // Simulate success
       if (formData.name && formData.email) {
         setSubmitStatus('success');
@@ -39,9 +40,9 @@ export default function FormActionDemo() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -49,9 +50,7 @@ export default function FormActionDemo() {
     <div className="space-y-6">
       <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
         <h4 className="text-lg font-bold text-white mb-4">{t('form.title')}</h4>
-        <p className="text-slate-300 mb-6">
-          {t('form.description')}
-        </p>
+        <p className="text-slate-300 mb-6">{t('form.description')}</p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -118,7 +117,7 @@ export default function FormActionDemo() {
           >
             {isSubmitting ? (
               <div className="flex items-center justify-center space-x-2">
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 <span>{t('form.submit.preparing')}</span>
               </div>
             ) : (
@@ -146,9 +145,7 @@ export default function FormActionDemo() {
               <span className="text-red-400">❌</span>
               <span className="text-red-300 font-medium">{t('form.errorMessage')}</span>
             </div>
-            <p className="text-sm text-red-400/80 mt-2">
-              {t('form.required')}
-            </p>
+            <p className="text-sm text-red-400/80 mt-2">{t('form.required')}</p>
           </div>
         )}
       </div>
@@ -197,7 +194,9 @@ return (
       {/* Benefits */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
-          <h5 className="text-lg font-semibold text-blue-400 mb-3">🚀 {t('form.react19.benefits')}</h5>
+          <h5 className="text-lg font-semibold text-blue-400 mb-3">
+            🚀 {t('form.react19.benefits')}
+          </h5>
           <ul className="space-y-2 text-sm text-slate-300">
             <li>• {t('form.benefits.autoReset')}</li>
             <li>• {t('form.benefits.errorHandling')}</li>
@@ -205,9 +204,11 @@ return (
             <li>• {t('form.benefits.optimistic')}</li>
           </ul>
         </div>
-        
+
         <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
-          <h5 className="text-lg font-semibold text-green-400 mb-3">💡 {t('form.react19.comparison')}</h5>
+          <h5 className="text-lg font-semibold text-green-400 mb-3">
+            💡 {t('form.react19.comparison')}
+          </h5>
           <ul className="space-y-2 text-sm text-slate-300">
             <li>• {t('form.comparison.noUseState')}</li>
             <li>• {t('form.comparison.noManualError')}</li>

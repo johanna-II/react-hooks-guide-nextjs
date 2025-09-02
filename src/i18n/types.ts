@@ -20,7 +20,7 @@ export interface LocaleMetadata {
 export const localeMetadata: Record<Locale, LocaleMetadata> = {
   ko: { code: 'ko', name: '한국어', flag: '🇰🇷' },
   en: { code: 'en', name: 'English', flag: '🇺🇸' },
-  ja: { code: 'ja', name: '日本語', flag: '🇯🇵' }
+  ja: { code: 'ja', name: '日本語', flag: '🇯🇵' },
 };
 
 // Translation message types (extend according to actual message structure)

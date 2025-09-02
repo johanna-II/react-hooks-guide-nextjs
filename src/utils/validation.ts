@@ -27,11 +27,7 @@ export function isFiniteNumber(value: unknown): value is number {
 /**
  * 값이 특정 범위 내의 숫자인지 확인
  */
-export function isNumberInRange(
-  value: unknown,
-  min: number,
-  max: number
-): value is number {
+export function isNumberInRange(value: unknown, min: number, max: number): value is number {
   return isFiniteNumber(value) && value >= min && value <= max;
 }
 

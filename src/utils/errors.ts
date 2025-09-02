@@ -15,7 +15,7 @@ export class AppError extends Error {
   ) {
     super(message);
     this.name = 'AppError';
-    
+
     // 스택 트레이스 유지
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, AppError);
@@ -52,11 +52,11 @@ export function getErrorMessage(error: unknown): string {
 export function logError(error: unknown, context?: string): void {
   const timestamp = new Date().toISOString();
   const message = getErrorMessage(error);
-  
+
   console.error(`[${timestamp}]${context ? ` [${context}]` : ''} Error:`, {
     message,
     error,
-    stack: error instanceof Error ? error.stack : undefined
+    stack: error instanceof Error ? error.stack : undefined,
   });
 }
 
@@ -77,11 +77,11 @@ export function withErrorHandling<T extends (...args: unknown[]) => Promise<unkn
     } catch (error) {
       logError(error, options?.context);
       options?.onError?.(error);
-      
+
       if (options?.fallback !== undefined) {
         return options.fallback;
       }
-      
+
       throw error;
     }
   }) as T;
@@ -99,12 +99,7 @@ export async function retry<T>(
     onRetry?: (error: unknown, attempt: number) => void;
   } = {}
 ): Promise<T> {
-  const { 
-    maxRetries = 3, 
-    delay = 1000, 
-    backoff = true,
-    onRetry 
-  } = options;
+  const { maxRetries = 3, delay = 1000, backoff = true, onRetry } = options;
 
   let lastError: unknown;
 
@@ -113,11 +108,11 @@ export async function retry<T>(
       return await fn();
     } catch (error) {
       lastError = error;
-      
+
       if (attempt < maxRetries) {
         const waitTime = backoff ? delay * Math.pow(2, attempt) : delay;
         onRetry?.(error, attempt + 1);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
+        await new Promise((resolve) => setTimeout(resolve, waitTime));
       }
     }
   }
@@ -135,8 +130,6 @@ export function withTimeout<T>(
 ): Promise<T> {
   return Promise.race([
     promise,
-    new Promise<never>((_, reject) => 
-      setTimeout(() => reject(timeoutError), timeoutMs)
-    )
+    new Promise<never>((_, reject) => setTimeout(() => reject(timeoutError), timeoutMs)),
   ]);
 }

@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { SectionTitleProps } from '@/types';
+
+import type { SectionTitleProps } from '@/types';
 
 export const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle }) => {
   return (
@@ -11,9 +12,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle }) =
           {title}
         </span>
       </h2>
-      {subtitle && (
-        <p className="text-slate-400">{subtitle}</p>
-      )}
+      {subtitle && <p className="text-slate-400">{subtitle}</p>}
     </div>
   );
 };

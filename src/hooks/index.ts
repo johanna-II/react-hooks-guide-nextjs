@@ -26,11 +26,11 @@ export { useSwipe } from './useSwipe';
 export { useOptimizedTranslations } from './useOptimizedTranslations';
 
 // 타입 re-export
-export type { 
+export type {
   UseCounterReturn,
   UseTimerReturn,
   UseToggleReturn,
   SwipeDirection,
   SwipeState,
-  SwipeHandlers
+  SwipeHandlers,
 } from '@/types/hooks';

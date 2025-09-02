@@ -19,7 +19,7 @@ export const useSwipe = (
     onSwipeUp,
     onSwipeDown,
     threshold = 80,
-    angleThreshold = 2 // 수평 이동이 수직 이동의 2배 이상
+    angleThreshold = 2, // 수평 이동이 수직 이동의 2배 이상
   } = options;
 
   const touchStartX = useRef(0);
@@ -33,8 +33,10 @@ export const useSwipe = (
 
     const handleTouchStart = (e: TouchEvent) => {
       const target = e.target as HTMLElement;
-      const isInteractive = target.closest('button, input, textarea, select, a, [data-interactive]');
-      
+      const isInteractive = target.closest(
+        'button, input, textarea, select, a, [data-interactive]'
+      );
+
       if (!isInteractive) {
         const touch = e.touches[0];
         touchStartX.current = touch.clientX;
@@ -45,18 +47,18 @@ export const useSwipe = (
 
     const handleTouchMove = (e: TouchEvent) => {
       if (touchStartX.current === 0) return;
-      
+
       const touch = e.touches[0];
       const deltaX = touch.clientX - touchStartX.current;
       const deltaY = touch.clientY - touchStartY.current;
-      
+
       if (!isSwipingRef.current && Math.abs(deltaX) > 10) {
         if (Math.abs(deltaX) > Math.abs(deltaY) * angleThreshold) {
           isSwipingRef.current = true;
           e.preventDefault();
         }
       }
-      
+
       if (isSwipingRef.current) {
         e.preventDefault();
       }
@@ -64,14 +66,14 @@ export const useSwipe = (
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (touchStartX.current === 0) return;
-      
+
       const touchEndX = e.changedTouches[0].clientX;
       const touchEndY = e.changedTouches[0].clientY;
       const diffX = touchStartX.current - touchEndX;
       const diffY = touchStartY.current - touchEndY;
       const swipeDuration = Date.now() - touchStartTime.current;
       const velocity = Math.abs(diffX) / swipeDuration;
-      
+
       if ((velocity > 0.3 && Math.abs(diffX) > 30) || Math.abs(diffX) > threshold) {
         if (Math.abs(diffX) > Math.abs(diffY)) {
           if (diffX > 0) {
@@ -87,7 +89,7 @@ export const useSwipe = (
           }
         }
       }
-      
+
       touchStartX.current = 0;
       touchStartY.current = 0;
       isSwipingRef.current = false;

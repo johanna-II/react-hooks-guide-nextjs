@@ -17,7 +17,7 @@ if (typeof window === 'undefined') {
       maxSockets: 10,
       maxFreeSockets: 5,
       timeout: 60000,
-      scheduling: 'lifo'
+      scheduling: 'lifo',
     });
   } catch {
     // Edge runtime에서는 https 모듈을 사용할 수 없음
@@ -79,7 +79,7 @@ class DeepLClient {
 
   private async processQueue() {
     if (this.isProcessing || this.requestQueue.length === 0) return;
-    
+
     this.isProcessing = true;
 
     while (this.requestQueue.length > 0) {
@@ -89,7 +89,7 @@ class DeepLClient {
         const now = Date.now();
         const timeSinceLastRequest = now - this.lastRequestTime;
         if (timeSinceLastRequest < this.minRequestInterval) {
-          await new Promise(resolve => 
+          await new Promise((resolve) =>
             setTimeout(resolve, this.minRequestInterval - timeSinceLastRequest)
           );
         }
@@ -107,24 +107,24 @@ class DeepLClient {
     retryCount = 0
   ): Promise<string> {
     const maxRetries = 3;
-    
+
     try {
       const formData = new URLSearchParams({
         text: options.text,
         target_lang: options.targetLang,
         source_lang: options.sourceLang || 'KO',
         preserve_formatting: options.preserveFormatting ? '1' : '0',
-        tag_handling: options.tagHandling || 'html'
+        tag_handling: options.tagHandling || 'html',
       });
 
       const response = await fetchWithAgent(this.apiUrl, {
         method: 'POST',
         headers: {
-          'Authorization': `DeepL-Auth-Key ${this.apiKey}`,
+          Authorization: `DeepL-Auth-Key ${this.apiKey}`,
           'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'DeepL-React-Client/1.0'
+          'User-Agent': 'DeepL-React-Client/1.0',
         },
-        body: formData.toString()
+        body: formData.toString(),
       });
 
       // Handle rate limiting with exponential backoff
@@ -132,7 +132,7 @@ class DeepLClient {
         if (retryCount < maxRetries) {
           const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
           // Rate limited. Retrying with exponential backoff
-          await new Promise(resolve => setTimeout(resolve, delay));
+          await new Promise((resolve) => setTimeout(resolve, delay));
           return this.executeTranslation(options, retryCount + 1);
         }
         throw new Error(`DeepL API rate limit exceeded after ${maxRetries} retries`);
@@ -143,7 +143,7 @@ class DeepLClient {
         if (retryCount < maxRetries) {
           const delay = Math.pow(2, retryCount) * 500; // 500ms, 1s, 2s
           console.warn(`Server error ${response.status}. Retrying in ${delay}ms...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
+          await new Promise((resolve) => setTimeout(resolve, delay));
           return this.executeTranslation(options, retryCount + 1);
         }
         throw new Error(`DeepL API server error: ${response.status}`);
@@ -156,7 +156,6 @@ class DeepLClient {
 
       const data: DeepLResponse = await response.json();
       return data.translations[0].text;
-      
     } catch (error) {
       if (error instanceof Error) {
         throw error;
@@ -173,13 +172,13 @@ class DeepLClient {
   ): Promise<string[]> {
     const MAX_BATCH_SIZE = 50; // DeepL API 제한
     const results: string[] = [];
-    
+
     // 50개씩 나누어 처리
     for (let i = 0; i < texts.length; i += MAX_BATCH_SIZE) {
       const batch = texts.slice(i, i + MAX_BATCH_SIZE);
       const formData = new URLSearchParams();
-      
-      batch.forEach(text => formData.append('text', text));
+
+      batch.forEach((text) => formData.append('text', text));
       formData.append('target_lang', targetLang);
       formData.append('source_lang', sourceLang);
       formData.append('preserve_formatting', '1');
@@ -189,16 +188,16 @@ class DeepLClient {
         const response = await fetchWithAgent(this.apiUrl, {
           method: 'POST',
           headers: {
-            'Authorization': `DeepL-Auth-Key ${this.apiKey}`,
+            Authorization: `DeepL-Auth-Key ${this.apiKey}`,
             'Content-Type': 'application/x-www-form-urlencoded',
-            'User-Agent': 'DeepL-React-Client/1.0'
+            'User-Agent': 'DeepL-React-Client/1.0',
           },
-          body: formData.toString()
+          body: formData.toString(),
         });
 
         if (response.status === 429) {
           // Rate limit - 잠시 대기 후 재시도
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          await new Promise((resolve) => setTimeout(resolve, 2000));
           i -= MAX_BATCH_SIZE; // 같은 배치 재시도
           continue;
         }
@@ -208,24 +207,22 @@ class DeepLClient {
         }
 
         const data: DeepLResponse = await response.json();
-        results.push(...data.translations.map(t => t.text));
-        
+        results.push(...data.translations.map((t) => t.text));
+
         // 다음 배치 전 짧은 대기
         if (i + MAX_BATCH_SIZE < texts.length) {
-          await new Promise(resolve => setTimeout(resolve, 100));
+          await new Promise((resolve) => setTimeout(resolve, 100));
         }
       } catch (error) {
         console.error('Batch translation failed:', error);
         // Fallback to individual translations
         const fallbackResults = await Promise.all(
-          batch.map(text => 
-            this.translate({ text, targetLang, sourceLang })
-          )
+          batch.map((text) => this.translate({ text, targetLang, sourceLang }))
         );
         results.push(...fallbackResults);
       }
     }
-    
+
     return results;
   }
 
@@ -245,7 +242,7 @@ export function getDeepLClient(apiKey: string, apiUrl?: string): DeepLClient {
     if (deeplClient) {
       deeplClient.destroy();
     }
-    
+
     // API URL 자동 감지
     let finalApiUrl = apiUrl;
     if (!finalApiUrl || finalApiUrl === 'https://api-free.deepl.com/v2/translate') {
@@ -259,7 +256,7 @@ export function getDeepLClient(apiKey: string, apiUrl?: string): DeepLClient {
       }
       // Using detected DeepL API endpoint
     }
-    
+
     deeplClient = new DeepLClient(apiKey, finalApiUrl);
   }
   return deeplClient;

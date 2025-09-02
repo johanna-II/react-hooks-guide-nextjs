@@ -4,16 +4,16 @@ import { useState, useEffect } from 'react';
 
 /**
  * useDebounce - 값 디바운싱 Hook
- * 
+ *
  * @param value - 디바운싱할 값
  * @param delay - 지연 시간(ms)
  * @returns 디바운싱된 값
- * 
+ *
  * @example
  * ```tsx
  * const [searchTerm, setSearchTerm] = useState('');
  * const debouncedSearchTerm = useDebounce(searchTerm, 500);
- * 
+ *
  * useEffect(() => {
  *   // API 호출 등
  * }, [debouncedSearchTerm]);

@@ -1,12 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+
 import { getDeepLClient } from '@/lib/deepl-client';
 import { capitalizeEnglishSentences } from '@/utils/text-formatting';
+
+import type { NextRequest } from 'next/server';
 
 // 런타임에 환경변수 읽기
 function getDeepLConfig() {
   return {
     apiKey: process.env.DEEPL_API_KEY,
-    apiUrl: process.env.DEEPL_API_URL
+    apiUrl: process.env.DEEPL_API_URL,
   };
 }
 
@@ -22,43 +25,37 @@ interface TranslationRequest {
 export async function POST(request: NextRequest) {
   try {
     const { apiKey, apiUrl } = getDeepLConfig();
-    
+
     if (!apiKey) {
-      return NextResponse.json(
-        { error: 'Translation service not configured' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Translation service not configured' }, { status: 500 });
     }
 
     const body: TranslationRequest = await request.json();
     const { text, targetLang, sourceLang = 'KO' } = body;
 
     if (!text || !targetLang) {
-      return NextResponse.json(
-        { error: 'Missing required parameters' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
     }
 
     // Check cache
     const cacheKey = `${sourceLang}:${targetLang}:${text}`;
     const cached = translationCache.get(cacheKey);
     if (cached) {
-      return NextResponse.json({ 
+      return NextResponse.json({
         translation: cached,
-        cached: true 
+        cached: true,
       });
     }
 
     // DeepL Client로 번역
     const deeplClient = getDeepLClient(apiKey, apiUrl);
-    
+
     let translation = await deeplClient.translate({
       text,
       targetLang: targetLang === 'EN' ? 'EN-US' : targetLang,
       sourceLang,
       preserveFormatting: true,
-      tagHandling: 'html'
+      tagHandling: 'html',
     });
 
     // 영어 번역인 경우 문장 첫 글자 대문자 처리
@@ -77,25 +74,22 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       translation,
-      cached: false 
+      cached: false,
     });
   } catch (error) {
     console.error('Translation error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
 // Check translation status
 export async function GET() {
   const { apiKey } = getDeepLConfig();
-  
+
   return NextResponse.json({
     status: apiKey ? 'configured' : 'not configured',
-    cacheSize: translationCache.size
+    cacheSize: translationCache.size,
   });
 }

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+
 import { Button, Card, DemoContainer } from '@/components/common';
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
@@ -7,6 +8,7 @@ const InputWithRef: React.FC = React.memo(() => {
   const inputRef = useRef<HTMLInputElement>(null);
   const countRef = useRef(0);
   const [displayCount, setDisplayCount] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
 
   const focusInput = () => {
     inputRef.current?.focus();
@@ -18,11 +20,24 @@ const InputWithRef: React.FC = React.memo(() => {
 
   const showRefValue = () => {
     setDisplayCount(countRef.current);
-    alert(t('demo.refValueAlert').replace('{value}', countRef.current.toString()));
+    setShowNotification(true);
+    // Auto-hide notification after 3 seconds
+    setTimeout(() => setShowNotification(false), 3000);
   };
 
   return (
     <>
+      {/* Notification Toast */}
+      {showNotification && (
+        <div className="fixed top-4 right-4 z-50 animate-pulse">
+          <Card variant="bordered" className="bg-slate-800 border-green-500/50 px-4 py-3">
+            <p className="text-green-400 text-sm font-medium">
+              {t('demo.refValueAlert').replace('{value}', countRef.current.toString())}
+            </p>
+          </Card>
+        </div>
+      )}
+
       <Card variant="bordered" className="mb-4">
         <p className="text-sm font-semibold text-green-400 mb-2">{t('demo.feedback')}</p>
         <div className="space-y-2">
@@ -57,7 +72,7 @@ InputWithRef.displayName = 'InputWithRef';
 
 export const UseRefDemo: React.FC = React.memo(() => {
   const t = useOptimizedTranslations();
-  
+
   return (
     <DemoContainer
       title="useRef Hook"

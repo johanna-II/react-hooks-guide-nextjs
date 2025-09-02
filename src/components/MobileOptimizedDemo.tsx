@@ -1,10 +1,13 @@
 'use client';
 
 import React from 'react';
-import { DemoContainer, Button } from './common';
+
 import { useCounter, useToggle } from '@/hooks';
-import { DemoType } from '@/types/common';
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+
+import { DemoContainer, Button } from './common';
+
+import type { DemoType } from '@/types/common';
 
 interface MobileOptimizedDemoProps {
   title: string;
@@ -41,11 +44,7 @@ const ToggleDemo: React.FC = React.memo(() => {
       <div className={`text-3xl transition-all ${isOn ? 'text-green-400' : 'text-slate-400'}`}>
         {isOn ? '🟢' : '⚫'}
       </div>
-      <Button
-        onClick={toggle}
-        variant={isOn ? 'success' : 'secondary'}
-        size="sm"
-      >
+      <Button onClick={toggle} variant={isOn ? 'success' : 'secondary'} size="sm">
         {isOn ? 'ON' : 'OFF'}
       </Button>
     </div>
@@ -85,13 +84,13 @@ const ListDemo: React.FC = React.memo(() => {
 
   const addItem = () => {
     if (newItem.trim()) {
-      setItems(prev => [...prev, newItem.trim()]);
+      setItems((prev) => [...prev, newItem.trim()]);
       setNewItem('');
     }
   };
 
   const removeItem = (index: number) => {
-    setItems(prev => prev.filter((_, i) => i !== index));
+    setItems((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
@@ -109,19 +108,18 @@ const ListDemo: React.FC = React.memo(() => {
           {t('demo.add')}
         </Button>
       </div>
-      
+
       <div className="space-y-2 max-h-48 overflow-y-auto">
         {items.length === 0 ? (
           <p className="text-center text-slate-400 text-sm py-4">{t('demo.noItems')}</p>
         ) : (
           items.map((item, index) => (
-            <div key={index} className="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+            <div
+              key={index}
+              className="flex items-center justify-between p-3 bg-slate-800 rounded-lg"
+            >
               <span className="text-white text-sm">{item}</span>
-              <Button
-                onClick={() => removeItem(index)}
-                variant="danger"
-                size="sm"
-              >
+              <Button onClick={() => removeItem(index)} variant="danger" size="sm">
                 {t('demo.delete')}
               </Button>
             </div>
@@ -141,22 +139,20 @@ const demoComponents: Record<DemoType, React.FC> = {
   list: ListDemo,
 };
 
-export const MobileOptimizedDemo: React.FC<MobileOptimizedDemoProps> = React.memo(({
-  title,
-  description,
-  demoType
-}) => {
-  const DemoComponent = demoComponents[demoType];
-  
-  if (!DemoComponent) {
-    return null;
-  }
+export const MobileOptimizedDemo: React.FC<MobileOptimizedDemoProps> = React.memo(
+  ({ title, description, demoType }) => {
+    const DemoComponent = demoComponents[demoType];
 
-  return (
-    <DemoContainer title={title} description={description}>
-      <DemoComponent />
-    </DemoContainer>
-  );
-});
+    if (!DemoComponent) {
+      return null;
+    }
+
+    return (
+      <DemoContainer title={title} description={description}>
+        <DemoComponent />
+      </DemoContainer>
+    );
+  }
+);
 
 MobileOptimizedDemo.displayName = 'MobileOptimizedDemo';

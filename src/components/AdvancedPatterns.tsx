@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { UseCallbackDemo, UseRefDemo, UseEffectDemo, UseMemoDemo } from './demos';
 
 const demos = [
@@ -11,9 +12,9 @@ const demos = [
 ] as const;
 
 export default function AdvancedPatterns() {
-  const [activeTab, setActiveTab] = useState<typeof demos[number]['id']>('useCallback');
+  const [activeTab, setActiveTab] = useState<(typeof demos)[number]['id']>('useCallback');
 
-  const ActiveComponent = demos.find(demo => demo.id === activeTab)?.component || UseCallbackDemo;
+  const ActiveComponent = demos.find((demo) => demo.id === activeTab)?.component || UseCallbackDemo;
 
   return (
     <div className="space-y-8">

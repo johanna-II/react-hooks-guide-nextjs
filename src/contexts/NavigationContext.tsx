@@ -24,9 +24,9 @@ interface NavigationProviderProps {
   initialSection?: string;
 }
 
-export const NavigationProvider: React.FC<NavigationProviderProps> = ({ 
-  children, 
-  initialSection = 'hero' 
+export const NavigationProvider: React.FC<NavigationProviderProps> = ({
+  children,
+  initialSection = 'hero',
 }) => {
   const [activeSection, setActiveSection] = useState(initialSection);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,11 +39,14 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     setIsMenuOpen(false);
   }, []);
 
-  const navigateToSection = useCallback((section: string) => {
-    setActiveSection(section);
-    closeMenu();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [closeMenu]);
+  const navigateToSection = useCallback(
+    (section: string) => {
+      setActiveSection(section);
+      closeMenu();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+    [closeMenu]
+  );
 
   const value = useMemo(
     () => ({
@@ -57,9 +60,5 @@ export const NavigationProvider: React.FC<NavigationProviderProps> = ({
     [activeSection, isMenuOpen, toggleMenu, closeMenu, navigateToSection]
   );
 
-  return (
-    <NavigationContext.Provider value={value}>
-      {children}
-    </NavigationContext.Provider>
-  );
+  return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>;
 };

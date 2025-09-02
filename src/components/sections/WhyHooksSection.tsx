@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import { Card } from '@/components/common';
+
 import type { SectionProps } from '@/types/components';
 
 export interface WhyHooksItem {
@@ -19,42 +21,31 @@ interface WhyHooksSectionProps extends SectionProps {
  * WhyHooksSection - React Hooks를 사용하는 이유 섹션
  * 단일 책임: Why Hooks 정보 표시
  */
-export const WhyHooksSection: React.FC<WhyHooksSectionProps> = React.memo(({
-  title,
-  items,
-  className = ''
-}) => {
-  return (
-    <section 
-      id="why-hooks" 
-      className={`py-20 px-4 sm:px-6 lg:px-8 ${className}`}
-    >
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">
-          {title}
-        </h2>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {items.map((item, index) => (
-            <Card 
-              key={`why-hook-${index}`}
-              className="hover:scale-105 transition-transform duration-300"
-            >
-              <div className="flex items-center mb-4">
-                {item.icon}
-                <h3 className="text-xl font-bold text-white ml-3">
-                  {item.title}
-                </h3>
-              </div>
-              <p className="text-slate-300">
-                {item.description}
-              </p>
-            </Card>
-          ))}
+export const WhyHooksSection: React.FC<WhyHooksSectionProps> = React.memo(
+  ({ title, items, className = '' }) => {
+    return (
+      <section id="why-hooks" className={`py-20 px-4 sm:px-6 lg:px-8 ${className}`}>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold text-center text-white mb-12">{title}</h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {items.map((item, index) => (
+              <Card
+                key={`why-hook-${index}`}
+                className="hover:scale-105 transition-transform duration-300"
+              >
+                <div className="flex items-center mb-4">
+                  {item.icon}
+                  <h3 className="text-xl font-bold text-white ml-3">{item.title}</h3>
+                </div>
+                <p className="text-slate-300">{item.description}</p>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-});
+      </section>
+    );
+  }
+);
 
 WhyHooksSection.displayName = 'WhyHooksSection';

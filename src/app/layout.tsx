@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 // 루트 레이아웃은 최소한의 설정만 포함
 // 실제 레이아웃은 [locale]/layout.tsx에서 처리

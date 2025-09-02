@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
 import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 
 interface HookExample {
@@ -18,7 +19,7 @@ export default function HooksTabs() {
     useState: {
       title: 'useState',
       description: t('hooks.useState.descriptionDetail'),
-    code: `const [count, setCount] = useState(0);
+      code: `const [count, setCount] = useState(0);
 
 return (
   <div>
@@ -28,12 +29,12 @@ return (
     </button>
   </div>
 );`,
-    demo: <UseStateDemo />
-  },
-  useEffect: {
-    title: 'useEffect',
-    description: t('hooks.useEffect.descriptionDetail'),
-    code: `useEffect(() => {
+      demo: <UseStateDemo />,
+    },
+    useEffect: {
+      title: 'useEffect',
+      description: t('hooks.useEffect.descriptionDetail'),
+      code: `useEffect(() => {
   document.title = \`Count: \${count}\`;
   
   return () => {
@@ -41,12 +42,12 @@ return (
     document.title = 'React App';
   };
 }, [count]);`,
-    demo: <UseEffectDemo />
-  },
-  useRef: {
-    title: 'useRef',
-    description: t('hooks.useRef.descriptionDetail'),
-    code: `const inputRef = useRef<HTMLInputElement>(null);
+      demo: <UseEffectDemo />,
+    },
+    useRef: {
+      title: 'useRef',
+      description: t('hooks.useRef.descriptionDetail'),
+      code: `const inputRef = useRef<HTMLInputElement>(null);
 
 const focusInput = () => {
   inputRef.current?.focus();
@@ -58,28 +59,28 @@ return (
     <button onClick={focusInput}>Focus Input</button>
   </div>
 );`,
-    demo: <UseRefDemo />
-  },
-  useCallback: {
-    title: 'useCallback',
-    description: t('hooks.useCallback.descriptionDetail'),
-    code: `const memoizedCallback = useCallback(
+      demo: <UseRefDemo />,
+    },
+    useCallback: {
+      title: 'useCallback',
+      description: t('hooks.useCallback.descriptionDetail'),
+      code: `const memoizedCallback = useCallback(
   (increment) => {
     setCount(c => c + increment);
   },
   [] // dependency array
 );`,
-    demo: <UseCallbackDemo />
-  },
-  useMemo: {
-    title: 'useMemo',
-    description: t('hooks.useMemo.descriptionDetail'),
-    code: `const expensiveValue = useMemo(() => {
+      demo: <UseCallbackDemo />,
+    },
+    useMemo: {
+      title: 'useMemo',
+      description: t('hooks.useMemo.descriptionDetail'),
+      code: `const expensiveValue = useMemo(() => {
   return computeExpensiveValue(a, b);
 }, [a, b]);`,
-    demo: <UseMemoDemo />
-  }
-};
+      demo: <UseMemoDemo />,
+    },
+  };
 
   const currentExample = HOOK_EXAMPLES[activeTab];
 
@@ -120,10 +121,10 @@ return (
         {/* Interactive Demo */}
         {currentExample.demo && (
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50">
-            <h4 className="text-lg font-semibold text-green-400 mb-3">🎮 {t('hooks.realTimeDemo')}</h4>
-            <div className="p-4 bg-slate-800/50 rounded-lg">
-              {currentExample.demo}
-            </div>
+            <h4 className="text-lg font-semibold text-green-400 mb-3">
+              🎮 {t('hooks.realTimeDemo')}
+            </h4>
+            <div className="p-4 bg-slate-800/50 rounded-lg">{currentExample.demo}</div>
           </div>
         )}
       </div>
@@ -140,7 +141,9 @@ function UseStateDemo() {
   return (
     <div className="space-y-4" data-lpignore="true" data-form-type="other">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
+        <p className="text-2xl font-bold text-white mb-2">
+          {t('demo.count')}: {count}
+        </p>
         <div className="flex gap-2 justify-center">
           <button
             onClick={() => setCount(count - 1)}
@@ -170,7 +173,9 @@ function UseStateDemo() {
           placeholder={t('hooks.typeSomething')}
           className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500/50"
         />
-        <p className="text-sm text-slate-400 mt-2">{t('mobile.text')}: {text}</p>
+        <p className="text-sm text-slate-400 mt-2">
+          {t('mobile.text')}: {text}
+        </p>
       </div>
     </div>
   );
@@ -182,9 +187,9 @@ function UseEffectDemo() {
   const t = useOptimizedTranslations();
 
   useEffect(() => {
-    setEffectCount(prev => prev + 1);
+    setEffectCount((prev) => prev + 1);
     document.title = `Count: ${count}`;
-    
+
     return () => {
       document.title = 'React Hooks Guide';
     };
@@ -193,8 +198,12 @@ function UseEffectDemo() {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
-        <p className="text-sm text-slate-400 mb-3">{t('hooks.effectRunCount')}: {effectCount}</p>
+        <p className="text-2xl font-bold text-white mb-2">
+          {t('demo.count')}: {count}
+        </p>
+        <p className="text-sm text-slate-400 mb-3">
+          {t('hooks.effectRunCount')}: {effectCount}
+        </p>
         <button
           onClick={() => setCount(count + 1)}
           className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-lg hover:bg-purple-500/30 border border-purple-500/30"
@@ -202,9 +211,7 @@ function UseEffectDemo() {
           Increment
         </button>
       </div>
-      <div className="text-xs text-slate-500 text-center">
-        💡 {t('hooks.browserTabNotice')}
-      </div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.browserTabNotice')}</div>
     </div>
   );
 }
@@ -216,7 +223,7 @@ function UseRefDemo() {
 
   const focusInput = () => {
     inputRef.current?.focus();
-    setFocusCount(prev => prev + 1);
+    setFocusCount((prev) => prev + 1);
   };
 
   return (
@@ -236,7 +243,9 @@ function UseRefDemo() {
         >
           {t('demo.focusInput')}
         </button>
-        <p className="text-sm text-slate-400 mt-2">{t('hooks.focusCount')}: {focusCount}</p>
+        <p className="text-sm text-slate-400 mt-2">
+          {t('hooks.focusCount')}: {focusCount}
+        </p>
       </div>
     </div>
   );
@@ -248,23 +257,27 @@ function UseCallbackDemo() {
   const t = useOptimizedTranslations();
 
   const increment = React.useCallback(() => {
-    setCount(c => c + 1);
+    setCount((c) => c + 1);
   }, []);
 
   const decrement = React.useCallback(() => {
-    setCount(c => c - 1);
+    setCount((c) => c - 1);
   }, []);
 
   // 렌더링 횟수 추적
   React.useEffect(() => {
-    setRenderCount(prev => prev + 1);
+    setRenderCount((prev) => prev + 1);
   }, []);
 
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <p className="text-2xl font-bold text-white mb-2">{t('demo.count')}: {count}</p>
-        <p className="text-sm text-slate-400 mb-3">{t('hooks.renderCount')}: {renderCount}</p>
+        <p className="text-2xl font-bold text-white mb-2">
+          {t('demo.count')}: {count}
+        </p>
+        <p className="text-sm text-slate-400 mb-3">
+          {t('hooks.renderCount')}: {renderCount}
+        </p>
         <div className="flex gap-2 justify-center">
           <button
             onClick={decrement}
@@ -280,9 +293,7 @@ function UseCallbackDemo() {
           </button>
         </div>
       </div>
-      <div className="text-xs text-slate-500 text-center">
-        💡 {t('hooks.optimizationTip')}
-      </div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.optimizationTip')}</div>
     </div>
   );
 }
@@ -294,7 +305,7 @@ function UseMemoDemo() {
   const t = useOptimizedTranslations();
 
   const expensiveValue = React.useMemo(() => {
-    setComputeCount(prev => prev + 1);
+    setComputeCount((prev) => prev + 1);
     // 의도적으로 무거운 계산 시뮬레이션
     let result = 0;
     for (let i = 0; i < 1000000; i++) {
@@ -326,12 +337,14 @@ function UseMemoDemo() {
         </div>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-white mb-2">{t('hooks.calculationResult')}: {expensiveValue.toLocaleString()}</p>
-        <p className="text-sm text-slate-400">{t('hooks.calculationCount')}: {computeCount}</p>
+        <p className="text-lg font-bold text-white mb-2">
+          {t('hooks.calculationResult')}: {expensiveValue.toLocaleString()}
+        </p>
+        <p className="text-sm text-slate-400">
+          {t('hooks.calculationCount')}: {computeCount}
+        </p>
       </div>
-      <div className="text-xs text-slate-500 text-center">
-        💡 {t('hooks.memoTip')}
-      </div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.memoTip')}</div>
     </div>
   );
 }

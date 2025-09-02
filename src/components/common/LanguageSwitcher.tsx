@@ -2,8 +2,9 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { localeMetadata, type Locale } from '@/i18n/types';
 import { memo, useCallback, useMemo } from 'react';
+
+import { localeMetadata, type Locale } from '@/i18n/types';
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -16,7 +17,7 @@ const LanguageSwitcher = memo<LanguageSwitcherProps>(({ className = '' }) => {
 
   // 프로덕션 환경에서는 언어 스위처를 표시하지 않음
   const isProduction = process.env.NODE_ENV === 'production';
-  
+
   // 현재 경로에서 로케일 부분을 제거한 경로 계산
   const pathnameWithoutLocale = useMemo(() => {
     const segments = pathname.split('/');
@@ -27,7 +28,7 @@ const LanguageSwitcher = memo<LanguageSwitcherProps>(({ className = '' }) => {
   const handleLanguageChange = useCallback(
     (newLocale: Locale) => {
       if (newLocale === locale) return; // 같은 언어면 무시
-      
+
       // 새로운 로케일로 경로 생성
       const newPath = `/${newLocale}${pathnameWithoutLocale ? `/${pathnameWithoutLocale}` : ''}`;
       router.push(newPath);

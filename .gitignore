@@ -47,6 +47,10 @@ yarn-error.log*
 out/
 dist/
 
+# cache
+.cache/
+*.cache
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

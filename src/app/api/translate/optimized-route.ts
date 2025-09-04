@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
 import { getDeepLClient } from '@/lib/deepl-client';
+import { deepLDebugger } from '@/lib/deepl-debug';
 import { persistentCache } from '@/lib/persistent-cache';
 import { capitalizeEnglishSentences } from '@/utils/text-formatting';
 
@@ -13,9 +14,6 @@ function getDeepLConfig() {
     apiUrl: process.env.DEEPL_API_URL,
   };
 }
-
-// Translation cache (server memory)
-const translationCache = new Map<string, string>();
 
 interface TranslationRequest {
   text: string;
@@ -38,32 +36,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
     }
 
-    // Check cache
-    const cacheKey = `api_translate:${sourceLang}:${targetLang}:${text}`;
+    // 영구 캐시 확인
+    const cacheKey = `${sourceLang}:${targetLang}:${text}`;
+    const cached = await persistentCache.get(cacheKey);
 
-    // 메모리 캐시 확인
-    const memoryCached = translationCache.get(cacheKey);
-    if (memoryCached) {
+    if (cached) {
+      deepLDebugger.recordRequest(0, true); // 캐시 히트 기록
       return NextResponse.json({
-        translation: memoryCached,
+        translation: cached,
         cached: true,
-        cacheType: 'memory',
+        source: 'persistent',
       });
     }
 
-    // Vercel KV 캐시 확인
-    try {
-      const kvCached = await persistentCache.get(cacheKey);
-      if (kvCached) {
-        translationCache.set(cacheKey, kvCached);
-        return NextResponse.json({
-          translation: kvCached,
-          cached: true,
-          cacheType: 'kv',
-        });
-      }
-    } catch (error) {
-      console.error('Failed to get from Vercel KV cache:', error);
+    // DeepL API 호출 전 문자 수 체크
+    if (text.length > 5000) {
+      return NextResponse.json(
+        {
+          error: 'Text too long. Maximum 5000 characters per request.',
+        },
+        { status: 400 }
+      );
     }
 
     // DeepL Client로 번역
@@ -82,41 +75,43 @@ export async function POST(request: NextRequest) {
       translation = capitalizeEnglishSentences(translation);
     }
 
-    // Save to memory cache
-    translationCache.set(cacheKey, translation);
+    // 영구 캐시에 저장
+    await persistentCache.set(cacheKey, translation);
 
-    // Save to Vercel KV cache
-    try {
-      await persistentCache.set(cacheKey, translation);
-    } catch (error) {
-      console.error('Failed to save to Vercel KV cache:', error);
-    }
-
-    // Cache size limit (1000 items)
-    if (translationCache.size > 1000) {
-      const firstKey = translationCache.keys().next().value;
-      if (firstKey) {
-        translationCache.delete(firstKey);
-      }
-    }
+    // 디버그 정보 기록
+    deepLDebugger.recordRequest(text.length, false);
 
     return NextResponse.json({
       translation,
       cached: false,
-      cacheType: 'none',
+      source: 'deepl',
     });
   } catch (error) {
     console.error('Translation error:', error);
+
+    // Rate limit 에러 처리
+    if (error instanceof Error && error.message.includes('rate limit')) {
+      return NextResponse.json(
+        { error: 'API rate limit exceeded. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 
-// Check translation status
+// 캐시 상태 확인
 export async function GET() {
-  const { apiKey } = getDeepLConfig();
+  const stats = await persistentCache.getStats();
+  const debugStats = deepLDebugger.getStats();
 
   return NextResponse.json({
-    status: apiKey ? 'configured' : 'not configured',
-    cacheSize: translationCache.size,
+    cache: stats,
+    usage: debugStats,
+    config: {
+      apiKeyType: process.env.DEEPL_API_KEY?.endsWith(':fx') ? 'free' : 'pro',
+      endpoint: process.env.DEEPL_API_URL || 'auto',
+    },
   });
 }

@@ -1,8 +1,8 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
 
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 interface TouchDemoProps {
   title: string;
@@ -12,7 +12,7 @@ interface TouchDemoProps {
 
 export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
   ({ title, description, demoType }) => {
-    const t = useOptimizedTranslations();
+    const t = useTranslations();
     const [gesture, setGesture] = useState<string>(t('touch.noGesture'));
     const [swipeDirection, setSwipeDirection] = useState<string>(t('touch.swipeHint'));
     const [scale, setScale] = useState<number>(1);
@@ -29,7 +29,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
       currentPos: { x: 100, y: 80 },
     });
 
-    // 드래그 처리 (마우스 + 터치)
     useEffect(() => {
       if (demoType !== 'drag' || !dragElementRef.current) return;
 
@@ -37,7 +36,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
       const container = containerRef.current;
       if (!container) return;
 
-      // 초기 위치 동기화
       dragStateRef.current.currentPos = { x: position.x, y: position.y };
 
       const handleStart = (clientX: number, clientY: number) => {
@@ -46,7 +44,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         const mouseX = clientX - rect.left;
         const mouseY = clientY - rect.top;
 
-        // 현재 요소 위치와 마우스 위치의 오프셋 계산
         dragStateRef.current.startOffset.x = mouseX - dragStateRef.current.currentPos.x;
         dragStateRef.current.startOffset.y = mouseY - dragStateRef.current.currentPos.y;
 
@@ -60,11 +57,9 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         const mouseX = clientX - rect.left;
         const mouseY = clientY - rect.top;
 
-        // 오프셋을 고려한 새 위치 계산
         const newX = mouseX - dragStateRef.current.startOffset.x;
         const newY = mouseY - dragStateRef.current.startOffset.y;
 
-        // 컨테이너 내부로 제한 (원의 반지름 32px 고려)
         const clampedX = Math.max(32, Math.min(rect.width - 32, newX));
         const clampedY = Math.max(32, Math.min(rect.height - 32, newY));
 
@@ -79,7 +74,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         setIsDragging(false);
       };
 
-      // 마우스 이벤트
       const handleMouseDown = (e: MouseEvent) => {
         e.preventDefault();
         handleStart(e.clientX, e.clientY);
@@ -93,7 +87,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         handleEnd();
       };
 
-      // 터치 이벤트
       const handleTouchStart = (e: TouchEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -118,7 +111,6 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         }
       };
 
-      // 이벤트 리스너 등록
       element.addEventListener('mousedown', handleMouseDown);
       element.addEventListener('touchstart', handleTouchStart, { passive: false });
 
@@ -136,9 +128,8 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         document.removeEventListener('touchend', handleTouchEnd);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [demoType]); // position 의도적으로 제외 - 드래그 성능 최적화
+    }, [demoType]);
 
-    // 다른 제스처 처리
     useEffect(() => {
       if (demoType === 'drag') return;
 
@@ -164,7 +155,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         const touch = e.touches[0];
 
         if (e.touches.length === 2 && demoType === 'pinch') {
-          e.preventDefault(); // 핀치 제스처일 때만 기본 동작 방지
+          e.preventDefault();
           const touch2 = e.touches[1];
           handleStart(touch.clientX, touch.clientY, true, {
             clientX: touch2.clientX,
@@ -200,7 +191,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         const touch = e.touches[0];
 
         if (e.touches.length === 2 && demoType === 'pinch') {
-          e.preventDefault(); // 핀치 제스처일 때만 기본 동작 방지
+          e.preventDefault();
           const touch2 = e.touches[1];
           handleMove(touch.clientX, touch.clientY, true, {
             clientX: touch2.clientX,
@@ -266,14 +257,12 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
         handleEnd(e.clientX, e.clientY);
       };
 
-      // 터치 이벤트
       container.addEventListener('touchstart', handleTouchStart, { passive: demoType !== 'pinch' });
       container.addEventListener('touchmove', handleTouchMove, { passive: demoType !== 'pinch' });
       container.addEventListener('touchend', handleTouchEnd, {
         passive: demoType !== 'gesture' && demoType !== 'swipe',
       });
 
-      // 마우스 이벤트 (데스크톱 지원)
       container.addEventListener('mousedown', handleMouseDown);
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseup', handleMouseUp);
@@ -393,7 +382,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
           {renderDemo()}
         </div>
 
-        {/* 터치 힌트 */}
+        {/* ?곗튂 ?뚰듃 */}
         <div className="mt-3 p-2.5 bg-slate-900/50 rounded-lg">
           <p className="text-[10px] text-slate-400 text-center">{t('touch.touchMouseSupport')}</p>
         </div>

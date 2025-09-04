@@ -19,7 +19,7 @@ export const useSwipe = (
     onSwipeUp,
     onSwipeDown,
     threshold = 80,
-    angleThreshold = 2, // 수평 이동이 수직 이동의 2배 이상
+    angleThreshold = 2,
   } = options;
 
   const touchStartX = useRef(0);

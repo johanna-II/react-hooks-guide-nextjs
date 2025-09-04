@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 
 import { Button, Card, DemoContainer } from '@/components/common';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 interface ListItem {
   id: number;
@@ -13,7 +13,7 @@ const FilteredList: React.FC<{
   filter: string;
   onRemove: (id: number) => void;
 }> = React.memo(({ items, filter, onRemove }) => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
   const filteredItems = useMemo(() => {
     return items.filter((item) => item.value.toLowerCase().includes(filter.toLowerCase()));
   }, [items, filter]);
@@ -50,7 +50,7 @@ export const UseMemoDemo: React.FC = React.memo(() => {
   const [items, setItems] = useState<ListItem[]>([]);
   const [filter, setFilter] = useState('');
   const [nextId, setNextId] = useState(1);
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const addItem = () => {
     const newItem: ListItem = { id: nextId, value: `Item ${nextId}` };

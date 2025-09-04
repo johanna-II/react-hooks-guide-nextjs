@@ -18,7 +18,7 @@ export default function AdvancedPatterns() {
 
   return (
     <div className="space-y-8">
-      {/* 탭 네비게이션 */}
+      {/* ???ㅻ퉬寃뚯씠??*/}
       <div className="flex flex-wrap gap-2 justify-center">
         {demos.map((demo) => (
           <button
@@ -35,7 +35,7 @@ export default function AdvancedPatterns() {
         ))}
       </div>
 
-      {/* 선택된 데모 컴포넌트 */}
+      {/* ?좏깮???곕え 而댄룷?뚰듃 */}
       <div className="max-w-2xl mx-auto">
         <ActiveComponent />
       </div>

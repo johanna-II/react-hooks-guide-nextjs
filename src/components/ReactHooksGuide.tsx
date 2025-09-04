@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
 import { NAVIGATION_SECTIONS, WHY_HOOKS_DATA } from '@/constants/navigation';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
-import { trackEvent, measurePagePerformance } from '@/utils/analytics';
+import { useTranslations } from '@/hooks/useTranslations';
+import { measurePagePerformance, trackEvent } from '@/utils/analytics';
 import { HTMLText } from '@/utils/html-parser';
 
 import AdvancedPatterns from './AdvancedPatterns';
@@ -18,26 +18,22 @@ import { MobileNavigation } from './MobileNavigation';
 import OptimizationDemos from './OptimizationDemos';
 
 const ReactHooksGuide: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
   const activeSection = useIntersectionObserver('section[id]');
   const scrollToSection = useScrollToSection();
-  // 초기 모바일 상태를 서버와 클라이언트에서 동일하게 설정
   const [isMobile, setIsMobile] = React.useState(() => {
     if (typeof window === 'undefined') return false;
     return window.innerWidth < 1024;
   });
   const [mobileActiveSection, setMobileActiveSection] = React.useState('hero');
 
-  // 페이지 성능 측정
   React.useEffect(() => {
     measurePagePerformance();
   }, []);
 
-  // 콜백 함수들을 useCallback으로 최적화 (Hook 규칙 준수)
   const handleNavigationSectionChange = React.useCallback((sectionId: string) => {
     // Handle section change
     setMobileActiveSection(sectionId);
-    // 모바일에서는 scrollToSection 호출하지 않음 (MobileMainContent가 스크롤 처리)
   }, []);
 
   const handleMainContentSectionChange = React.useCallback((sectionId: string) => {
@@ -46,18 +42,14 @@ const ReactHooksGuide: React.FC = React.memo(() => {
 
   React.useEffect(() => {
     const checkMobile = () => {
-      // User Agent를 우선적으로 확인 (PC 브라우저인지 확인)
       const userAgent = navigator.userAgent.toLowerCase();
       const isMobileUserAgent =
         /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 
-      // Chrome DevTools 모바일 에뮬레이션 감지
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-      // 화면 크기 확인 (태블릿 이하)
       const isSmallScreen = window.innerWidth < 1024;
 
-      // 모바일 판정: User Agent가 모바일이거나, 터치 디바이스이면서 작은 화면
       const isMobileDevice = isMobileUserAgent || (isTouchDevice && isSmallScreen);
 
       // Device detection completed
@@ -73,32 +65,30 @@ const ReactHooksGuide: React.FC = React.memo(() => {
 
     return () => window.removeEventListener('resize', checkMobile);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // isMobile 의도적으로 제외 - 리사이즈 이벤트 핸들러 내부에서 상태 확인
+  }, []);
 
-  // 모든 Hook 호출 후 early return 및 렌더링 로직
   if (!activeSection) {
     return null; // Early return pattern
   }
 
-  // 모바일 환경에서는 완전히 다른 레이아웃 제공
   if (isMobile) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        {/* 모바일 환경 표시 제거 - 깔끔한 UI */}
+        {/* 紐⑤컮???占쎄꼍 ?占쎌떆 ?占쎄굅 - 源붾걫??UI */}
 
-        {/* 모바일 전용 네비게이션 */}
+        {/* 紐⑤컮???占쎌슜 ?占쎈퉬寃뚯씠??*/}
         <MobileNavigation
           activeSection={mobileActiveSection}
           onSectionChange={handleNavigationSectionChange}
         />
 
-        {/* 모바일 전용 메인 콘텐츠 */}
+        {/* 紐⑤컮???占쎌슜 硫붿씤 肄섑뀗占?*/}
         <MobileMainContent
           activeSection={mobileActiveSection}
           onSectionChange={handleMainContentSectionChange}
         />
 
-        {/* 모바일에서 activeSection을 업데이트하기 위한 이벤트 리스너 */}
+        {/* 紐⑤컮?占쎌뿉??activeSection???占쎈뜲?占쏀듃?占쎄린 ?占쏀븳 ?占쎈깽??由ъ뒪??*/}
         <div style={{ display: 'none' }}>
           {NAVIGATION_SECTIONS.map((section) => (
             <div key={section.id} id={section.id} />
@@ -108,7 +98,6 @@ const ReactHooksGuide: React.FC = React.memo(() => {
     );
   }
 
-  // 데스크톱 환경 - 기존 레이아웃 유지
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
       {/* Animated Background */}
@@ -132,7 +121,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                       '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                   }}
                 >
-                  ⚛️
+                  🔥
                 </span>
               </div>
               <div>
@@ -162,7 +151,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                         : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
                     }`}
                   >
-                    {section.label}
+                    {t(section.label)}
                   </button>
                 ))}
               </div>
@@ -180,7 +169,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
           </h1>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-8 px-4">
             {t.rich('hero.subtitle', {
-              span: (chunks) => (
+              span: (chunks: React.ReactNode) => (
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   {chunks}
                 </span>
@@ -280,7 +269,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
         <section id="core-hooks" className="mb-24 scroll-mt-20">
           <div className="backdrop-blur-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-3xl border border-purple-500/20 p-8">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              🎣 {t('guide.coreHooks.title')}
+              💕 {t('guide.coreHooks.title')}
             </h2>
             <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
               {t('guide.coreHooks.description')}
@@ -305,15 +294,15 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                   </h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
-                      <span className="text-red-400 mr-2">•</span>
+                      <span className="text-red-400 mr-2">❌</span>
                       <span>{t('guide.rules.dont.conditional')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-red-400 mr-2">•</span>
+                      <span className="text-red-400 mr-2">❌</span>
                       <span>{t('guide.rules.dont.regular')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-red-400 mr-2">•</span>
+                      <span className="text-red-400 mr-2">❌</span>
                       <span>{t('guide.rules.dont.class')}</span>
                     </li>
                   </ul>
@@ -327,15 +316,15 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                   </h3>
                   <ul className="space-y-3 text-slate-300">
                     <li className="flex items-start">
-                      <span className="text-green-400 mr-2">•</span>
+                      <span className="text-green-400 mr-2">✅</span>
                       <span>{t('guide.rules.do.topLevel')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-green-400 mr-2">•</span>
+                      <span className="text-green-400 mr-2">✅</span>
                       <span>{t('guide.rules.do.customHook')}</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-green-400 mr-2">•</span>
+                      <span className="text-green-400 mr-2">✅</span>
                       <span>{t('guide.rules.do.sameOrder')}</span>
                     </li>
                   </ul>
@@ -362,7 +351,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ⚡
+                🚀
               </span>{' '}
               {t('guide.optimization.title')}
             </h2>
@@ -383,7 +372,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ✨
+                🚀
               </span>{' '}
               {t('react19.newFeatures.title')}
             </h3>
@@ -401,7 +390,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                         '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                     }}
                   >
-                    🚀
+                    ⚡
                   </span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
@@ -414,7 +403,9 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.actions.description', {
-                    strong: (chunks) => <strong className="text-blue-400">{chunks}</strong>,
+                    strong: (chunks: React.ReactNode) => (
+                      <strong className="text-blue-400">{chunks}</strong>
+                    ),
                   })}
                   {t('react19.actions.autoManagement')}
                 </p>
@@ -465,7 +456,7 @@ const handleSubmit = () => {
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.formActions.withUseActionState', {
-                    strong: (chunks) => {
+                    strong: (chunks: React.ReactNode) => {
                       if (chunks === 'useActionState')
                         return <strong className="text-green-400">{chunks}</strong>;
                       if (chunks === 'Form Actions')
@@ -476,13 +467,13 @@ const handleSubmit = () => {
                   <HTMLText>{t('react19.formActions.simplifiedDesc')}</HTMLText>
                 </p>
 
-                {/* FormActionDemo 통합 */}
+                {/* FormActionDemo ?占쏀빀 */}
                 <FormActionDemo />
               </div>
 
               <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                 <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-4">🎣</span>
+                  <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">{t('react19.useHook')}</h4>
                     <p className="text-slate-400">{t('react19.useHook.subtitle')}</p>
@@ -490,7 +481,9 @@ const handleSubmit = () => {
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.use.description', {
-                    strong: (chunks) => <strong className="text-purple-400">{chunks}</strong>,
+                    strong: (chunks: React.ReactNode) => (
+                      <strong className="text-purple-400">{chunks}</strong>
+                    ),
                   })}
                 </p>
                 <div className="bg-slate-900/50 p-4 rounded-xl">
@@ -510,7 +503,7 @@ if (condition) {
 
               <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                 <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-4">🔧</span>
+                  <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-xl font-bold text-white">
                       {t('react19.useFormStatusAndUseOptimistic')}
@@ -522,7 +515,7 @@ if (condition) {
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.formHooks.description', {
-                    strong: (chunks) => {
+                    strong: (chunks: React.ReactNode) => {
                       if (chunks === 'useFormStatus')
                         return <strong className="text-orange-400">{chunks}</strong>;
                       if (chunks === 'useOptimistic')
@@ -563,7 +556,7 @@ const [optimisticMessages, addOptimisticMessage] = useOptimistic(
                         '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                     }}
                   >
-                    🚀
+                    ⚡
                   </span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
@@ -576,7 +569,7 @@ const [optimisticMessages, addOptimisticMessage] = useOptimistic(
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.compiler.description', {
-                    strong: (chunks) => {
+                    strong: (chunks: React.ReactNode) => {
                       if (chunks === 'useMemo')
                         return <strong className="text-green-400">{chunks}</strong>;
                       if (chunks === 'useCallback')
@@ -605,7 +598,7 @@ const Component = () => <div>...</div>; // ${t('react19.code.comment.autoMemoCom
 
               <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
                 <div className="flex items-center mb-6">
-                  <span className="text-4xl mr-4">💎</span>
+                  <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
                       {t('react19.resourcePreloadingAPIs')}
@@ -615,7 +608,7 @@ const Component = () => <div>...</div>; // ${t('react19.code.comment.autoMemoCom
                 </div>
                 <p className="text-slate-300 mb-6">
                   {t.rich('react19.resources.description', {
-                    strong: (chunks) => {
+                    strong: (chunks: React.ReactNode) => {
                       if (chunks === 'prefetchDNS')
                         return <strong className="text-yellow-400">{chunks}</strong>;
                       if (chunks === 'preconnect')
@@ -705,7 +698,7 @@ function MyComponent() {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ⚛️
+                ?占쏙툘
               </span>
             </div>
             <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -722,7 +715,7 @@ function MyComponent() {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ❤️
+                ?占쏙툘
               </span>{' '}
               {t('guide.footer.forDevelopers')}
             </span>

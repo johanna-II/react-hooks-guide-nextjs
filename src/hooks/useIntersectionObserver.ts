@@ -26,12 +26,10 @@ export function useIntersectionObserver(selector: string) {
       'advanced',
     ];
 
-    // 헤더 높이 계산
     const header = document.querySelector('header');
     const headerHeight = header ? header.offsetHeight : 64;
     const offset = headerHeight + 80;
 
-    // IntersectionObserver 설정
     const observerOptions = {
       rootMargin: `-${offset}px 0px -50% 0px`,
       threshold: [0, 0.1, 0.5, 1],
@@ -52,7 +50,6 @@ export function useIntersectionObserver(selector: string) {
         }
       });
 
-      // 페이지 최하단이 아닐 때만 IntersectionObserver로 섹션 선택
       if (!isAtBottom && visibleSections.size > 0) {
         const visibleArray = Array.from(visibleSections);
         const sortedSections = navigationSections.filter((id) => visibleArray.includes(id));
@@ -62,7 +59,6 @@ export function useIntersectionObserver(selector: string) {
       }
     }, observerOptions);
 
-    // 각 섹션 관찰
     navigationSections.forEach((sectionId) => {
       const element = document.getElementById(sectionId);
       if (element) {
@@ -70,13 +66,11 @@ export function useIntersectionObserver(selector: string) {
       }
     });
 
-    // 페이지 끝 감지를 위한 스크롤 이벤트
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // 페이지 최하단 감지
       if (scrollPosition + windowHeight >= documentHeight - 100) {
         isAtBottom = true;
         setActiveSection('advanced');
@@ -87,7 +81,6 @@ export function useIntersectionObserver(selector: string) {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // 초기 스크롤 위치 확인
     handleScroll();
 
     return () => {

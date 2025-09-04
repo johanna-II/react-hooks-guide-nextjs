@@ -1,11 +1,11 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
 import { useCounter, useToggle } from '@/hooks';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
-import { DemoContainer, Button } from './common';
+import { Button, DemoContainer } from './common';
 
 import type { DemoType } from '@/types/common';
 
@@ -17,7 +17,7 @@ interface MobileOptimizedDemoProps {
 
 const CounterDemo: React.FC = React.memo(() => {
   const { count, increment, decrement } = useCounter();
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <div className="text-center space-y-4">
@@ -42,7 +42,7 @@ const ToggleDemo: React.FC = React.memo(() => {
   return (
     <div className="text-center space-y-4">
       <div className={`text-3xl transition-all ${isOn ? 'text-green-400' : 'text-slate-400'}`}>
-        {isOn ? '🟢' : '⚫'}
+        {isOn ? '💡' : '🌑'}
       </div>
       <Button onClick={toggle} variant={isOn ? 'success' : 'secondary'} size="sm">
         {isOn ? 'ON' : 'OFF'}
@@ -55,7 +55,7 @@ ToggleDemo.displayName = 'ToggleDemo';
 
 const InputDemo: React.FC = React.memo(() => {
   const [value, setValue] = React.useState('');
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <div className="space-y-4">
@@ -80,7 +80,7 @@ InputDemo.displayName = 'InputDemo';
 const ListDemo: React.FC = React.memo(() => {
   const [items, setItems] = React.useState<string[]>([]);
   const [newItem, setNewItem] = React.useState('');
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const addItem = () => {
     if (newItem.trim()) {

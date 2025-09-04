@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
  * const debouncedSearchTerm = useDebounce(searchTerm, 500);
  *
  * useEffect(() => {
- *   // API 호출 등
+ *
  * }, [debouncedSearchTerm]);
  * ```
  */

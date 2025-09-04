@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 import { Card } from './Card';
 
@@ -13,7 +13,7 @@ export const DemoContainer: React.FC<DemoContainerProps> = React.memo(
 
         <div data-interactive>{children}</div>
 
-        {tip && <p className="text-xs text-slate-400 text-left mt-4">💡 {tip}</p>}
+        {tip && <p className="text-xs text-slate-400 text-left mt-4">?뮕 {tip}</p>}
       </Card>
     );
   }

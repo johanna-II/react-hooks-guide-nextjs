@@ -28,7 +28,6 @@ export function useErrorBoundary() {
 
     setError(errorObject);
 
-    // Error Boundary로 전파
     throw errorObject;
   }, []);
 

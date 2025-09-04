@@ -27,7 +27,6 @@ export interface HookDefinition {
   examples: HookExample[];
 }
 
-// Counter Hook 관련 타입
 export interface CounterState {
   count: number;
   min: number;
@@ -44,7 +43,6 @@ export interface CounterActions {
 
 export type UseCounterReturn = CounterState & CounterActions;
 
-// Timer Hook 관련 타입
 export interface TimerState {
   seconds: number;
   isRunning: boolean;
@@ -58,7 +56,6 @@ export interface TimerActions {
 
 export type UseTimerReturn = TimerState & TimerActions;
 
-// Toggle Hook 관련 타입
 export interface ToggleState {
   isOn: boolean;
 }
@@ -71,14 +68,12 @@ export interface ToggleActions {
 
 export type UseToggleReturn = [boolean, ToggleActions];
 
-// Intersection Observer Hook 관련 타입
 export interface IntersectionObserverOptions {
   threshold?: number | number[];
   rootMargin?: string;
   root?: Element | null;
 }
 
-// Swipe Hook 관련 타입
 export type SwipeDirection = 'left' | 'right' | 'up' | 'down' | null;
 
 export interface SwipeState {

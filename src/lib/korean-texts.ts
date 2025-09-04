@@ -1,4 +1,3 @@
-// 한국어 원본 텍스트 맵핑
 export const koreanTexts: Record<string, string> = {
   // Hero section
   'hero.title': 'HOOKS',
@@ -221,7 +220,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.workingPrinciple.recalculateWhenDepsChange': '의존성이 변경될 때만 재계산',
   'optimization.workingPrinciple.saveCalculationTime': '즉시 응답으로 UX 향상',
 
-  // Render Count 최적화 내용
   'optimization.renderCount.principle.memo': 'React.memo의 핵심: ',
   'optimization.renderCount.principle.memoDesc':
     '부모 컴포넌트가 리렌더링되어도 자식은 props가 변경되지 않으면 리렌더링되지 않습니다.',
@@ -269,7 +267,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.memoryManagement.actuallyInUse': '실제 사용 중인 것만',
   'optimization.memoryManagement.memoryLeakOccured': '개의 메모리 누수 발생!',
 
-  // 동작 원리 추가
   'optimization.workingPrinciple.listenerKeepStacking': '이벤트 리스너가 계속 쌌임',
   'optimization.workingPrinciple.notRemovedFromMemory': '메모리에서 제거되지 않음',
   'optimization.workingPrinciple.memoryLeakOccur': 'Memory Leak 발생!',
@@ -277,11 +274,9 @@ export const koreanTexts: Record<string, string> = {
   'optimization.workingPrinciple.prevListenerRemove': '이전 리스너는 제거',
   'optimization.workingPrinciple.efficientMemory': '효율적인 메모리 관리',
 
-  // useMemo 데모 코드 주석
   'optimization.code.comment.memoExample': 'Deps가 바뀔 때만 계산해요',
   'optimization.code.comment.expensiveCalculation': '무거운 계산 함수 (성능 테스트용)',
 
-  // React.memo 데모
   'optimization.reactMemo.core': 'React.memo의 핵심: ',
   'optimization.reactMemo.coreDesc':
     'Count 버튼을 클릭하면 부모 컴포넌트만 리렌더링되고, Expensive 버튼을 클릭하면 부모와 자식 컴포넌트 모두 리렌더링됩니다. React.memo는 props가 변경되지 않으면 이전 렌더링 결과를 재사용하여 성능을 향상시킵니다.',
@@ -316,7 +311,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.reactMemo.executeCount': '실행 횟수',
   'optimization.reactMemo.renderCountMemo': 'useMemo가 실행된 횟수',
 
-  // useMemo 가이드
   'optimization.useMemoGuide.calculatePrimeNumber': '소수 계산',
   'optimization.useMemoGuide.enterNumber': '숫자',
   'optimization.useMemoGuide.isPrime': '소수입니다',
@@ -324,7 +318,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.useMemoGuide.prime': '판별:',
   'optimization.useMemoGuide.heavyCalculationRunning': '무거운 계산 실행 중...',
 
-  // Execution Time 최적화 내용
   'optimization.executionTime.useMemoCore': 'useMemo의 핵심: ',
   'optimization.executionTime.useMemoDesc':
     '복잡한 계산을 매번 반복하면 앱이 느려집니다. 한 번 계산한 결과를 저장해두고 재사용하면 훨씬 빠릅니다.',
@@ -332,7 +325,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.executionTime.calculationTimeLabel': '계산 시간',
   'optimization.executionTime.performanceImprovement': '🎉 {percent}% 성능 향상!',
 
-  // Memory Management 최적화 내용
   'optimization.memoryManagement.beforeOptimization': '최적화 전',
   'optimization.memoryManagement.afterOptimization': '최적화 후',
   'optimization.memoryManagement.listenerAddedNotRemoved': '리스너 추가 (제거 안함)',
@@ -347,7 +339,6 @@ export const koreanTexts: Record<string, string> = {
   'optimization.memoryManagement.activeListeners': 'Active Listeners',
   'optimization.memoryManagement.memoryStatusMonitoring': '메모리 상태 모니터링',
 
-  // UI Responsiveness 최적화 내용
   'optimization.uiResponsiveness.core': 'UI 반응성의 핵심: ',
   'optimization.uiResponsiveness.coreDesc':
     '타이핑할 때 글자가 늦게 나타나면 답답합니다. 불필요한 작업을 줄이면 사용자 입력에 즉시 반응할 수 있습니다.',

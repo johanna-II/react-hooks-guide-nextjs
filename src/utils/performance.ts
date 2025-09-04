@@ -110,7 +110,6 @@ export function measurePerformance<T extends (...args: unknown[]) => unknown>(
     try {
       const result = fn(...args);
 
-      // Promise인 경우
       if (result instanceof Promise) {
         return result.finally(() => {
           const duration = performance.now() - start;

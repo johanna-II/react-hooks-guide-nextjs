@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
@@ -18,8 +18,8 @@ interface WhyHooksSectionProps extends SectionProps {
 }
 
 /**
- * WhyHooksSection - React Hooks를 사용하는 이유 섹션
- * 단일 책임: Why Hooks 정보 표시
+ * WhyHooksSection - React Hooks瑜??ъ슜?섎뒗 ?댁쑀 ?뱀뀡
+ * ?⑥씪 梨낆엫: Why Hooks ?뺣낫 ?쒖떆
  */
 export const WhyHooksSection: React.FC<WhyHooksSectionProps> = React.memo(
   ({ title, items, className = '' }) => {

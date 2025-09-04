@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
@@ -9,8 +9,7 @@ interface NavigationBarProps extends NavigationProps {
 }
 
 /**
- * NavigationBar - 상단 네비게이션 바
- * 단일 책임: 섹션 간 네비게이션 제공
+ * NavigationBar - ?곷떒 ?ㅻ퉬寃뚯씠??諛? * ?⑥씪 梨낆엫: ?뱀뀡 媛??ㅻ퉬寃뚯씠???쒓났
  */
 export const NavigationBar: React.FC<NavigationBarProps> = React.memo(
   ({ items, activeItem, scrollToSection, className = '' }) => {
@@ -20,12 +19,12 @@ export const NavigationBar: React.FC<NavigationBarProps> = React.memo(
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* 로고 */}
+            {/* 濡쒓퀬 */}
             <div className="flex items-center">
               <span className="text-xl font-bold text-white">React Hooks Guide</span>
             </div>
 
-            {/* 네비게이션 아이템 */}
+            {/* ?ㅻ퉬寃뚯씠???꾩씠??*/}
             <div className="hidden md:flex space-x-8">
               {items.map((item) => (
                 <button

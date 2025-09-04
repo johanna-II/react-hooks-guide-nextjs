@@ -16,7 +16,6 @@ export class AppError extends Error {
     super(message);
     this.name = 'AppError';
 
-    // 스택 트레이스 유지
     if (Error.captureStackTrace) {
       Error.captureStackTrace(this, AppError);
     }

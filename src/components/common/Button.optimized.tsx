@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 
@@ -6,7 +6,6 @@ import { cn, createVariantStyles } from '@/utils/classNames';
 
 import type { ButtonProps } from '@/types/components';
 
-// 스타일 상수는 컴포넌트 외부에 정의 (재생성 방지)
 const variantStyles = createVariantStyles({
   primary: 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:shadow-xl',
   secondary: 'bg-slate-700 text-white hover:bg-slate-600',
@@ -22,8 +21,8 @@ const sizeStyles = createVariantStyles({
 });
 
 /**
- * Button 컴포넌트 - 최적화 버전
- * React.memo로 불필요한 리렌더링 방지
+ * Button 而댄룷?뚰듃 - 理쒖쟻??踰꾩쟾
+ * React.memo濡?遺덊븘?뷀븳 由щ젋?붾쭅 諛⑹?
  */
 export const Button = React.memo<ButtonProps>(
   ({
@@ -38,7 +37,6 @@ export const Button = React.memo<ButtonProps>(
     'data-interactive': dataInteractive = true,
     ...props
   }) => {
-    // onClick 핸들러 최적화
     const handleClick = React.useCallback(
       (e: React.MouseEvent<HTMLButtonElement>) => {
         if (!disabled && onClick) {
@@ -48,7 +46,6 @@ export const Button = React.memo<ButtonProps>(
       [disabled, onClick]
     );
 
-    // 클래스명 메모이제이션
     const buttonClassName = React.useMemo(
       () =>
         cn(

@@ -1,14 +1,11 @@
-import { Analytics } from '@vercel/analytics/react';
+﻿import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
-import { ServerTranslationProvider } from '@/contexts/ServerTranslationContext';
-import { TranslationProvider } from '@/contexts/TranslationContext';
 import { isValidLocale, type Locale } from '@/i18n/types';
-import { getServerTranslations } from '@/lib/server-translations';
 
 import type { Metadata, Viewport } from 'next';
 
@@ -100,31 +97,10 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   // 메시지 로드
   const messages = await getMessages();
 
-  // 서버사이드에서 번역 미리 처리 (API 키가 있을 때만)
-  let serverTranslations: Record<string, string> = {};
-
-  const hasValidApiKey =
-    process.env.DEEPL_API_KEY &&
-    process.env.DEEPL_API_KEY !== 'your_deepl_api_key_here' &&
-    process.env.DEEPL_API_KEY.length > 10;
-
-  if (locale !== 'ko' && hasValidApiKey) {
-    try {
-      serverTranslations = await getServerTranslations(locale as 'en' | 'ja');
-    } catch {
-      // 서버사이드 번역 실패 시 클라이언트에서 처리
-      serverTranslations = {};
-    }
-  }
-
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider messages={messages}>
-          <ServerTranslationProvider translations={serverTranslations} locale={locale}>
-            <TranslationProvider>{children}</TranslationProvider>
-          </ServerTranslationProvider>
-        </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
         <Analytics />
         <SpeedInsights />
       </body>

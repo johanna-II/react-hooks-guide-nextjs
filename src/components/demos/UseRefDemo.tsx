@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+﻿import React, { useRef, useState } from 'react';
 
 import { Button, Card, DemoContainer } from '@/components/common';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 const InputWithRef: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
   const inputRef = useRef<HTMLInputElement>(null);
   const countRef = useRef(0);
   const [displayCount, setDisplayCount] = useState(0);
@@ -71,7 +71,7 @@ const InputWithRef: React.FC = React.memo(() => {
 InputWithRef.displayName = 'InputWithRef';
 
 export const UseRefDemo: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <DemoContainer

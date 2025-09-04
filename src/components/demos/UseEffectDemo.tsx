@@ -1,12 +1,12 @@
-import React from 'react';
+﻿import React from 'react';
 
 import { Button, Card, DemoContainer } from '@/components/common';
 import { useCounter, useTimer } from '@/hooks';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 const TimerDisplay: React.FC<{ count: number; timerCount: number }> = React.memo(
   ({ count, timerCount }) => {
-    const t = useOptimizedTranslations();
+    const t = useTranslations();
 
     return (
       <Card variant="bordered" className="mb-4">
@@ -34,7 +34,7 @@ TimerDisplay.displayName = 'TimerDisplay';
 export const UseEffectDemo: React.FC = React.memo(() => {
   const { count, increment } = useCounter();
   const { count: timerCount, isActive, toggle, reset } = useTimer();
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <DemoContainer

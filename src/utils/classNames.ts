@@ -27,18 +27,15 @@ export function cn(...classes: (ClassValue | ClassObject | ClassArray)[]): strin
     if (typeof item === 'string') {
       classList.push(item);
     } else if (typeof item === 'object' && !Array.isArray(item)) {
-      // 객체인 경우
       for (const [key, value] of Object.entries(item)) {
         if (value) classList.push(key);
       }
     } else if (Array.isArray(item)) {
-      // 배열인 경우 재귀적으로 처리
       const result = cn(...item);
       if (result) classList.push(result);
     }
   }
 
-  // 중복 제거 및 공백 정리
   return [...new Set(classList)].join(' ').trim();
 }
 

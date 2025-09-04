@@ -29,7 +29,6 @@ interface UseCounterOptions {
 export const useCounter = (options: UseCounterOptions = {}): UseCounterReturn => {
   const { initialValue = 0, min = -Infinity, max = Infinity, step = 1 } = options;
 
-  // 초기값 유효성 검사
   const [count, setCount] = useState(() => Math.max(min, Math.min(initialValue, max)));
 
   const increment = useCallback(() => {

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -22,12 +22,15 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    Arial, Helvetica, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
 }
 
 /* 이모지 아이콘 스타일 */
 .emoji-icon {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+  font-family:
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
   line-height: 1;
 }
 
@@ -53,7 +56,6 @@ main {
 
 /* 모바일 최적화 스타일 */
 @media (max-width: 1023px) {
-
   /* 터치 최적화 */
   * {
     -webkit-tap-highlight-color: transparent;
@@ -187,7 +189,6 @@ pre:hover {
 
 /* 모바일에서 더 나은 포커스 표시 */
 @media (max-width: 1023px) {
-
   button:focus,
   input:focus,
   textarea:focus {
@@ -231,7 +232,8 @@ pre:hover {
   }
 
   @keyframes edge-hint {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateX(0);
       opacity: 0.3;
     }

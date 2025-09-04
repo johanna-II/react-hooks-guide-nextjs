@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+﻿import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 
 interface NavigationContextType {
   activeSection: string;

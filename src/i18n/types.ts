@@ -1,16 +1,12 @@
-// 지원하는 언어 목록
 export const locales = ['ko', 'en', 'ja'] as const;
 export type Locale = (typeof locales)[number];
 
-// 기본 언어
 export const defaultLocale: Locale = 'ko';
 
-// 로케일 유효성 검사 함수
 export function isValidLocale(locale: string): locale is Locale {
   return locales.includes(locale as Locale);
 }
 
-// 언어별 메타데이터
 export interface LocaleMetadata {
   code: Locale;
   name: string;

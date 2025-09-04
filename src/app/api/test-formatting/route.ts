@@ -4,7 +4,6 @@ import { capitalizeEnglishSentences } from '@/utils/text-formatting';
 
 import type { NextRequest } from 'next/server';
 
-// 테스트용 엔드포인트 - 띄어쓰기 수정 기능 확인
 export async function POST(request: NextRequest) {
   try {
     const { text } = await request.json();
@@ -25,7 +24,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// 테스트 케이스 제공
 export async function GET() {
   const testCases = [
     'button re-renders the component',

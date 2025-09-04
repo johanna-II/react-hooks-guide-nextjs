@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
@@ -15,28 +15,23 @@ const LanguageSwitcher = memo<LanguageSwitcherProps>(({ className = '' }) => {
   const router = useRouter();
   const pathname = usePathname();
 
-  // 프로덕션 환경에서는 언어 스위처를 표시하지 않음
   const isProduction = process.env.NODE_ENV === 'production';
 
-  // 현재 경로에서 로케일 부분을 제거한 경로 계산
   const pathnameWithoutLocale = useMemo(() => {
     const segments = pathname.split('/');
     return segments.slice(2).join('/') || '';
   }, [pathname]);
 
-  // 언어 변경 핸들러
   const handleLanguageChange = useCallback(
     (newLocale: Locale) => {
-      if (newLocale === locale) return; // 같은 언어면 무시
+      if (newLocale === locale) return;
 
-      // 새로운 로케일로 경로 생성
       const newPath = `/${newLocale}${pathnameWithoutLocale ? `/${pathnameWithoutLocale}` : ''}`;
       router.push(newPath);
     },
     [locale, pathnameWithoutLocale, router]
   );
 
-  // 프로덕션 환경에서는 렌더링하지 않음
   if (isProduction) {
     return null;
   }

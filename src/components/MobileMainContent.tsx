@@ -5,13 +5,12 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { WHY_HOOKS_DATA } from '@/constants/navigation';
 import { useSwipe } from '@/hooks';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 import { Button } from './common';
 import { MobileFooter } from './MobileFooter';
 import { MobileHooksGuide } from './MobileHooksGuide';
 
-// 동적 로딩으로 번들 크기 최적화
 const FormActionDemo = dynamic(() => import('./FormActionDemo'), { ssr: false });
 const OptimizationDemos = dynamic(() => import('./OptimizationDemos'), { ssr: false });
 const AdvancedPatterns = dynamic(() => import('./AdvancedPatterns'), { ssr: false });
@@ -34,7 +33,7 @@ const SECTIONS: string[] = [
 
 const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.memo(
   ({ onNavigate }) => {
-    const t = useOptimizedTranslations();
+    const t = useTranslations();
 
     return (
       <section id="hero" className="px-4 py-6 text-center">
@@ -57,7 +56,7 @@ const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.m
 HeroSection.displayName = 'HeroSection';
 
 const IntroductionSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="introduction" className="px-4 py-6">
@@ -86,7 +85,7 @@ const IntroductionSection: React.FC = React.memo(() => {
 IntroductionSection.displayName = 'IntroductionSection';
 
 const WhyHooksSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="why-hooks" className="px-4 py-6">
@@ -107,7 +106,7 @@ const WhyHooksSection: React.FC = React.memo(() => {
 WhyHooksSection.displayName = 'WhyHooksSection';
 
 const CoreHooksSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="core-hooks" className="px-4 py-6">
@@ -122,7 +121,7 @@ const CoreHooksSection: React.FC = React.memo(() => {
 CoreHooksSection.displayName = 'CoreHooksSection';
 
 const RulesSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="rules" className="px-4 py-6">
@@ -132,18 +131,18 @@ const RulesSection: React.FC = React.memo(() => {
         <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
           <h3 className="text-sm font-bold text-red-400 mb-2">{t('guide.rules.dontTitle')}</h3>
           <ul className="space-y-1.5 text-slate-300 text-xs">
-            <li>• {t('guide.rules.dont.conditional')}</li>
-            <li>• {t('guide.rules.dont.regular')}</li>
-            <li>• {t('guide.rules.dont.class')}</li>
+            <li>??{t('guide.rules.dont.conditional')}</li>
+            <li>??{t('guide.rules.dont.regular')}</li>
+            <li>??{t('guide.rules.dont.class')}</li>
           </ul>
         </div>
 
         <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
           <h3 className="text-sm font-bold text-green-400 mb-2">{t('guide.rules.doTitle')}</h3>
           <ul className="space-y-1.5 text-slate-300 text-xs">
-            <li>• {t('guide.rules.do.topLevel')}</li>
-            <li>• {t('guide.rules.do.customHook')}</li>
-            <li>• {t('guide.rules.do.sameOrder')}</li>
+            <li>??{t('guide.rules.do.topLevel')}</li>
+            <li>??{t('guide.rules.do.customHook')}</li>
+            <li>??{t('guide.rules.do.sameOrder')}</li>
           </ul>
         </div>
       </div>
@@ -154,7 +153,7 @@ const RulesSection: React.FC = React.memo(() => {
 RulesSection.displayName = 'RulesSection';
 
 const OptimizationSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="optimization" className="px-4 py-6">
@@ -169,7 +168,7 @@ const OptimizationSection: React.FC = React.memo(() => {
 OptimizationSection.displayName = 'OptimizationSection';
 
 const React19Section: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="react19" className="px-4 py-6">
@@ -184,7 +183,7 @@ const React19Section: React.FC = React.memo(() => {
 React19Section.displayName = 'React19Section';
 
 const AdvancedSection: React.FC = React.memo(() => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <section id="advanced" className="px-4 py-6">
@@ -203,7 +202,6 @@ export const MobileMainContent: React.FC<MobileMainContentProps> = React.memo(
     const containerRef = useRef<HTMLDivElement>(null);
     const currentIndex = SECTIONS.indexOf(currentSection);
 
-    // 섹션 변경 시 동기화
     useEffect(() => {
       if (activeSection !== currentSection) {
         setCurrentSection(activeSection);
@@ -221,7 +219,6 @@ export const MobileMainContent: React.FC<MobileMainContentProps> = React.memo(
       }, 50);
     };
 
-    // 스와이프 처리
     useSwipe(containerRef, {
       onSwipeLeft: () => {
         if (currentIndex < SECTIONS.length - 1) {

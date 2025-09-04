@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 interface HookExample {
   title: string;
@@ -13,7 +13,7 @@ interface HookExample {
 
 export default function HooksTabs() {
   const [activeTab, setActiveTab] = useState('useState');
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const HOOK_EXAMPLES: Record<string, HookExample> = {
     useState: {
@@ -112,7 +112,7 @@ return (
 
         {/* Code Example */}
         <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50 mb-6">
-          <h4 className="text-lg font-semibold text-blue-400 mb-3">💻 {t('hooks.codeExample')}</h4>
+          <h4 className="text-lg font-semibold text-blue-400 mb-3">?뮲 {t('hooks.codeExample')}</h4>
           <pre className="text-sm text-slate-300 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
             <code className="language-typescript">{currentExample.code}</code>
           </pre>
@@ -122,7 +122,7 @@ return (
         {currentExample.demo && (
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50">
             <h4 className="text-lg font-semibold text-green-400 mb-3">
-              🎮 {t('hooks.realTimeDemo')}
+              ?렜 {t('hooks.realTimeDemo')}
             </h4>
             <div className="p-4 bg-slate-800/50 rounded-lg">{currentExample.demo}</div>
           </div>
@@ -136,7 +136,7 @@ return (
 function UseStateDemo() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState('');
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <div className="space-y-4" data-lpignore="true" data-form-type="other">
@@ -184,7 +184,7 @@ function UseStateDemo() {
 function UseEffectDemo() {
   const [count, setCount] = useState(0);
   const [effectCount, setEffectCount] = useState(0);
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   useEffect(() => {
     setEffectCount((prev) => prev + 1);
@@ -211,7 +211,7 @@ function UseEffectDemo() {
           Increment
         </button>
       </div>
-      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.browserTabNotice')}</div>
+      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.browserTabNotice')}</div>
     </div>
   );
 }
@@ -219,7 +219,7 @@ function UseEffectDemo() {
 function UseRefDemo() {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [focusCount, setFocusCount] = useState(0);
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const focusInput = () => {
     inputRef.current?.focus();
@@ -254,7 +254,7 @@ function UseRefDemo() {
 function UseCallbackDemo() {
   const [count, setCount] = useState(0);
   const [renderCount, setRenderCount] = useState(0);
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const increment = React.useCallback(() => {
     setCount((c) => c + 1);
@@ -264,7 +264,6 @@ function UseCallbackDemo() {
     setCount((c) => c - 1);
   }, []);
 
-  // 렌더링 횟수 추적
   React.useEffect(() => {
     setRenderCount((prev) => prev + 1);
   }, []);
@@ -293,7 +292,7 @@ function UseCallbackDemo() {
           </button>
         </div>
       </div>
-      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.optimizationTip')}</div>
+      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.optimizationTip')}</div>
     </div>
   );
 }
@@ -302,11 +301,10 @@ function UseMemoDemo() {
   const [a, setA] = useState(1);
   const [b, setB] = useState(1);
   const [computeCount, setComputeCount] = useState(0);
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   const expensiveValue = React.useMemo(() => {
     setComputeCount((prev) => prev + 1);
-    // 의도적으로 무거운 계산 시뮬레이션
     let result = 0;
     for (let i = 0; i < 1000000; i++) {
       result += a + b;
@@ -344,7 +342,7 @@ function UseMemoDemo() {
           {t('hooks.calculationCount')}: {computeCount}
         </p>
       </div>
-      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.memoTip')}</div>
+      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.memoTip')}</div>
     </div>
   );
 }

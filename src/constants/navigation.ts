@@ -1,13 +1,13 @@
 import type { NavigationSection } from '@/types';
 
 export const NAVIGATION_SECTIONS: NavigationSection[] = [
-  { id: 'hero', label: 'Home', icon: '🏠' },
-  { id: 'why-hooks', label: 'Why Hooks?', icon: '🎯' },
-  { id: 'core-hooks', label: 'Core Hooks', icon: '⚡' },
-  { id: 'rules', label: 'Rules', icon: '📋' },
-  { id: 'optimization', label: 'Performance', icon: '🚀' },
-  { id: 'react19', label: 'React 19', icon: '✨' },
-  { id: 'advanced', label: 'Advanced', icon: '💎' },
+  { id: 'hero', label: 'navigation.home', icon: '🏠' },
+  { id: 'why-hooks', label: 'whyHooks.title', icon: '🎯' },
+  { id: 'core-hooks', label: 'navigation.hooks', icon: '⚡' },
+  { id: 'rules', label: 'rules.title', icon: '📋' },
+  { id: 'optimization', label: 'navigation.optimization', icon: '🚀' },
+  { id: 'react19', label: 'form.react19.benefits', icon: '✨' },
+  { id: 'advanced', label: 'navigation.patterns', icon: '💎' },
 ];
 
 export const WHY_HOOKS_DATA = [

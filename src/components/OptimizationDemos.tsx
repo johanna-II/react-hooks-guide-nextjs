@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useMemo, useCallback, useRef } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 interface DemoBoxProps {
   title: string;
@@ -22,13 +22,12 @@ function DemoBox({ title, children, className = '' }: DemoBoxProps) {
 }
 
 export default function OptimizationDemos() {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
   const [count, setCount] = useState(0);
   const [expensiveValue, setExpensiveValue] = useState(1);
   const [renderCount, setRenderCount] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
-  // 성능 최적화 데모를 위한 추가 상태들
   const [nonOptRenders, setNonOptRenders] = useState(1);
   const [optRenders] = useState(1);
   const [nonOptTime, setNonOptTime] = useState(0);
@@ -41,12 +40,10 @@ export default function OptimizationDemos() {
   const [optListeners, setOptListeners] = useState(0);
   const [optComponents, setOptComponents] = useState(0);
 
-  // 클라이언트 사이드에서만 실행 (Hydration 오류 방지)
   React.useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // useMemo로 계산 최적화
   const memoizedValue = useMemo(() => {
     if (isClient) {
       // Expensive calculation running
@@ -55,7 +52,6 @@ export default function OptimizationDemos() {
     return expensiveValue * 2;
   }, [expensiveValue, isClient]);
 
-  // 무거운 계산 함수 (성능 테스트용)
   const heavyCalculation = useCallback((num: number) => {
     let isPrime = true;
     for (let i = 2; i <= Math.sqrt(num); i++) {
@@ -69,7 +65,7 @@ export default function OptimizationDemos() {
 
   return (
     <div className="space-y-6">
-      {/* 주요 메트릭 4개 설명 */}
+      {/* 二쇱슂 硫뷀듃由?4媛??ㅻ챸 */}
       <DemoBox title={t('optimization.demoBox.keyMetrics')} className="border-indigo-500/30">
         <p className="text-slate-300 leading-relaxed mb-4">
           {t('optimization.metrics.description')}
@@ -118,7 +114,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 1: Render Count 최적화 (React.memo 활용) */}
+      {/* Demo 1: Render Count 理쒖쟻??(React.memo ?쒖슜) */}
       <DemoBox
         title={t('optimization.demoBox.renderCountOptimization')}
         className="border-blue-500/30"
@@ -129,7 +125,7 @@ export default function OptimizationDemos() {
           {t('optimization.reactMemo.tryItBelow')}
         </p>
 
-        {/* 동작 원리 설명 */}
+        {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-blue-400 mb-3">
             {t('optimization.workingPrinciple')}
@@ -140,9 +136,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.renderCount.whenParentChanges')}</li>
-                <li>• {t('optimization.renderCount.regardlessOfProps')}</li>
-                <li>• {t('optimization.renderCount.performanceDegradation')}</li>
+                <li>??{t('optimization.renderCount.whenParentChanges')}</li>
+                <li>??{t('optimization.renderCount.regardlessOfProps')}</li>
+                <li>??{t('optimization.renderCount.performanceDegradation')}</li>
               </ul>
             </div>
             <div>
@@ -150,9 +146,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.after')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.workingPrinciple.afterBullet1')}</li>
-                <li>• {t('optimization.workingPrinciple.afterBullet2')}</li>
-                <li>• {t('optimization.workingPrinciple.afterBullet3')}</li>
+                <li>??{t('optimization.workingPrinciple.afterBullet1')}</li>
+                <li>??{t('optimization.workingPrinciple.afterBullet2')}</li>
+                <li>??{t('optimization.workingPrinciple.afterBullet3')}</li>
               </ul>
             </div>
           </div>
@@ -214,7 +210,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 성능 비교 결과 */}
+        {/* ?깅뒫 鍮꾧탳 寃곌낵 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <h5 className="text-lg font-semibold text-yellow-400 mb-3">
             {t('optimization.performanceComparisonResult')}
@@ -250,7 +246,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 2: Execution Time 최적화 (useMemo 활용) */}
+      {/* Demo 2: Execution Time 理쒖쟻??(useMemo ?쒖슜) */}
       <DemoBox
         title={t('optimization.demoBox.executionTimeOptimization')}
         className="border-green-500/30"
@@ -260,7 +256,7 @@ export default function OptimizationDemos() {
           {t('optimization.executionTime.useMemoDesc')}
         </p>
 
-        {/* 동작 원리 설명 */}
+        {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-green-400 mb-3">
             {t('optimization.workingPrinciple')}
@@ -271,9 +267,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.workingPrinciple.recalculateEveryTime')}</li>
-                <li>• {t('optimization.workingPrinciple.duplicateCalculation')}</li>
-                <li>• {t('optimization.workingPrinciple.wasteResources')}</li>
+                <li>??{t('optimization.workingPrinciple.recalculateEveryTime')}</li>
+                <li>??{t('optimization.workingPrinciple.duplicateCalculation')}</li>
+                <li>??{t('optimization.workingPrinciple.wasteResources')}</li>
               </ul>
             </div>
             <div>
@@ -281,9 +277,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.afterUseMemo')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.workingPrinciple.firstCalculationOnly')}</li>
-                <li>• {t('optimization.workingPrinciple.recalculateWhenDepsChange')}</li>
-                <li>• {t('optimization.workingPrinciple.saveCalculationTime')}</li>
+                <li>??{t('optimization.workingPrinciple.firstCalculationOnly')}</li>
+                <li>??{t('optimization.workingPrinciple.recalculateWhenDepsChange')}</li>
+                <li>??{t('optimization.workingPrinciple.saveCalculationTime')}</li>
               </ul>
             </div>
           </div>
@@ -357,7 +353,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 성능 비교 결과 */}
+        {/* ?깅뒫 鍮꾧탳 寃곌낵 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <h5 className="text-lg font-semibold text-yellow-400 mb-3">
             {t('optimization.performanceComparisonResult')}
@@ -395,7 +391,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 3: UI Responsiveness 최적화 */}
+      {/* Demo 3: UI Responsiveness 理쒖쟻??*/}
       <DemoBox
         title={t('optimization.demoBox.uiResponsivenessOptimization')}
         className="border-purple-500/30"
@@ -405,7 +401,7 @@ export default function OptimizationDemos() {
           {t('optimization.uiResponsiveness.coreDesc')}
         </p>
 
-        {/* 동작 원리 설명 */}
+        {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-purple-400 mb-3">
             {t('optimization.workingPrinciple')}
@@ -416,9 +412,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.uiResponsiveness.drawDotsEveryType')}</li>
-                <li>• {t('optimization.uiResponsiveness.unnecessaryDOMManipulation')}</li>
-                <li>• {t('optimization.uiResponsiveness.laggyInputExperience')}</li>
+                <li>??{t('optimization.uiResponsiveness.drawDotsEveryType')}</li>
+                <li>??{t('optimization.uiResponsiveness.unnecessaryDOMManipulation')}</li>
+                <li>??{t('optimization.uiResponsiveness.laggyInputExperience')}</li>
               </ul>
             </div>
             <div>
@@ -426,9 +422,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.uiResponsiveness.afterOptimization')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.uiResponsiveness.dotsNotRedrawn')}</li>
-                <li>• {t('optimization.uiResponsiveness.onlyNecessaryUpdates')}</li>
-                <li>• {t('optimization.uiResponsiveness.smoothTypingExperience')}</li>
+                <li>??{t('optimization.uiResponsiveness.dotsNotRedrawn')}</li>
+                <li>??{t('optimization.uiResponsiveness.onlyNecessaryUpdates')}</li>
+                <li>??{t('optimization.uiResponsiveness.smoothTypingExperience')}</li>
               </ul>
             </div>
           </div>
@@ -491,7 +487,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 실시간 피드백 */}
+        {/* ?ㅼ떆媛??쇰뱶諛?*/}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <h5 className="text-lg font-semibold text-yellow-400 mb-3">
             {t('optimization.realtimeFeedback')}
@@ -527,7 +523,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 4: Memory Management 최적화 */}
+      {/* Demo 4: Memory Management 理쒖쟻??*/}
       <DemoBox
         title={t('optimization.demoBox.memoryManagementOptimization')}
         className="border-orange-500/30"
@@ -539,7 +535,7 @@ export default function OptimizationDemos() {
           {t('optimization.memoryManagement.useMemoDesc')}
         </p>
 
-        {/* 동작 원리 설명 */}
+        {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-orange-400 mb-3">
             {t('optimization.workingPrinciple')}
@@ -550,9 +546,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.memoryManagement.noCleanup')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.workingPrinciple.listenerKeepStacking')}</li>
-                <li>• {t('optimization.workingPrinciple.notRemovedFromMemory')}</li>
-                <li>• {t('optimization.workingPrinciple.memoryLeakOccur')}</li>
+                <li>??{t('optimization.workingPrinciple.listenerKeepStacking')}</li>
+                <li>??{t('optimization.workingPrinciple.notRemovedFromMemory')}</li>
+                <li>??{t('optimization.workingPrinciple.memoryLeakOccur')}</li>
               </ul>
             </div>
             <div>
@@ -560,9 +556,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.memoryManagement.withCleanup')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.memoryManagement.cleanupOnUnmount')}</li>
-                <li>• {t('optimization.workingPrinciple.efficientMemory')}</li>
-                <li>• {t('optimization.memoryManagement.cleanResourceCleanup')}</li>
+                <li>??{t('optimization.memoryManagement.cleanupOnUnmount')}</li>
+                <li>??{t('optimization.workingPrinciple.efficientMemory')}</li>
+                <li>??{t('optimization.memoryManagement.cleanResourceCleanup')}</li>
               </ul>
             </div>
           </div>
@@ -642,7 +638,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 메모리 상태 모니터링 */}
+        {/* 硫붾え由??곹깭 紐⑤땲?곕쭅 */}
         <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <h5 className="text-lg font-semibold text-yellow-400 mb-3">
             {t('optimization.memoryManagement.memoryStatusMonitoring')}
@@ -686,12 +682,12 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 5: React.memo 최적화 (실시간 데모) */}
+      {/* Demo 5: React.memo 理쒖쟻??(?ㅼ떆媛??곕え) */}
       <DemoBox title={t('optimization.reactMemoDemoTitle')} className="border-blue-500/30">
         <p className="text-slate-300 leading-relaxed mb-4">
           <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong>
           {t.rich('optimization.reactMemo.detailedExplanation', {
-            span: (chunks) => {
+            span: (chunks: React.ReactNode) => {
               if (chunks === 'Count 버튼') return <span className="text-green-400">{chunks}</span>;
               if (chunks === 'Expensive 버튼')
                 return <span className="text-orange-400">{chunks}</span>;
@@ -700,7 +696,7 @@ export default function OptimizationDemos() {
           })}
         </p>
 
-        {/* 동작 원리 설명 */}
+        {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-blue-400 mb-3">
             {t('optimization.workingPrinciple')}
@@ -711,9 +707,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.reactMemo.countButtonTitle')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.reactMemo.countButtonBullet1')}</li>
-                <li>• {t('optimization.reactMemo.countButtonBullet2')}</li>
-                <li>• {t('optimization.reactMemo.countButtonBullet3')}</li>
+                <li>??{t('optimization.reactMemo.countButtonBullet1')}</li>
+                <li>??{t('optimization.reactMemo.countButtonBullet2')}</li>
+                <li>??{t('optimization.reactMemo.countButtonBullet3')}</li>
               </ul>
             </div>
             <div>
@@ -721,15 +717,15 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.reactMemo.expensiveButtonTitle')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>• {t('optimization.reactMemo.expensiveButtonBullet1')}</li>
-                <li>• {t('optimization.reactMemo.expensiveButtonBullet2')}</li>
-                <li>• {t('optimization.reactMemo.expensiveButtonBullet3')}</li>
+                <li>??{t('optimization.reactMemo.expensiveButtonBullet1')}</li>
+                <li>??{t('optimization.reactMemo.expensiveButtonBullet2')}</li>
+                <li>??{t('optimization.reactMemo.expensiveButtonBullet3')}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* 실시간 테스트 버튼들 */}
+        {/* ?ㅼ떆媛??뚯뒪??踰꾪듉??*/}
         <div className="flex flex-wrap gap-3 mb-6">
           <button
             onClick={() => setCount((c) => c + 1)}
@@ -745,17 +741,17 @@ export default function OptimizationDemos() {
           </button>
         </div>
 
-        {/* 실시간 결과 표시 */}
+        {/* ?ㅼ떆媛?寃곌낵 ?쒖떆 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-green-400 mb-2">✅ Memoized Value</p>
+            <p className="text-sm font-semibold text-green-400 mb-2">??Memoized Value</p>
             <p className="text-2xl font-bold text-white">{memoizedValue}</p>
             <p className="text-xs text-slate-400 mt-1">
-              expensiveValue × 2 = {expensiveValue} × 2 = {memoizedValue}
+              expensiveValue 횞 2 = {expensiveValue} 횞 2 = {memoizedValue}
             </p>
           </div>
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-blue-400 mb-2">🔄 Render Count</p>
+            <p className="text-sm font-semibold text-blue-400 mb-2">?봽 Render Count</p>
             <p className="text-2xl font-bold text-white">{isClient ? renderCount : '...'}</p>
             <p className="text-xs text-slate-400 mt-1">
               {t('optimization.reactMemo.useMemoExecutionCount')}
@@ -763,7 +759,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 시각적 피드백 */}
+        {/* ?쒓컖???쇰뱶諛?*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
             <p className="text-sm font-semibold text-purple-400 mb-2">
@@ -804,7 +800,7 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 단계별 테스트 가이드 */}
+        {/* ?④퀎蹂??뚯뒪??媛?대뱶 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-4">
           <h5 className="text-lg font-semibold text-yellow-400 mb-3">
             {t('optimization.testGuide.title')}
@@ -829,12 +825,12 @@ export default function OptimizationDemos() {
           </div>
         </div>
 
-        {/* 핵심 설명 */}
+        {/* ?듭떖 ?ㅻ챸 */}
         <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-600/50">
           <p className="text-sm text-slate-300 leading-relaxed">
             <strong className="text-blue-400">{t('optimization.reactMemo.magic')}</strong>
             {t.rich('optimization.reactMemo.detailedExplanation', {
-              span: (chunks) => {
+              span: (chunks: React.ReactNode) => {
                 if (chunks === 'Count 버튼')
                   return <span className="text-green-400">{chunks}</span>;
                 if (chunks === 'Expensive 버튼')
@@ -846,7 +842,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 6: useMemo 최적화 가이드 */}
+      {/* Demo 6: useMemo 理쒖쟻??媛?대뱶 */}
       <DemoBox title={t('optimization.useMemo.guideTitle')} className="border-emerald-500/30">
         <p className="text-slate-300 leading-relaxed mb-4">
           {t('optimization.useMemo.guideDescription')}
@@ -867,7 +863,7 @@ export default function OptimizationDemos() {
         </div>
       </DemoBox>
 
-      {/* Demo 7: 렌더링 최적화 가이드 */}
+      {/* Demo 7: ?뚮뜑留?理쒖쟻??媛?대뱶 */}
       <DemoBox title={t('optimization.renderingOptimizationGuide')} className="border-pink-500/30">
         <div className="space-y-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">

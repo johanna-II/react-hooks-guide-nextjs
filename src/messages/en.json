@@ -1,0 +1,512 @@
+{
+  "hero": {
+    "title": "HOOKS",
+    "subtitle": "Meet the <span>Future</span> of React",
+    "description": "Learn everything about React Hooks and experience the innovative features of React 19. An interactive learning guide with real-time demos."
+  },
+  "navigation": {
+    "home": "Home",
+    "hooks": "React Hooks",
+    "optimization": "Optimization",
+    "patterns": "Advanced Patterns"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "close": "Close",
+    "open": "Open",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "reset": "Reset",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "guide": {
+    "completeGuide": "Complete Guide",
+    "hooksRules": "📋 Rules of Hooks",
+    "whyHooksNeeded": "🚀 Why Hooks are Needed",
+    "beginnerTitle": "🎯 Complete React Hooks Guide for Beginners",
+    "whatIsHook": "What is a Hook?",
+    "whatIsHookDesc": "Hooks are functions that let you use React state and lifecycle features in functional components. You can use all React features without class components.",
+    "whyUseHooks": "Why Use Hooks?",
+    "whyUseHooksDesc": "Hooks make it easy to reuse stateful logic between components and make complex components easier to understand.",
+    "hookAdvantages": "Advantages of Hooks",
+    "hookAdvantagesDesc": "No 'this' binding issues from class components, and easier to test by splitting components into smaller functions.",
+    "hookAdvantagesDesc.short": "Easier to test by splitting components into smaller functions."
+  },
+  "hooks": {
+    "useState": {
+      "title": "useState",
+      "description": "The most basic Hook for managing component state.",
+      "descriptionDetail": "A Hook for adding state to components."
+    },
+    "useEffect": {
+      "title": "useEffect",
+      "description": "Perform side effects and manage lifecycle.",
+      "descriptionDetail": "A Hook for handling lifecycle-related tasks in components."
+    },
+    "useCallback": {
+      "title": "useCallback",
+      "description": "Memoize functions to prevent unnecessary recreation.",
+      "descriptionDetail": "Memoize functions to prevent unnecessary re-renders."
+    },
+    "useMemo": {
+      "title": "useMemo",
+      "description": "Memoize expensive calculations.",
+      "descriptionDetail": "Optimize performance by memoizing calculation results."
+    },
+    "useRef": {
+      "title": "useRef",
+      "description": "Maintain references to DOM elements or values.",
+      "descriptionDetail": "A Hook for directly accessing DOM elements or storing values."
+    },
+    "codeExample": "Code Example",
+    "realTimeDemo": "Real-time Demo",
+    "typeSomething": "Type something...",
+    "effectRunCount": "Effect Run Count",
+    "browserTabNotice": "Watch the browser tab title change!",
+    "clickToFocus": "Click the button to focus...",
+    "focusCount": "Focus Count",
+    "renderCount": "Render Count",
+    "optimizationTip": "Functions are memoized with useCallback to prevent unnecessary re-renders!",
+    "valueA": "Value A",
+    "valueB": "Value B",
+    "calculationResult": "Calculation Result",
+    "calculationCount": "Calculation Count",
+    "memoTip": "Calculations only run when A or B changes!"
+  },
+  "demo": {
+    "title": "Demo",
+    "description": "Check out working examples",
+    "runDemo": "Run Demo",
+    "viewCode": "View Code",
+    "result": "Result",
+    "useState": {
+      "title": "useState Demo",
+      "description": "State management basics",
+      "tip": "Click the button to increase the count"
+    },
+    "useEffect": {
+      "title": "useEffect Demo",
+      "description": "Lifecycle and side effects",
+      "tip": "Effect runs every time you type"
+    },
+    "useCallback": {
+      "title": "useCallback Demo",
+      "description": "Function memoization",
+      "tip": "Child component doesn't re-render if expensiveValue doesn't change"
+    },
+    "useMemo": {
+      "title": "useMemo Demo",
+      "description": "Value memoization",
+      "tip": "Calculation only runs when value A or B changes"
+    },
+    "useRef": {
+      "title": "useRef Demo",
+      "description": "DOM references and value storage",
+      "tip": "Ref stores values without causing renders"
+    },
+    "count": "Count",
+    "increase": "Increase",
+    "typed": "Typed",
+    "increment": "Increment",
+    "feedback": "Feedback",
+    "focusMePlaceholder": "Focus me!",
+    "refCountDisplay": "Ref Count: {count}",
+    "focusInput": "Focus Input",
+    "incrementRef": "Increment Ref",
+    "showRefValue": "Show Ref Value",
+    "refValueAlert": "Current Ref Value: {value}"
+  },
+  "mobile": {
+    "startButton": "Get Started",
+    "swipeHint": "Or swipe left",
+    "beginnerHooks": "React Hooks for Beginners",
+    "meetFuture": "Meet the Future of React",
+    "learnEverything": "Learn everything about React Hooks and experience the innovative features of React 19."
+  },
+  "form": {
+    "title": "Form Actions Demo",
+    "description": "This demo simulates React 19's new Form Actions feature. Real Form Actions use useActionState and useFormStatus.",
+    "formActions": {
+      "code": "Form Actions Code",
+      "example": "React 19 usage example."
+    },
+    "react19": {
+      "benefits": "React 19 Benefits",
+      "comparison": "Difference from Traditional Approach"
+    },
+    "benefits": {
+      "autoReset": "Automatic form reset",
+      "errorHandling": "Built-in error handling",
+      "pendingState": "Automatic pending state management",
+      "optimistic": "Optimistic update support"
+    },
+    "comparison": {
+      "noUseState": "No need for useState + useEffect",
+      "noManualError": "No manual error handling",
+      "simpleState": "Simplified complex state management",
+      "betterUX": "Better user experience"
+    },
+    "comment": {
+      "actionStateUsage": "Please enter both name and email.",
+      "submitFailure": "Submission failed. Please try again."
+    },
+    "submit": {
+      "preparing": "Submitting...",
+      "button": "Submit Form"
+    },
+    "submitAria": "Submit form",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "namePlaceholder": "Enter your name",
+    "emailPlaceholder": "Enter your email",
+    "messagePlaceholder": "Enter your message",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "successMessage": "Form submitted successfully!",
+    "errorMessage": "Please fill in all required fields.",
+    "required": "Required",
+    "actionDescription": "<strong>useActionState</strong> and <strong>Form Actions</strong> make form handling much simpler. They automatically manage form reset, error handling, and pending states."
+  },
+  "whyHooks": {
+    "title": "Why Hooks are Needed",
+    "wrapperHell": {
+      "title": "Solving Wrapper Hell",
+      "desc": "Simplify complex component trees caused by HOCs and Render Props.",
+      "detail": "Unwrap deeply nested code like Russian dolls and organize it cleanly."
+    },
+    "lifecycleSimplification": {
+      "title": "Lifecycle Simplification",
+      "desc": "Consolidate logic scattered across multiple lifecycle methods into a single useEffect.",
+      "detail": "Manage complex lifecycles like birth, growth, and destruction with a single function."
+    },
+    "thisRemoval": {
+      "title": "Removing 'this'",
+      "desc": "Write clean functional components without JavaScript's confusing 'this' binding.",
+      "detail": "Write code clearly without confusion about who 'this' refers to."
+    },
+    "logicReuse": {
+      "title": "Logic Reuse",
+      "desc": "Easily reuse and share stateful logic with Custom Hooks.",
+      "detail": "Assemble functionality like LEGO blocks and use them identically in other projects."
+    },
+    "typescriptFriendly": {
+      "title": "TypeScript Friendly",
+      "desc": "Write type-safe code using type inference and generics.",
+      "detail": "Catch runtime errors at compile time to build more stable applications."
+    },
+    "performanceOptimization": {
+      "title": "Performance Optimization",
+      "desc": "Prevent unnecessary re-renders with React.memo, useMemo, and useCallback.",
+      "detail": "Greatly improve user experience by reusing calculation results through memoization."
+    },
+    "items": {
+      "stateful": {
+        "title": "Reusable Stateful Logic",
+        "desc": "Easily share stateful logic between components without HOCs or render props"
+      },
+      "simpleComponents": {
+        "title": "Simpler Components",
+        "desc": "Functional components are easier to understand and test than class components"
+      },
+      "bundleSize": {
+        "title": "Better Bundle Size",
+        "desc": "Functional components minify more efficiently than class components"
+      },
+      "noBinding": {
+        "title": "No Binding Issues",
+        "desc": "No need to worry about 'this' binding in event handlers"
+      },
+      "composition": {
+        "title": "Better Composition",
+        "desc": "Split components into smaller functions through Hooks"
+      },
+      "futureReady": {
+        "title": "Future Ready",
+        "desc": "React team focuses new features on functional components"
+      }
+    }
+  },
+  "optimization": {
+    "metrics": {
+      "title": "Key Performance Metrics",
+      "description": "Essential metrics you need to understand for performance optimization."
+    },
+    "renderCount": {
+      "title": "Render Count Optimization",
+      "description": "Improve performance by preventing unnecessary renders.",
+      "memo": {
+        "desc": "Components don't re-render if props haven't changed."
+      },
+      "improvement": "unnecessary renders prevented!",
+      "test": "Test it out!",
+      "beforeOptimization": "Before Optimization",
+      "afterOptimization": "After Optimization (React.memo)",
+      "parentInefficient": "Child re-renders whenever parent changes (inefficient)",
+      "propsReuseEfficient": "Reuse when props are same (efficient) - Automatic in React 19!"
+    },
+    "executionTime": {
+      "title": "Execution Time Optimization",
+      "description": "Memoize expensive calculations.",
+      "memo": {
+        "desc": "Don't recalculate if dependencies haven't changed."
+      },
+      "improvement": "% performance improvement!",
+      "recalculationEveryTime": "Recalculation every time",
+      "cachedResults": "Using cached results",
+      "calculatePrime": "Calculate Prime",
+      "calculateNow": "Calculate Now",
+      "calculationTime": "milliseconds",
+      "slowCalculation": "Recalculate large prime every time (slow)",
+      "fastCalculation": "Calculate once and use cache (fast)",
+      "performanceComparisonResult": "Performance Comparison Result",
+      "cachePerformance": "Cache Performance Improvement",
+      "beforeOptimization": "Before Optimization",
+      "afterOptimization": "After Optimization (useMemo)",
+      "primeSlow": "Recalculate large prime every time (slow)",
+      "cacheUseFast": "Calculate once and use cache (fast)",
+      "cacheUse": "Using Cache"
+    },
+    "uiResponsiveness": {
+      "title": "UI Responsiveness Optimization",
+      "description": "Ensure immediate response to user input.",
+      "memo": {
+        "desc": "Maintain responsiveness by separating heavy operations from UI updates."
+      },
+      "beforeOptimization": "Before Optimization",
+      "afterOptimization": "After Optimization",
+      "typingTest": "Typing Test",
+      "heavyCalculation": "Heavy Calculation",
+      "runHeavyCalculation": "Run Heavy Calculation",
+      "changeTheme": "Change Theme",
+      "charactersTyped": "Characters typed",
+      "msDelay": "ms delay",
+      "inputPlaceholder": "Try typing...",
+      "nonOptimized": {
+        "desc": "Dots keep flickering"
+      },
+      "optimized": {
+        "desc": "Dots stay fixed"
+      },
+      "noInput": "No input yet"
+    },
+    "memoryManagement": {
+      "title": "Memory Management Optimization",
+      "description": "Prevent memory leaks and manage efficiently.",
+      "memo": {
+        "desc": "Prevent memory leaks by properly cleaning up event listeners and timers."
+      },
+      "useMemoCore": "Core of useEffect cleanup: ",
+      "useMemoDesc": "Prevent memory leaks with useEffect cleanup. Keeping unused items in memory slows down the app.",
+      "createListener": "Create Listener",
+      "removeListener": "Remove Listener",
+      "listenerCount": "",
+      "memoryLeakWarning": "Remains in memory after removal (Memory Leak!)",
+      "properCleanup": "Completely removed with cleanup (efficient)",
+      "accumulatedListeners": "Accumulated Listeners",
+      "currentListeners": "Current Listeners",
+      "keepStacking": "Keep stacking in memory",
+      "actuallyInUse": "Only what's actually in use",
+      "memoryLeakOccured": " memory leaks occurred!",
+      "beforeOptimization": "Before Optimization",
+      "afterOptimization": "After Optimization",
+      "listenerAddedNotRemoved": "Listener Added (Not Removed)",
+      "listenerManagedWithCleanup": "Listener Managed (Cleanup)",
+      "noCleanupWarning": "⚠️ No Cleanup: {count} memory leaks!",
+      "noCleanup": "No Cleanup",
+      "withCleanup": "With Cleanup",
+      "cleanupOnUnmount": "Cleaned on unmount",
+      "cleanResourceCleanup": "Clean resource cleanup",
+      "add": "Add",
+      "remove": "Remove",
+      "activeListeners": "Active Listeners",
+      "memoryStatusMonitoring": "Memory Status Monitoring",
+      "nonOptimized": {
+        "desc": "Keeps stacking in memory"
+      },
+      "optimized": {
+        "desc": "Only what's in use"
+      },
+      "none": "None yet"
+    }
+  },
+  "advanced": {
+    "title": "Advanced Patterns",
+    "description": "Learn advanced patterns leveraging React's powerful features.",
+    "formActions": {
+      "title": "Form Actions",
+      "description": "React 19's new form handling approach"
+    },
+    "serverComponents": {
+      "title": "Server Components",
+      "description": "React components that run on the server"
+    },
+    "suspense": {
+      "title": "Suspense & Error Boundaries",
+      "description": "Async state and error handling"
+    },
+    "concurrentFeatures": {
+      "title": "Concurrent Features",
+      "description": "React 18+ concurrent features"
+    }
+  },
+  "serverComponents": {
+    "title": "Server Components",
+    "benefits": {
+      "title": "Benefits of Server Components",
+      "zeroBundle": "Zero Bundle Size",
+      "zeroBundle.desc": "Server component code is not sent to the client",
+      "directBackend": "Direct Backend Access",
+      "directBackend.desc": "Direct access to database or file system",
+      "autoCodeSplitting": "Automatic Code Splitting",
+      "autoCodeSplitting.desc": "Client components are automatically code-split",
+      "improvedSecurity": "Improved Security",
+      "improvedSecurity.desc": "Sensitive data or logic is not exposed to the client"
+    },
+    "code": {
+      "serverComponent": "Server Component Example",
+      "clientComponent": "Client Component Example"
+    }
+  },
+  "suspense": {
+    "title": "Suspense & Error Boundaries",
+    "suspense": {
+      "title": "Suspense",
+      "description": "Allows components to 'wait' for something before rendering",
+      "usage": "Used for data loading, code splitting, image loading, etc."
+    },
+    "errorBoundary": {
+      "title": "Error Boundary",
+      "description": "Catch and handle JavaScript errors in child component tree",
+      "usage": "Used for displaying error UI, error logging, recovery attempts, etc."
+    },
+    "code": {
+      "suspenseExample": "Suspense Usage Example",
+      "errorBoundaryExample": "Error Boundary Usage Example"
+    }
+  },
+  "concurrent": {
+    "title": "Concurrent Features",
+    "features": {
+      "useTransition": {
+        "title": "useTransition",
+        "description": "Maintain UI responsiveness by deferring non-urgent updates"
+      },
+      "useDeferredValue": {
+        "title": "useDeferredValue",
+        "description": "Optimize performance by deferring value updates"
+      },
+      "startTransition": {
+        "title": "startTransition",
+        "description": "Lower update priority to process important updates first"
+      }
+    },
+    "code": {
+      "transitionExample": "useTransition Example",
+      "deferredExample": "useDeferredValue Example"
+    }
+  },
+  "rules": {
+    "title": "Rules of Hooks",
+    "rule1": {
+      "title": "1. Only Call at the Top Level",
+      "description": "Don't call Hooks inside loops, conditions, or nested functions."
+    },
+    "rule2": {
+      "title": "2. Only Call from React Functions",
+      "description": "Call Hooks only from React function components or custom Hooks."
+    }
+  },
+  "transition": {
+    "loading": "Loading translations...",
+    "pleaseWait": "Please wait a moment"
+  },
+  "react19": {
+    "newFeatures": {
+      "title": "New Features in React 19",
+      "description": "React 19 introduces groundbreaking features that significantly improve performance and developer experience."
+    },
+    "actionsAndUseTransition": "Actions and useTransition",
+    "actionsAndUseTransition.subtitle": "Revolutionary async state management",
+    "actions": {
+      "description": "<strong>Actions</strong> are one of React 19's most innovative features, making form submissions and data mutations simple. ",
+      "autoManagement": "They automatically handle pending states, errors, and optimistic updates."
+    },
+    "newWay": "// The new React 19 way",
+    "formActionsAndUseActionState": "Form Actions and useActionState",
+    "formActionsAndUseActionState.subtitle": "A paradigm shift in form handling",
+    "formActions": {
+      "withUseActionState": "<strong>useActionState</strong> tracks and manages the state of form actions. ",
+      "simplifiedDesc": "Form submission, loading states, and error handling all become simple with one Hook."
+    },
+    "useHook": "use Hook",
+    "useHook.subtitle": "A new way for Promises and Context",
+    "use": {
+      "description": "<strong>use</strong> is a new Hook that can read Promises or Context in components. "
+    },
+    "code": {
+      "comment": {
+        "conditionPromise": "Conditionally read a Promise",
+        "conditionUse": "Can call use conditionally",
+        "safePredict": "Safer and more predictable code",
+        "formStatus": "Easily track form status",
+        "optimistic": "Implement optimistic updates",
+        "preinit": "Preinitialize scripts",
+        "preload": "Preload resources",
+        "prefetch": "Prefetch DNS",
+        "preconnect": "Preconnect"
+      },
+      "beforeReact19": "Before React 19",
+      "withReact19": "With React 19",
+      "comment.autoMemo": "Automatically memoized",
+      "comment.autoCallback": "Automatically useCallback",
+      "comment.autoMemoComponent": "No need for React.memo"
+    },
+    "useFormStatusAndUseOptimistic": "useFormStatus and useOptimistic",
+    "useFormStatusAndUseOptimistic.subtitle": "Hooks for better user experience",
+    "formHooks": {
+      "description": "These Hooks let you <strong>track form state in real-time</strong> and easily implement <strong>optimistic updates</strong>."
+    },
+    "newFormHooks": "// New Form Hooks",
+    "serverComponentsAndReactCompiler": "Server Components and React Compiler",
+    "serverComponentsAndReactCompiler.subtitle": "A new dimension of performance optimization",
+    "compiler": {
+      "description": "<strong>React Compiler</strong> automatically optimizes your components. "
+    },
+    "noLongerNeeded": "// No longer needed!",
+    "resourcePreloadingAPIs": "Resource Preloading APIs",
+    "resourcePreloadingAPIs.subtitle": "Faster page loading",
+    "resources": {
+      "description": "New resource APIs let you preload <strong>scripts, stylesheets, and fonts</strong>."
+    },
+    "newResourceAPIs": "// New Resource APIs",
+    "upgrade": {
+      "guideTitle": "React 19 Upgrade Guide",
+      "step1": "Step 1:",
+      "step1.desc": "First upgrade to React 18.3.0",
+      "step2": "Step 2:",
+      "step2.desc": "Resolve StrictMode warnings",
+      "step3": "Step 3:",
+      "step3.desc": "Upgrade to TypeScript 5.1+",
+      "step4": "Step 4:",
+      "step4.desc": "Upgrade to React 19",
+      "step5": "Step 5:",
+      "step5.desc": "Gradually adopt new features",
+      "tip": "React Compiler is optional. Your existing code will work just fine!"
+    }
+  }
+}

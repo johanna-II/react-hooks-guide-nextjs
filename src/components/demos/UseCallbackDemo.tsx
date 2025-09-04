@@ -1,11 +1,11 @@
-import React from 'react';
+﻿import React from 'react';
 
 import { Button, Card, DemoContainer } from '@/components/common';
 import { useCounter } from '@/hooks';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 const FeedbackCard: React.FC<{ count: number }> = React.memo(({ count }) => {
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <Card variant="bordered" className="mb-4">
@@ -21,7 +21,7 @@ FeedbackCard.displayName = 'FeedbackCard';
 
 export const UseCallbackDemo: React.FC = React.memo(() => {
   const { count, increment, decrement } = useCounter({ initialValue: 0 });
-  const t = useOptimizedTranslations();
+  const t = useTranslations();
 
   return (
     <DemoContainer

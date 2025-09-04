@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
 
 import { NAVIGATION_SECTIONS } from '@/constants/navigation';
-import { useOptimizedTranslations } from '@/hooks/useOptimizedTranslations';
+import { useTranslations } from '@/hooks/useTranslations';
 
 interface MobileNavigationProps {
   activeSection: string;
@@ -12,16 +12,13 @@ interface MobileNavigationProps {
 
 export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(
   ({ activeSection, onSectionChange }) => {
-    const t = useOptimizedTranslations();
+    const t = useTranslations();
     // Track active section changes in development
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // 스와이프 제거 - 메뉴는 버튼 클릭으로만 제어
-
-    // 메뉴 외부 클릭 시 닫기
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -38,7 +35,6 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(
       };
     }, [isMenuOpen]);
 
-    // 스크롤 시 메뉴 자동 닫기
     useEffect(() => {
       const handleScroll = () => {
         if (!isScrolling) {
@@ -65,7 +61,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(
 
     return (
       <>
-        {/* 햄버거 메뉴 버튼 */}
+        {/* ?占쎈쾭占?硫붾돱 踰꾪듉 */}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -96,28 +92,28 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(
           </div>
         </button>
 
-        {/* 모바일 메뉴 오버레이 */}
+        {/* 紐⑤컮??硫붾돱 ?占쎈쾭?占쎌씠 */}
         <div
           className={`lg:hidden fixed inset-0 z-50 transition-opacity duration-300 ${
             isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
-          {/* 배경 블러 - 클릭 시 메뉴 닫기 */}
+          {/* 諛곌꼍 釉붾윭 - ?占쎈┃ ??硫붾돱 ?占쎄린 */}
           <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={() => setIsMenuOpen(false)}
           />
 
-          {/* 메뉴 패널 */}
+          {/* 硫붾돱 ?占쎈꼸 */}
           <div
             ref={menuRef}
             className={`absolute right-0 top-0 h-full w-80 bg-slate-900/95 backdrop-blur-xl border-l border-white/10 shadow-2xl transform transition-transform duration-300 ${
               isMenuOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
-            {/* 모바일에서는 헤더 제거 - 공간 효율적 사용 */}
+            {/* 紐⑤컮?占쎌뿉?占쎈뒗 ?占쎈뜑 ?占쎄굅 - 怨듦컙 ?占쎌쑉???占쎌슜 */}
 
-            {/* 네비게이션 링크 */}
+            {/* ?占쎈퉬寃뚯씠??留곹겕 */}
             <nav className="p-4 pt-8 space-y-2">
               {NAVIGATION_SECTIONS.map((section) => (
                 <button
@@ -145,7 +141,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = React.memo(
               ))}
             </nav>
 
-            {/* 푸터 정보 */}
+            {/* ?占쏀꽣 ?占쎈낫 */}
             <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
               <div className="text-center text-sm text-slate-400">
                 <p>{t('navigation.tapToMove')}</p>

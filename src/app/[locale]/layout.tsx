@@ -52,16 +52,6 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
         locale: 'en_US',
       },
     },
-    ja: {
-      title: 'React Hooks 完全ガイド | インタラクティブ学習ガイド',
-      description:
-        'ライブデモと一緒にReact Hooksのすべてを学びましょう。useState、useEffect、useContextからReact 19の最新機能まで完全ガイド',
-      openGraph: {
-        title: 'React Hooks 完全ガイド',
-        description: 'ライブデモ付きReact Hooks完全ガイド',
-        locale: 'ja_JP',
-      },
-    },
   };
 
   return {

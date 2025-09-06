@@ -1,7 +1,7 @@
-export const locales = ['ko', 'en', 'ja'] as const;
+export const locales = ['ko', 'en'] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = 'ko';
+export const defaultLocale: Locale = 'en';
 
 export function isValidLocale(locale: string): locale is Locale {
   return locales.includes(locale as Locale);
@@ -16,7 +16,6 @@ export interface LocaleMetadata {
 export const localeMetadata: Record<Locale, LocaleMetadata> = {
   ko: { code: 'ko', name: '한국어', flag: '🇰🇷' },
   en: { code: 'en', name: 'English', flag: '🇺🇸' },
-  ja: { code: 'ja', name: '日本語', flag: '🇯🇵' },
 };
 
 // Translation message types (extend according to actual message structure)

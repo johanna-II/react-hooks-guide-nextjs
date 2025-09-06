@@ -2,28 +2,35 @@
 
 import { track } from '@vercel/analytics';
 
+// Analytics 이벤트 속성 타입 정의
+type EventProperties = Record<string, string | number | boolean>;
+
 /**
  * 커스텀 분석 이벤트 트래킹
  */
-export const trackEvent = {
+export const trackEvent = (eventName: string, properties?: EventProperties) => {
+  track(eventName, properties);
+};
+
+export const trackEventHelpers = {
   navigation: (section: string) => {
-    track('navigate', { section });
+    trackEvent('navigate', { section });
   },
 
   demoInteraction: (demoName: string, action: string) => {
-    track('demo_interaction', { demo: demoName, action });
+    trackEvent('demo_interaction', { demo: demoName, action });
   },
 
   copyCode: (code: string) => {
-    track('copy_code', { length: code.length });
+    trackEvent('copy_code', { length: code.length });
   },
 
   tabSwitch: (from: string, to: string) => {
-    track('tab_switch', { from, to });
+    trackEvent('tab_switch', { from, to });
   },
 
   deviceSwitch: (device: 'mobile' | 'desktop') => {
-    track('device_switch', { device });
+    trackEvent('device_switch', { device });
   },
 };
 

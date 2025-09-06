@@ -6,11 +6,9 @@ import { NAVIGATION_SECTIONS, WHY_HOOKS_DATA } from '@/constants/navigation';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { useTranslations } from '@/hooks/useTranslations';
-import { measurePagePerformance, trackEvent } from '@/utils/analytics';
+import { measurePagePerformance, trackEventHelpers } from '@/utils/analytics';
 import { HTMLText } from '@/utils/html-parser';
 
-import AdvancedPatterns from './AdvancedPatterns';
-import { LanguageSwitcher } from './common';
 import FormActionDemo from './FormActionDemo';
 import HooksTabs from './HooksTabs';
 import { MobileMainContent } from './MobileMainContent';
@@ -55,7 +53,7 @@ const ReactHooksGuide: React.FC = React.memo(() => {
       // Device detection completed
 
       if (isMobile !== isMobileDevice) {
-        trackEvent.deviceSwitch(isMobileDevice ? 'mobile' : 'desktop');
+        trackEventHelpers.deviceSwitch(isMobileDevice ? 'mobile' : 'desktop');
       }
       setIsMobile(isMobileDevice);
     };
@@ -137,13 +135,12 @@ const ReactHooksGuide: React.FC = React.memo(() => {
             {/* Navigation */}
             <div className="flex-1 flex justify-end ml-6">
               <div className="flex items-center space-x-3 lg:space-x-4">
-                <LanguageSwitcher className="mr-2" />
                 {NAVIGATION_SECTIONS.map((section) => (
                   <button
                     key={section.id}
                     onClick={() => {
                       scrollToSection(section.id);
-                      trackEvent.navigation(section.id);
+                      trackEventHelpers.navigation(section.id);
                     }}
                     className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 ${
                       activeSection === section.id
@@ -213,12 +210,14 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                     {t('guide.hookAdvantages')}
                   </h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
-                    {t('guide.hookAdvantagesDesc')}
+                    {t('guide.hookAdvantagesDesc.value') || t('guide.hookAdvantagesDesc')}
                   </p>
                 </div>
 
                 <div className="bg-slate-800/50 p-4 sm:p-5 rounded-2xl border border-slate-700/50 h-full flex flex-col">
-                  <h3 className="text-lg font-bold text-orange-400 mb-2">{t('guide.whenToUse')}</h3>
+                  <h3 className="text-lg font-bold text-orange-400 mb-2">
+                    {t('guide.whenToUse.value') || t('guide.whenToUse')}
+                  </h3>
                   <p className="text-sm text-slate-300 leading-relaxed flex-grow">
                     {t('guide.whenToUse.desc2')}
                   </p>
@@ -394,7 +393,8 @@ const ReactHooksGuide: React.FC = React.memo(() => {
                   </span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
-                      {t('react19.actionsAndUseTransition')}
+                      {t('react19.actionsAndUseTransition.value') ||
+                        t('react19.actionsAndUseTransition')}
                     </h4>
                     <p className="text-slate-400">
                       {t('react19.actionsAndUseTransition.subtitle')}
@@ -447,7 +447,8 @@ const handleSubmit = () => {
                   <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
-                      {t('react19.formActionsAndUseActionState')}
+                      {t('react19.formActionsAndUseActionState.value') ||
+                        t('react19.formActionsAndUseActionState')}
                     </h4>
                     <p className="text-slate-400">
                       {t('react19.formActionsAndUseActionState.subtitle')}
@@ -475,7 +476,9 @@ const handleSubmit = () => {
                 <div className="flex items-center mb-6">
                   <span className="text-4xl mr-4">📝</span>
                   <div>
-                    <h4 className="text-2xl font-bold text-white">{t('react19.useHook')}</h4>
+                    <h4 className="text-2xl font-bold text-white">
+                      {t('react19.useHook.value') || t('react19.useHook')}
+                    </h4>
                     <p className="text-slate-400">{t('react19.useHook.subtitle')}</p>
                   </div>
                 </div>
@@ -506,7 +509,8 @@ if (condition) {
                   <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-xl font-bold text-white">
-                      {t('react19.useFormStatusAndUseOptimistic')}
+                      {t('react19.useFormStatusAndUseOptimistic.value') ||
+                        t('react19.useFormStatusAndUseOptimistic')}
                     </h4>
                     <p className="text-slate-400">
                       {t('react19.useFormStatusAndUseOptimistic.subtitle')}
@@ -560,7 +564,8 @@ const [optimisticMessages, addOptimisticMessage] = useOptimistic(
                   </span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
-                      {t('react19.serverComponentsAndReactCompiler')}
+                      {t('react19.serverComponentsAndReactCompiler.value') ||
+                        t('react19.serverComponentsAndReactCompiler')}
                     </h4>
                     <p className="text-slate-400">
                       {t('react19.serverComponentsAndReactCompiler.subtitle')}
@@ -601,7 +606,8 @@ const Component = () => <div>...</div>; // ${t('react19.code.comment.autoMemoCom
                   <span className="text-4xl mr-4">📝</span>
                   <div>
                     <h4 className="text-2xl font-bold text-white">
-                      {t('react19.resourcePreloadingAPIs')}
+                      {t('react19.resourcePreloadingAPIs.value') ||
+                        t('react19.resourcePreloadingAPIs')}
                     </h4>
                     <p className="text-slate-400">{t('react19.resourcePreloadingAPIs.subtitle')}</p>
                   </div>
@@ -649,39 +655,41 @@ function MyComponent() {
               <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-300">
                 <div>
                   <p>
-                    <strong>{t('react19.upgrade.step1')}</strong> {t('react19.upgrade.step1.desc')}
+                    <strong>
+                      {t('react19.upgrade.step1.value') || t('react19.upgrade.step1')}
+                    </strong>{' '}
+                    {t('react19.upgrade.step1.desc')}
                   </p>
                   <p>
-                    <strong>{t('react19.upgrade.step2')}</strong> {t('react19.upgrade.step2.desc')}
+                    <strong>
+                      {t('react19.upgrade.step2.value') || t('react19.upgrade.step2')}
+                    </strong>{' '}
+                    {t('react19.upgrade.step2.desc')}
                   </p>
                   <p>
-                    <strong>{t('react19.upgrade.step3')}</strong> {t('react19.upgrade.step3.desc')}
+                    <strong>
+                      {t('react19.upgrade.step3.value') || t('react19.upgrade.step3')}
+                    </strong>{' '}
+                    {t('react19.upgrade.step3.desc')}
                   </p>
                 </div>
                 <div>
                   <p>
-                    <strong>{t('react19.upgrade.step4')}</strong> {t('react19.upgrade.step4.desc')}
+                    <strong>
+                      {t('react19.upgrade.step4.value') || t('react19.upgrade.step4')}
+                    </strong>{' '}
+                    {t('react19.upgrade.step4.desc')}
                   </p>
                   <p>
-                    <strong>{t('react19.upgrade.step5')}</strong> {t('react19.upgrade.step5.desc')}
+                    <strong>
+                      {t('react19.upgrade.step5.value') || t('react19.upgrade.step5')}
+                    </strong>{' '}
+                    {t('react19.upgrade.step5.desc')}
                   </p>
                 </div>
               </div>
               <p className="text-sm text-blue-300 mt-4">💡 {t('react19.upgrade.tip')}</p>
             </div>
-          </div>
-        </section>
-
-        {/* Advanced Patterns Lab */}
-        <section id="advanced" className="mb-24 scroll-mt-20">
-          <div className="backdrop-blur-xl bg-gradient-to-r from-pink-500/10 to-rose-500/10 rounded-3xl border border-pink-500/20 p-8">
-            <h2 className="text-3xl font-bold text-white mb-8 text-center">
-              🧪 {t('guide.advanced.title')}
-            </h2>
-            <p className="text-lg text-slate-300 text-center mb-12 max-w-3xl mx-auto">
-              {t('guide.advanced.description')}
-            </p>
-            <AdvancedPatterns />
           </div>
         </section>
       </main>
@@ -698,7 +706,7 @@ function MyComponent() {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ?占쏙툘
+                ⚛️
               </span>
             </div>
             <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -715,7 +723,7 @@ function MyComponent() {
                     '"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif',
                 }}
               >
-                ?占쏙툘
+                ⚛️
               </span>{' '}
               {t('guide.footer.forDevelopers')}
             </span>

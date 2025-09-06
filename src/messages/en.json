@@ -2,13 +2,16 @@
   "hero": {
     "title": "HOOKS",
     "subtitle": "Meet the <span>Future</span> of React",
-    "description": "Learn everything about React Hooks and experience the innovative features of React 19. An interactive learning guide with real-time demos."
+    "description": "Learn everything about React Hooks and experience the innovative features of React 19. An interactive learning guide with real-time demos.",
+    "getStarted": "Get Started",
+    "viewCode": "View Code"
   },
   "navigation": {
     "home": "Home",
     "hooks": "React Hooks",
     "optimization": "Optimization",
-    "patterns": "Advanced Patterns"
+    "menuOpen": "Open navigation menu",
+    "tapToMove": "Tap to navigate between sections"
   },
   "common": {
     "loading": "Loading...",
@@ -43,8 +46,44 @@
     "whyUseHooks": "Why Use Hooks?",
     "whyUseHooksDesc": "Hooks make it easy to reuse stateful logic between components and make complex components easier to understand.",
     "hookAdvantages": "Advantages of Hooks",
-    "hookAdvantagesDesc": "No 'this' binding issues from class components, and easier to test by splitting components into smaller functions.",
-    "hookAdvantagesDesc.short": "Easier to test by splitting components into smaller functions."
+    "hookAdvantagesDesc": {
+      "short": "Easier to test by splitting components into smaller functions.",
+      "value": "No 'this' binding issues from class components, and easier to test by splitting components into smaller functions."
+    },
+    "rules": {
+      "title": "Rules of Hooks",
+      "dontTitle": "Things You Must Never Do",
+      "dont": {
+        "conditional": "Call Hooks inside conditionals, loops, or nested functions",
+        "regular": "Call Hooks in regular JavaScript functions",
+        "class": "Use Hooks in class components"
+      },
+      "doTitle": "Correct Usage",
+      "do": {
+        "topLevel": "Only call at the top level of React function components",
+        "customHook": "Only call at the top level of custom Hooks",
+        "sameOrder": "Always maintain the same order of Hook calls"
+      },
+      "whyTitle": "Why Are These Rules Necessary?",
+      "whyDesc": "React relies on the order of Hook calls. If you call Hooks conditionally or in loops, React can't correctly associate each Hook call with its state."
+    },
+    "whenToUse": {
+      "desc2": "Use Hooks when you need state management, lifecycle methods, or other React features in functional components.",
+      "value": "When to Use Hooks"
+    },
+    "coreHooks": {
+      "title": "Core Hooks",
+      "description": "Essential Hooks that every React developer should know."
+    },
+    "optimization": {
+      "title": "Optimization Techniques",
+      "description": "Learn how to optimize your React applications for better performance."
+    },
+    "footer": {
+      "description": "Build amazing React applications with confidence.",
+      "madeWith": "Made with ❤️",
+      "forDevelopers": "for developers worldwide"
+    }
   },
   "hooks": {
     "useState": {
@@ -93,6 +132,8 @@
     "runDemo": "Run Demo",
     "viewCode": "View Code",
     "result": "Result",
+    "timer": "Timer",
+    "seconds": "seconds",
     "useState": {
       "title": "useState Demo",
       "description": "State management basics",
@@ -106,12 +147,20 @@
     "useCallback": {
       "title": "useCallback Demo",
       "description": "Function memoization",
-      "tip": "Child component doesn't re-render if expensiveValue doesn't change"
+      "tip": "Child component doesn't re-render if expensiveValue doesn't change",
+      "triggerRerender": "Trigger Parent Re-render",
+      "clickToSee": "Click to see how the buttons below react",
+      "difference": "Difference",
+      "whenClick": "When clicking the \"Trigger Parent Re-render\" button",
+      "leftSide": "Left: Render count increases (new function every time)",
+      "rightSide": "Right: Render count stays the same (function reused)"
     },
     "useMemo": {
       "title": "useMemo Demo",
       "description": "Value memoization",
-      "tip": "Calculation only runs when value A or B changes"
+      "tip": "Calculation only runs when value A or B changes",
+      "noItems": "No items to display",
+      "noFilteredItems": "No items match the filter"
     },
     "useRef": {
       "title": "useRef Demo",
@@ -122,20 +171,76 @@
     "increase": "Increase",
     "typed": "Typed",
     "increment": "Increment",
+    "decrement": "Decrement",
     "feedback": "Feedback",
     "focusMePlaceholder": "Focus me!",
     "refCountDisplay": "Ref Count: {count}",
     "focusInput": "Focus Input",
     "incrementRef": "Increment Ref",
     "showRefValue": "Show Ref Value",
-    "refValueAlert": "Current Ref Value: {value}"
+    "refValueAlert": "Current Ref Value: {value}",
+    "reset": "Reset",
+    "incrementCount": "Increment Count",
+    "startTimer": "Start Timer",
+    "stopTimer": "Stop Timer",
+    "resetTimer": "Reset Timer",
+    "allItems": "All Items",
+    "filteredItems": "Filtered Items",
+    "addItem": "Add Item",
+    "filterPlaceholder": "Filter items...",
+    "removeItem": "Remove",
+    "newItem": "New item",
+    "add": "Add",
+    "noItems": "No items yet",
+    "delete": "Delete",
+    "decrease": "Decrease",
+    "click": "Click Me"
   },
   "mobile": {
     "startButton": "Get Started",
     "swipeHint": "Or swipe left",
     "beginnerHooks": "React Hooks for Beginners",
     "meetFuture": "Meet the Future of React",
-    "learnEverything": "Learn everything about React Hooks and experience the innovative features of React 19."
+    "learnEverything": "Learn everything about React Hooks and experience the innovative features of React 19.",
+    "text": "Text",
+    "useState": {
+      "description": "Manage component state with the useState Hook. State changes trigger re-renders."
+    },
+    "useEffect": {
+      "description": "Handle side effects and lifecycle events. Run code after render or cleanup."
+    },
+    "useRef": {
+      "description": "Access DOM elements directly and store values that persist across renders."
+    },
+    "useMemo": {
+      "description": "Optimize performance by memoizing expensive calculations."
+    },
+    "useCallback": {
+      "description": "Prevent unnecessary re-renders by memoizing callback functions."
+    },
+    "touchDemo": {
+      "title": "Touch Interactive Demo",
+      "description": "Try touch gestures like swipe, tap, and pinch to interact with the demo."
+    },
+    "basicDemo": {
+      "title": "Basic Demo",
+      "description": "See how this Hook works with a simple interactive example."
+    },
+    "whatIsHook": {
+      "title": "What is a Hook?",
+      "desc": "Hooks are special functions that let you 'hook into' React features like state and lifecycle in functional components."
+    },
+    "whyUseHooks": {
+      "title": "Why Use Hooks?",
+      "desc": "Hooks make your components cleaner, more reusable, and easier to test. They eliminate the complexity of class components."
+    },
+    "hookAdvantages": {
+      "title": "Hook Advantages",
+      "desc": "Write less code, share logic between components easily, and build more maintainable applications."
+    },
+    "typingPlaceholder": "Type something...",
+    "inputLabel": "You typed:",
+    "noInput": "Nothing typed yet"
   },
   "form": {
     "title": "Form Actions Demo",
@@ -175,7 +280,6 @@
     "namePlaceholder": "Enter your name",
     "emailPlaceholder": "Enter your email",
     "messagePlaceholder": "Enter your message",
-    "submit": "Submit",
     "submitting": "Submitting...",
     "successMessage": "Form submitted successfully!",
     "errorMessage": "Please fill in all required fields.",
@@ -244,7 +348,27 @@
   "optimization": {
     "metrics": {
       "title": "Key Performance Metrics",
-      "description": "Essential metrics you need to understand for performance optimization."
+      "description": "Essential metrics you need to understand for performance optimization.",
+      "renderCount": {
+        "title": "Render Count",
+        "desc": "Track how many times components re-render"
+      },
+      "executionTime": {
+        "title": "Execution Time",
+        "desc": "Measure calculation and rendering performance"
+      },
+      "uiResponsiveness": {
+        "title": "UI Responsiveness",
+        "desc": "Ensure smooth user interactions"
+      },
+      "memoryManagement": {
+        "title": "Memory Management",
+        "desc": "Prevent memory leaks and optimize memory usage"
+      },
+      "renderCountTitle": "Render Count",
+      "executionTimeTitle": "Execution Time",
+      "uiResponsivenessTitle": "UI Responsiveness",
+      "memoryManagementTitle": "Memory Management"
     },
     "renderCount": {
       "title": "Render Count Optimization",
@@ -257,7 +381,16 @@
       "beforeOptimization": "Before Optimization",
       "afterOptimization": "After Optimization (React.memo)",
       "parentInefficient": "Child re-renders whenever parent changes (inefficient)",
-      "propsReuseEfficient": "Reuse when props are same (efficient) - Automatic in React 19!"
+      "propsReuseEfficient": "Reuse when props are same (efficient) - Automatic in React 19!",
+      "whenParentChanges": "Child re-renders whenever parent changes",
+      "regardlessOfProps": "Regardless of prop changes",
+      "performanceDegradation": "Performance degradation due to unnecessary renders",
+      "everyTimeRerendering": "Re-rendering occurs every time",
+      "parentReRender": "Parent Re-render",
+      "renderCountLabel": "Render Count",
+      "onlyPropsChangeRerendering": "Re-rendering only when props change",
+      "renderingCount": "Rendering Count",
+      "unnecessaryRendersPrevented": "{count} unnecessary renders prevented!"
     },
     "executionTime": {
       "title": "Execution Time Optimization",
@@ -279,7 +412,52 @@
       "afterOptimization": "After Optimization (useMemo)",
       "primeSlow": "Recalculate large prime every time (slow)",
       "cacheUseFast": "Calculate once and use cache (fast)",
-      "cacheUse": "Using Cache"
+      "cacheUse": "Using Cache",
+      "calculationTimeLabel": "Calculation Time",
+      "performanceImprovement": "{percent}% performance improvement!",
+      "useMemoCore": "The core of useMemo: ",
+      "useMemoDesc": "Repeating complex calculations every time slows down your app. Storing and reusing calculated results is much faster.",
+      "cachedResult": "Cached Result"
+    },
+    "workingPrinciple": {
+      "before": "Before Optimization:",
+      "after": "After Optimization (React.memo):",
+      "afterBullet1": "Re-render child only when props change",
+      "afterBullet2": "Reuse previous result",
+      "afterBullet3": "Significantly improved performance",
+      "afterUseMemo": "After Optimization (useMemo):",
+      "reRenderEveryTime": "Child re-renders whenever parent changes",
+      "noMatterPropsChange": "Regardless of prop changes",
+      "unnecessaryReRender": "Performance degradation due to unnecessary renders",
+      "onlyWhenPropsChange": "Re-render child only when props change",
+      "reusePreviousResult": "Reuse previous result",
+      "efficientPerformance": "Efficient performance",
+      "recalculateEveryTime": "Execute calculation from scratch every time",
+      "duplicateCalculation": "Duplicate calculations for same input",
+      "wasteResources": "Degraded user experience",
+      "firstCalculationOnly": "Calculate first time only, use cache afterwards",
+      "recalculateWhenDepsChange": "Recalculate only when dependencies change",
+      "saveCalculationTime": "Improved UX with instant response",
+      "listenerKeepStacking": "Event listeners keep stacking",
+      "notRemovedFromMemory": "Not removed from memory",
+      "memoryLeakOccur": "Memory leak occurs!",
+      "oneListener": "Maintain only one listener",
+      "prevListenerRemove": "Previous listener is removed",
+      "efficientMemory": "Efficient memory management",
+      "title": "How It Works"
+    },
+    "performanceComparisonResult": "Performance Comparison Result",
+    "noInput": "No input yet",
+    "noneYet": "None yet",
+    "reactMemoDemoTitle": "React.memo Demo",
+    "renderingOptimizationGuide": "Rendering Optimization Guide",
+    "realtimeFeedback": "Real-time Feedback",
+    "demoBox": {
+      "uiResponsivenessOptimization": "UI Responsiveness Optimization",
+      "memoryManagementOptimization": "Memory Management Optimization",
+      "keyMetrics": "Key Performance Metrics",
+      "renderCountOptimization": "Render Count Optimization",
+      "executionTimeOptimization": "Execution Time Optimization"
     },
     "uiResponsiveness": {
       "title": "UI Responsiveness Optimization",
@@ -302,7 +480,16 @@
       "optimized": {
         "desc": "Dots stay fixed"
       },
-      "noInput": "No input yet"
+      "noInput": "No input yet",
+      "core": "The core of UI optimization: ",
+      "coreDesc": "Separate heavy calculations from UI updates using useMemo.",
+      "drawDotsEveryType": "Draw dots every time you type",
+      "unnecessaryDOMManipulation": "Unnecessary DOM manipulation",
+      "laggyInputExperience": "Laggy input experience",
+      "dotsNotRedrawn": "Dots not redrawn",
+      "onlyNecessaryUpdates": "Only necessary updates",
+      "smoothTypingExperience": "Smooth typing experience",
+      "redrawEveryTyping": "Redraw every typing"
     },
     "memoryManagement": {
       "title": "Memory Management Optimization",
@@ -341,41 +528,95 @@
       "optimized": {
         "desc": "Only what's in use"
       },
-      "none": "None yet"
-    }
-  },
-  "advanced": {
-    "title": "Advanced Patterns",
-    "description": "Learn advanced patterns leveraging React's powerful features.",
-    "formActions": {
-      "title": "Form Actions",
-      "description": "React 19's new form handling approach"
+      "none": "None yet",
+      "explanation": "Proper cleanup prevents memory leaks and ensures optimal performance."
     },
-    "serverComponents": {
-      "title": "Server Components",
-      "description": "React components that run on the server"
+    "code": {
+      "comment": {
+        "memoExample": "Only calculate when deps change",
+        "expensiveCalculation": "Heavy calculation function (for performance testing)"
+      }
     },
-    "suspense": {
-      "title": "Suspense & Error Boundaries",
-      "description": "Async state and error handling"
+    "reactMemo": {
+      "core": "The core of React.memo: ",
+      "coreDesc": "Remember component render results and only re-render when props change.",
+      "detailedExplanation": "React.memo is a <strong>Higher Order Component (HOC)</strong> that compares the previous props with the new props (shallow comparison) before rendering a component. If the props are the same, it <strong>skips rendering and reuses the previous result</strong>.",
+      "countButton": "Count Button",
+      "expensiveButton": "Expensive Button",
+      "countButtonEffect": "📊 Count Button Effect",
+      "expensiveButtonEffect": "📊 Expensive Button Effect",
+      "countClicked": " times clicked",
+      "propsChanged": "Props changed!",
+      "interactive": "Interactive Test",
+      "clickCountMultiple": "Click the Count button multiple times",
+      "checkRenderCount": "Check that Render Count doesn't change",
+      "clickExpensive": "Click the Expensive button",
+      "checkRenderIncrease": "Check that Render Count increases",
+      "howItWorks": "How does it work?",
+      "magic": "React.memo's magic: ",
+      "useMemoExecutionCount": "useMemo execution count",
+      "parentOnlyRerendered": "Only parent re-rendered",
+      "countButtonTitle": "Count Button Effect:",
+      "countButtonBullet1": "Parent component re-renders",
+      "countButtonBullet2": "Props don't change (expensiveValue stays the same)",
+      "countButtonBullet3": "Child component doesn't re-render",
+      "expensiveButtonTitle": "Expensive Button Effect:",
+      "expensiveButtonBullet1": "Parent component re-renders",
+      "expensiveButtonBullet2": "Props change (expensiveValue changes)",
+      "expensiveButtonBullet3": "Child component re-renders",
+      "notClickedYet": "Not clicked yet",
+      "countChangedExpensiveValueSame": "count changed but expensiveValue remains the same → Child not re-rendered",
+      "expensiveValueChangedUseMemoRerun": "expensiveValue changed → useMemo re-executed",
+      "coreExplanation": "React.memo prevents unnecessary re-renders by memoizing component results.",
+      "tryItBelow": "Try it below!",
+      "parentChildBothRerendered": "Parent & child both re-rendered"
     },
-    "concurrentFeatures": {
-      "title": "Concurrent Features",
-      "description": "React 18+ concurrent features"
-    }
+    "testGuide": {
+      "title": "Test Guide",
+      "step1": "First click the Count button 5 times",
+      "step2": "Check that the child component doesn't re-render",
+      "step3": "Next click the Expensive button",
+      "step4": "Check that the child component re-renders"
+    },
+    "useMemo": {
+      "guideTitle": "useMemo Usage Guide",
+      "guideDescription": "Use useMemo to memoize expensive calculations. It recalculates only when dependencies change.",
+      "consoleMessage": "Check the console! You can see when useMemo actually executes.",
+      "performanceTip": "💡 Performance Tip",
+      "performanceTipDesc": "When you change the input value, it recalculates every time. But when you click the Count button, the previous calculation result is reused!"
+    },
+    "guide": {
+      "goodExample": "✅ Good Example",
+      "useUniqueId": "Use unique ID as key",
+      "badExample": "❌ Bad Example",
+      "useArrayIndex": "Use array index as key",
+      "keyPointTitle": "💡 Key Point",
+      "keyPointDesc": "Using unique IDs as keys helps React efficiently track and update list items. Using indexes can cause issues when the list order changes."
+    },
+    "testIt": "Test it!",
+    "dotsBlinking": "Dots blinking",
+    "dotsFixed": "Dots fixed"
   },
   "serverComponents": {
     "title": "Server Components",
     "benefits": {
       "title": "Benefits of Server Components",
-      "zeroBundle": "Zero Bundle Size",
-      "zeroBundle.desc": "Server component code is not sent to the client",
-      "directBackend": "Direct Backend Access",
-      "directBackend.desc": "Direct access to database or file system",
-      "autoCodeSplitting": "Automatic Code Splitting",
-      "autoCodeSplitting.desc": "Client components are automatically code-split",
-      "improvedSecurity": "Improved Security",
-      "improvedSecurity.desc": "Sensitive data or logic is not exposed to the client"
+      "zeroBundle": {
+        "desc": "Server component code is not sent to the client",
+        "value": "Zero Bundle Size"
+      },
+      "directBackend": {
+        "desc": "Direct access to database or file system",
+        "value": "Direct Backend Access"
+      },
+      "autoCodeSplitting": {
+        "desc": "Client components are automatically code-split",
+        "value": "Automatic Code Splitting"
+      },
+      "improvedSecurity": {
+        "desc": "Sensitive data or logic is not exposed to the client",
+        "value": "Improved Security"
+      }
     },
     "code": {
       "serverComponent": "Server Component Example",
@@ -436,25 +677,33 @@
     "pleaseWait": "Please wait a moment"
   },
   "react19": {
+    "title": "React 19",
+    "subtitle": "New Features",
     "newFeatures": {
       "title": "New Features in React 19",
       "description": "React 19 introduces groundbreaking features that significantly improve performance and developer experience."
     },
-    "actionsAndUseTransition": "Actions and useTransition",
-    "actionsAndUseTransition.subtitle": "Revolutionary async state management",
+    "actionsAndUseTransition": {
+      "subtitle": "Revolutionary async state management",
+      "value": "Actions and useTransition"
+    },
     "actions": {
       "description": "<strong>Actions</strong> are one of React 19's most innovative features, making form submissions and data mutations simple. ",
       "autoManagement": "They automatically handle pending states, errors, and optimistic updates."
     },
     "newWay": "// The new React 19 way",
-    "formActionsAndUseActionState": "Form Actions and useActionState",
-    "formActionsAndUseActionState.subtitle": "A paradigm shift in form handling",
+    "formActionsAndUseActionState": {
+      "subtitle": "A paradigm shift in form handling",
+      "value": "Form Actions and useActionState"
+    },
     "formActions": {
       "withUseActionState": "<strong>useActionState</strong> tracks and manages the state of form actions. ",
       "simplifiedDesc": "Form submission, loading states, and error handling all become simple with one Hook."
     },
-    "useHook": "use Hook",
-    "useHook.subtitle": "A new way for Promises and Context",
+    "useHook": {
+      "subtitle": "A new way for Promises and Context",
+      "value": "use Hook"
+    },
     "use": {
       "description": "<strong>use</strong> is a new Hook that can read Promises or Context in components. "
     },
@@ -468,45 +717,92 @@
         "preinit": "Preinitialize scripts",
         "preload": "Preload resources",
         "prefetch": "Prefetch DNS",
-        "preconnect": "Preconnect"
+        "preconnect": "Preconnect",
+        "autoMemo": "Automatically memoized",
+        "autoCallback": "Automatically useCallback",
+        "autoMemoComponent": "No need for React.memo"
       },
       "beforeReact19": "Before React 19",
-      "withReact19": "With React 19",
-      "comment.autoMemo": "Automatically memoized",
-      "comment.autoCallback": "Automatically useCallback",
-      "comment.autoMemoComponent": "No need for React.memo"
+      "withReact19": "With React 19"
     },
-    "useFormStatusAndUseOptimistic": "useFormStatus and useOptimistic",
-    "useFormStatusAndUseOptimistic.subtitle": "Hooks for better user experience",
+    "useFormStatusAndUseOptimistic": {
+      "subtitle": "Hooks for better user experience",
+      "value": "useFormStatus and useOptimistic"
+    },
     "formHooks": {
       "description": "These Hooks let you <strong>track form state in real-time</strong> and easily implement <strong>optimistic updates</strong>."
     },
     "newFormHooks": "// New Form Hooks",
-    "serverComponentsAndReactCompiler": "Server Components and React Compiler",
-    "serverComponentsAndReactCompiler.subtitle": "A new dimension of performance optimization",
+    "serverComponentsAndReactCompiler": {
+      "subtitle": "A new dimension of performance optimization",
+      "value": "Server Components and React Compiler"
+    },
     "compiler": {
       "description": "<strong>React Compiler</strong> automatically optimizes your components. "
     },
     "noLongerNeeded": "// No longer needed!",
-    "resourcePreloadingAPIs": "Resource Preloading APIs",
-    "resourcePreloadingAPIs.subtitle": "Faster page loading",
+    "resourcePreloadingAPIs": {
+      "subtitle": "Faster page loading",
+      "value": "Resource Preloading APIs"
+    },
     "resources": {
       "description": "New resource APIs let you preload <strong>scripts, stylesheets, and fonts</strong>."
     },
     "newResourceAPIs": "// New Resource APIs",
     "upgrade": {
       "guideTitle": "React 19 Upgrade Guide",
-      "step1": "Step 1:",
-      "step1.desc": "First upgrade to React 18.3.0",
-      "step2": "Step 2:",
-      "step2.desc": "Resolve StrictMode warnings",
-      "step3": "Step 3:",
-      "step3.desc": "Upgrade to TypeScript 5.1+",
-      "step4": "Step 4:",
-      "step4.desc": "Upgrade to React 19",
-      "step5": "Step 5:",
-      "step5.desc": "Gradually adopt new features",
+      "step1": {
+        "desc": "First upgrade to React 18.3.0",
+        "value": "Step 1:"
+      },
+      "step2": {
+        "desc": "Resolve StrictMode warnings",
+        "value": "Step 2:"
+      },
+      "step3": {
+        "desc": "Upgrade to TypeScript 5.1+",
+        "value": "Step 3:"
+      },
+      "step4": {
+        "desc": "Upgrade to React 19",
+        "value": "Step 4:"
+      },
+      "step5": {
+        "desc": "Gradually adopt new features",
+        "value": "Step 5:"
+      },
       "tip": "React Compiler is optional. Your existing code will work just fine!"
     }
+  },
+  "touch": {
+    "scrollHint": "← Swipe to see more →",
+    "useTip": {
+      "title": "Touch Tips",
+      "gesture": "Use gestures for natural interaction",
+      "tab": "Tap buttons to trigger actions",
+      "pinch": "Pinch to zoom in demos",
+      "drag": "Drag to reorder items"
+    },
+    "noGesture": "No gesture detected",
+    "swipeHint": "Swipe in any direction",
+    "rightSwipe": "Swiped Right →",
+    "leftSwipe": "← Swiped Left",
+    "downSwipe": "Swiped Down ↓",
+    "upSwipe": "Swiped Up ↑",
+    "tap": "Tapped!",
+    "swipeRightTo": "Swipe right to go back →",
+    "swipeLeftTo": "← Swipe left to continue",
+    "swipeDownTo": "Swipe down to refresh ↓",
+    "swipeUpTo": "Swipe up for more ↑",
+    "click": "Click to interact",
+    "touch": "Touch",
+    "touchGestureHint": "Try tapping or swiping",
+    "swipeOrDragHint": "Swipe or drag to interact",
+    "pinch": "Pinch",
+    "scale": "Scale",
+    "pinchHint": "Pinch to zoom in/out",
+    "drag": "Drag",
+    "dragHint": "Drag the circle around",
+    "touchMouseSupport": "Supports both touch and mouse"
   }
 }

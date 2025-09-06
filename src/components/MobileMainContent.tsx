@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { WHY_HOOKS_DATA } from '@/constants/navigation';
 import { useSwipe } from '@/hooks';
@@ -13,7 +13,6 @@ import { MobileHooksGuide } from './MobileHooksGuide';
 
 const FormActionDemo = dynamic(() => import('./FormActionDemo'), { ssr: false });
 const OptimizationDemos = dynamic(() => import('./OptimizationDemos'), { ssr: false });
-const AdvancedPatterns = dynamic(() => import('./AdvancedPatterns'), { ssr: false });
 
 interface MobileMainContentProps {
   activeSection: string;
@@ -28,7 +27,6 @@ const SECTIONS: string[] = [
   'rules',
   'optimization',
   'react19',
-  'advanced',
 ];
 
 const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.memo(
@@ -36,12 +34,16 @@ const HeroSection: React.FC<{ onNavigate: (section: string) => void }> = React.m
     const t = useTranslations();
 
     return (
-      <section id="hero" className="px-4 py-6 text-center">
-        <h1 className="text-3xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent mb-3">
+      <section id="hero" className="px-3 sm:px-4 py-4 sm:py-6 md:py-8 text-center">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 bg-clip-text text-transparent mb-2 sm:mb-3">
           {t('hero.title')}
         </h1>
-        <h2 className="text-lg font-bold text-white mb-4">{t('mobile.meetFuture')}</h2>
-        <p className="text-sm text-slate-300 leading-relaxed mb-6">{t('mobile.learnEverything')}</p>
+        <h2 className="text-base sm:text-lg md:text-xl font-bold text-white mb-3 sm:mb-4">
+          {t('mobile.meetFuture')}
+        </h2>
+        <p className="text-xs sm:text-sm md:text-base text-slate-300 leading-relaxed mb-4 sm:mb-6">
+          {t('mobile.learnEverything')}
+        </p>
         <div className="inline-flex flex-col gap-2">
           <Button onClick={() => onNavigate('introduction')} variant="primary" size="md">
             {t('mobile.startButton')}
@@ -59,22 +61,35 @@ const IntroductionSection: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="introduction" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">{t('mobile.beginnerHooks')}</h2>
+    <section id="introduction" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
+        {t('mobile.beginnerHooks')}
+      </h2>
 
       <div className="space-y-4">
         {[
-          { title: t('mobile.whatIsHook'), desc: t('mobile.whatIsHook.desc'), color: 'blue' },
-          { title: t('mobile.whyUseHooks'), desc: t('mobile.whyUseHooks.desc'), color: 'green' },
+          { title: t('mobile.whatIsHook.title'), desc: t('mobile.whatIsHook.desc'), color: 'blue' },
           {
-            title: t('mobile.hookAdvantages'),
+            title: t('mobile.whyUseHooks.title'),
+            desc: t('mobile.whyUseHooks.desc'),
+            color: 'green',
+          },
+          {
+            title: t('mobile.hookAdvantages.title'),
             desc: t('mobile.hookAdvantages.desc'),
             color: 'purple',
           },
         ].map((item, index) => (
-          <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-            <h3 className={`text-sm font-bold text-${item.color}-400 mb-1.5`}>{item.title}</h3>
-            <p className="text-xs text-slate-300">{item.desc}</p>
+          <div
+            key={index}
+            className="bg-slate-800/50 p-2.5 sm:p-3 md:p-4 rounded-xl border border-slate-700/50"
+          >
+            <h3
+              className={`text-xs sm:text-sm md:text-base font-bold text-${item.color}-400 mb-1 sm:mb-1.5`}
+            >
+              {item.title}
+            </h3>
+            <p className="text-[11px] sm:text-xs md:text-sm text-slate-300">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -88,14 +103,21 @@ const WhyHooksSection: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="why-hooks" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">{t('whyHooks.title')}</h2>
+    <section id="why-hooks" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
+        {t('whyHooks.title')}
+      </h2>
 
       <div className="space-y-3">
         {WHY_HOOKS_DATA.map((item, index) => (
-          <div key={index} className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-            <h3 className="text-sm font-bold text-white mb-1">{t(item.titleKey)}</h3>
-            <p className="text-xs text-slate-300">{t(item.descKey)}</p>
+          <div
+            key={index}
+            className="bg-slate-800/50 p-2.5 sm:p-3 md:p-4 rounded-xl border border-slate-700/50"
+          >
+            <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-0.5 sm:mb-1">
+              {t(item.titleKey)}
+            </h3>
+            <p className="text-[11px] sm:text-xs md:text-sm text-slate-300">{t(item.descKey)}</p>
           </div>
         ))}
       </div>
@@ -109,8 +131,8 @@ const CoreHooksSection: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="core-hooks" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">
+    <section id="core-hooks" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
         {t('guide.coreHooks.title')}
       </h2>
       <MobileHooksGuide />
@@ -124,25 +146,31 @@ const RulesSection: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="rules" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">{t('guide.rules.title')}</h2>
+    <section id="rules" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
+        {t('guide.rules.title')}
+      </h2>
 
-      <div className="space-y-4">
-        <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-          <h3 className="text-sm font-bold text-red-400 mb-2">{t('guide.rules.dontTitle')}</h3>
-          <ul className="space-y-1.5 text-slate-300 text-xs">
-            <li>??{t('guide.rules.dont.conditional')}</li>
-            <li>??{t('guide.rules.dont.regular')}</li>
-            <li>??{t('guide.rules.dont.class')}</li>
+      <div className="space-y-3 sm:space-y-4">
+        <div className="bg-slate-800/50 p-2.5 sm:p-3 md:p-4 rounded-xl border border-slate-700/50">
+          <h3 className="text-xs sm:text-sm md:text-base font-bold text-red-400 mb-1.5 sm:mb-2">
+            {t('guide.rules.dontTitle')}
+          </h3>
+          <ul className="space-y-1 sm:space-y-1.5 text-slate-300 text-[11px] sm:text-xs md:text-sm">
+            <li>• {t('guide.rules.dont.conditional')}</li>
+            <li>• {t('guide.rules.dont.regular')}</li>
+            <li>• {t('guide.rules.dont.class')}</li>
           </ul>
         </div>
 
-        <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
-          <h3 className="text-sm font-bold text-green-400 mb-2">{t('guide.rules.doTitle')}</h3>
-          <ul className="space-y-1.5 text-slate-300 text-xs">
-            <li>??{t('guide.rules.do.topLevel')}</li>
-            <li>??{t('guide.rules.do.customHook')}</li>
-            <li>??{t('guide.rules.do.sameOrder')}</li>
+        <div className="bg-slate-800/50 p-2.5 sm:p-3 md:p-4 rounded-xl border border-slate-700/50">
+          <h3 className="text-xs sm:text-sm md:text-base font-bold text-green-400 mb-1.5 sm:mb-2">
+            {t('guide.rules.doTitle')}
+          </h3>
+          <ul className="space-y-1 sm:space-y-1.5 text-slate-300 text-[11px] sm:text-xs md:text-sm">
+            <li>• {t('guide.rules.do.topLevel')}</li>
+            <li>• {t('guide.rules.do.customHook')}</li>
+            <li>• {t('guide.rules.do.sameOrder')}</li>
           </ul>
         </div>
       </div>
@@ -156,8 +184,8 @@ const OptimizationSection: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="optimization" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">
+    <section id="optimization" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
         {t('guide.optimization.title')}
       </h2>
       <OptimizationDemos />
@@ -171,8 +199,8 @@ const React19Section: React.FC = React.memo(() => {
   const t = useTranslations();
 
   return (
-    <section id="react19" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">
+    <section id="react19" className="px-3 sm:px-4 py-4 sm:py-6">
+      <h2 className="text-base sm:text-lg md:text-xl font-bold text-white text-center mb-3 sm:mb-4">
         {t('react19.title')} {t('react19.subtitle')}
       </h2>
       <FormActionDemo />
@@ -181,19 +209,6 @@ const React19Section: React.FC = React.memo(() => {
 });
 
 React19Section.displayName = 'React19Section';
-
-const AdvancedSection: React.FC = React.memo(() => {
-  const t = useTranslations();
-
-  return (
-    <section id="advanced" className="px-4 py-6">
-      <h2 className="text-lg font-bold text-white text-center mb-4">{t('guide.advanced.title')}</h2>
-      <AdvancedPatterns />
-    </section>
-  );
-});
-
-AdvancedSection.displayName = 'AdvancedSection';
 
 export const MobileMainContent: React.FC<MobileMainContentProps> = React.memo(
   ({ activeSection, onSectionChange }) => {
@@ -248,17 +263,18 @@ export const MobileMainContent: React.FC<MobileMainContentProps> = React.memo(
           return <OptimizationSection />;
         case 'react19':
           return <React19Section />;
-        case 'advanced':
-          return <AdvancedSection />;
         default:
           return null;
       }
     };
 
     return (
-      <div ref={containerRef} className="min-h-screen w-full overflow-x-hidden pt-16 pb-20">
+      <div
+        ref={containerRef}
+        className="min-h-screen w-full overflow-x-hidden pt-14 sm:pt-16 pb-16 sm:pb-20"
+      >
         <div
-          className={`max-w-screen-sm mx-auto px-2 transition-opacity duration-300 ${
+          className={`w-full max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto px-3 sm:px-4 md:px-6 transition-opacity duration-300 ${
             isTransitioning ? 'opacity-0' : 'opacity-100'
           }`}
         >

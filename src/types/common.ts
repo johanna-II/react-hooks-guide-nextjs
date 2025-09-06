@@ -4,7 +4,7 @@ export interface BaseComponentProps {
 }
 
 export interface ButtonProps extends BaseComponentProps {
-  onClick?: () => void;
+  onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   variant?: 'primary' | 'secondary' | 'danger' | 'success' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
@@ -30,5 +30,5 @@ export interface DemoContainerProps extends BaseComponentProps {
   tip?: string;
 }
 
-export type DemoType = 'counter' | 'toggle' | 'input' | 'list';
+export type DemoType = 'counter' | 'toggle' | 'input' | 'list' | 'callback';
 export type TouchDemoType = 'gesture' | 'swipe' | 'pinch' | 'drag';

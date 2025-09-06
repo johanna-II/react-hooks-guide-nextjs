@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 
 import { useTranslations } from '@/hooks/useTranslations';
-import { HTMLText } from '@/utils/html-parser';
 
 export default function FormActionDemo() {
   const t = useTranslations();
@@ -134,7 +133,11 @@ export default function FormActionDemo() {
               <span className="text-green-300 font-medium">{t('form.successMessage')}</span>
             </div>
             <p className="text-sm text-green-400/80 mt-2">
-              <HTMLText>{t('form.actionDescription')}</HTMLText>
+              {t.rich('form.actionDescription', {
+                strong: (chunks: React.ReactNode) => (
+                  <strong className="text-green-400 font-semibold">{chunks}</strong>
+                ),
+              })}
             </p>
           </div>
         )}
@@ -154,7 +157,7 @@ export default function FormActionDemo() {
       <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700/50">
         <h4 className="text-lg font-bold text-white mb-4">{t('form.formActions.code')}</h4>
         <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50">
-          <p className="text-sm text-green-400 mb-3">?럦 {t('form.formActions.example')}</p>
+          <p className="text-sm text-green-400 mb-3">✍️ {t('form.formActions.example')}</p>
           <pre className="text-sm text-slate-300 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
             <code className="language-typescript">{`// React 19 Form Actions
 const [error, submitAction, isPending] = useActionState(
@@ -195,25 +198,25 @@ return (
       <div className="grid md:grid-cols-2 gap-4">
         <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
           <h5 className="text-lg font-semibold text-blue-400 mb-3">
-            ?? {t('form.react19.benefits')}
+            🚀 {t('form.react19.benefits')}
           </h5>
           <ul className="space-y-2 text-sm text-slate-300">
-            <li>??{t('form.benefits.autoReset')}</li>
-            <li>??{t('form.benefits.errorHandling')}</li>
-            <li>??{t('form.benefits.pendingState')}</li>
-            <li>??{t('form.benefits.optimistic')}</li>
+            <li>✓ {t('form.benefits.autoReset')}</li>
+            <li>✓ {t('form.benefits.errorHandling')}</li>
+            <li>✓ {t('form.benefits.pendingState')}</li>
+            <li>✓ {t('form.benefits.optimistic')}</li>
           </ul>
         </div>
 
         <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50">
           <h5 className="text-lg font-semibold text-green-400 mb-3">
-            ?뮕 {t('form.react19.comparison')}
+            💡 {t('form.react19.comparison')}
           </h5>
           <ul className="space-y-2 text-sm text-slate-300">
-            <li>??{t('form.comparison.noUseState')}</li>
-            <li>??{t('form.comparison.noManualError')}</li>
-            <li>??{t('form.comparison.simpleState')}</li>
-            <li>??{t('form.comparison.betterUX')}</li>
+            <li>✅ {t('form.comparison.noUseState')}</li>
+            <li>✅ {t('form.comparison.noManualError')}</li>
+            <li>✅ {t('form.comparison.simpleState')}</li>
+            <li>✅ {t('form.comparison.betterUX')}</li>
           </ul>
         </div>
       </div>

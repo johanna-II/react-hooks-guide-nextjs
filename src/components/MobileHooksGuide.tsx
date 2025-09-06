@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useTranslations } from '@/hooks/useTranslations';
 
@@ -45,7 +45,7 @@ const MobileHooksGuideComponent: React.FC = () => {
     {
       title: 'useCallback',
       description: t('mobile.useCallback.description'),
-      demoType: 'counter' as const,
+      demoType: 'callback' as const,
       example: `const memoizedCallback = useCallback(() => {
   doSomething(a, b);
 }, [a, b]);`,
@@ -83,7 +83,7 @@ const MobileHooksGuideComponent: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* ???ㅻ퉬寃뚯씠??- 紐⑤컮??理쒖쟻??*/}
+      {/* 탭 네비게이션 - 모바일 최적화 */}
       <div className="relative">
         <div
           ref={tabsContainerRef}
@@ -110,7 +110,7 @@ const MobileHooksGuideComponent: React.FC = () => {
           ))}
         </div>
 
-        {/* ?ㅽ겕濡??뚰듃 */}
+        {/* 스크롤 힌트 */}
         {showScrollHint && (
           <div className="text-center mt-1 animate-fade-in">
             <p className="text-[10px] text-slate-500">{t('touch.scrollHint')}</p>
@@ -118,9 +118,9 @@ const MobileHooksGuideComponent: React.FC = () => {
         )}
       </div>
 
-      {/* ?좏깮??Hook ?댁슜 */}
+      {/* 선택된 Hook 내용 */}
       <div className="space-y-4">
-        {/* Hook ?ㅻ챸 移대뱶 */}
+        {/* Hook 설명 카드 */}
         <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
           <h3 className="text-base font-bold text-white mb-1.5">
             {MOBILE_HOOKS_DATA[activeTab].title}
@@ -129,7 +129,7 @@ const MobileHooksGuideComponent: React.FC = () => {
             {MOBILE_HOOKS_DATA[activeTab].description}
           </p>
 
-          {/* 肄붾뱶 ?덉떆 */}
+          {/* 코드 예시 */}
           <div className="bg-slate-900/50 p-2.5 rounded-lg mb-3">
             <pre className="text-[11px] text-slate-300 font-mono overflow-x-auto">
               <code className="language-typescript">{MOBILE_HOOKS_DATA[activeTab].example}</code>
@@ -137,29 +137,31 @@ const MobileHooksGuideComponent: React.FC = () => {
           </div>
         </div>
 
-        {/* ?곗튂 理쒖쟻?붾맂 ?곕え */}
-        <TouchOptimizedDemo
-          title={t('mobile.touchDemo')}
-          description={t('mobile.touchDemo.description')}
-          demoType={MOBILE_HOOKS_DATA[activeTab].touchDemo}
-        />
+        {/* 터치 최적화된 데모 */}
+        {MOBILE_HOOKS_DATA[activeTab].title !== 'useCallback' && (
+          <TouchOptimizedDemo
+            title={t('mobile.touchDemo.title')}
+            description={t('mobile.touchDemo.description')}
+            demoType={MOBILE_HOOKS_DATA[activeTab].touchDemo}
+          />
+        )}
 
-        {/* 湲곗〈 紐⑤컮??理쒖쟻???곕え */}
+        {/* 기존 모바일 최적화 데모 */}
         <MobileOptimizedDemo
-          title={t('mobile.basicDemo')}
+          title={t('mobile.basicDemo.title')}
           description={t('mobile.basicDemo.description')}
           demoType={MOBILE_HOOKS_DATA[activeTab].demoType}
         />
       </div>
 
-      {/* 紐⑤컮???ъ슜 ??*/}
+      {/* 모바일 사용 팁 */}
       <div className="bg-blue-950/30 p-3 rounded-xl border border-blue-500/20">
         <h4 className="text-xs font-bold text-blue-400 mb-1.5">{t('touch.useTip.title')}</h4>
         <ul className="text-[11px] text-blue-300 space-y-0.5">
-          <li>??{t('touch.useTip.gesture')}</li>
-          <li>??{t('touch.useTip.tab')}</li>
-          <li>??{t('touch.useTip.pinch')}</li>
-          <li>??{t('touch.useTip.drag')}</li>
+          <li>• {t('touch.useTip.gesture')}</li>
+          <li>• {t('touch.useTip.tab')}</li>
+          <li>• {t('touch.useTip.pinch')}</li>
+          <li>• {t('touch.useTip.drag')}</li>
         </ul>
       </div>
     </div>

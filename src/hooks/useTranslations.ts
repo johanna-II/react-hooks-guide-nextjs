@@ -1,5 +1,13 @@
 import { useTranslations as useNextIntlTranslations } from 'next-intl';
 
+import type React from 'react';
+
+type TranslationValues = Record<string, string | number | Date>;
+type RichTranslationValues = Record<
+  string,
+  string | number | Date | ((chunks: React.ReactNode) => React.ReactNode)
+>;
+
 /**
  * 정적 번역 파일 기반의 번역 훅
  * next-intl의 useTranslations를 래핑하여 사용
@@ -7,17 +15,25 @@ import { useTranslations as useNextIntlTranslations } from 'next-intl';
 export function useTranslations() {
   const t = useNextIntlTranslations();
 
-  const translateFn = (key: string, defaultValue?: string) => {
+  const translateFn = (
+    key: string,
+    valuesOrDefault?: TranslationValues | string,
+    defaultValue?: string
+  ) => {
     try {
-      const value = t(key);
-      return value || defaultValue || key;
+      if (typeof valuesOrDefault === 'object') {
+        const value = t(key, valuesOrDefault);
+        return value || defaultValue || key;
+      } else {
+        const value = t(key);
+        return value || valuesOrDefault || key;
+      }
     } catch (_error) {
-      return defaultValue || key;
+      return typeof valuesOrDefault === 'string' ? valuesOrDefault : defaultValue || key;
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  translateFn.rich = (key: string, values: any) => {
+  translateFn.rich = (key: string, values: RichTranslationValues) => {
     try {
       return t.rich(key, values);
     } catch (_error) {

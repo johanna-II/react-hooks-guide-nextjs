@@ -13,8 +13,8 @@ const variantStyles = {
 } as const;
 
 /**
- * Card 而댄룷?뚰듃 - 理쒖쟻??踰꾩쟾
- * ?쒖닔 而댄룷?뚰듃濡?援ы쁽
+ * Card 컴포넌트 - 최적화 버전
+ * 순수 컴포넌트로 구현
  */
 export const Card = React.memo<CardProps>(
   ({ title, icon, variant = 'glass', children, className = '', ...props }) => {

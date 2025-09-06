@@ -28,7 +28,8 @@ export const Button: React.FC<ButtonProps> = React.memo(
     'data-interactive': dataInteractive = true,
     ...props
   }) => {
-    const baseStyles = 'rounded-lg font-semibold transition-all active:scale-95 touch-manipulation';
+    const baseStyles =
+      'rounded-lg font-semibold transition-all active:scale-95 touch-manipulation min-w-0';
     const variantStyle = variantStyles[variant];
     const sizeStyle = sizeStyles[size];
     const widthStyle = fullWidth ? 'w-full' : '';
@@ -42,7 +43,7 @@ export const Button: React.FC<ButtonProps> = React.memo(
         data-interactive={dataInteractive}
         {...props}
       >
-        {children}
+        <span className="truncate">{children}</span>
       </button>
     );
   }

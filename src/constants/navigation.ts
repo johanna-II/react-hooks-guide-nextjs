@@ -4,10 +4,9 @@ export const NAVIGATION_SECTIONS: NavigationSection[] = [
   { id: 'hero', label: 'navigation.home', icon: '🏠' },
   { id: 'why-hooks', label: 'whyHooks.title', icon: '🎯' },
   { id: 'core-hooks', label: 'navigation.hooks', icon: '⚡' },
-  { id: 'rules', label: 'rules.title', icon: '📋' },
+  { id: 'rules', label: 'guide.rules.title', icon: '📋' },
   { id: 'optimization', label: 'navigation.optimization', icon: '🚀' },
-  { id: 'react19', label: 'form.react19.benefits', icon: '✨' },
-  { id: 'advanced', label: 'navigation.patterns', icon: '💎' },
+  { id: 'react19', label: 'react19.title', icon: '✨' },
 ];
 
 export const WHY_HOOKS_DATA = [

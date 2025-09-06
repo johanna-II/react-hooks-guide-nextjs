@@ -1,11 +1,11 @@
 ﻿'use client';
 
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useCounter, useToggle } from '@/hooks';
 import { useTranslations } from '@/hooks/useTranslations';
 
-import { Button, DemoContainer } from './common';
+import { Button, DemoContainer, NoSSR } from './common';
 
 import type { DemoType } from '@/types/common';
 
@@ -132,11 +132,101 @@ const ListDemo: React.FC = React.memo(() => {
 
 ListDemo.displayName = 'ListDemo';
 
+// 렌더링 표시기 컴포넌트
+const RenderIndicator: React.FC<{ count: number }> = ({ count }) => {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <span className="text-[10px] text-slate-500">Renders: -</span>;
+
+  return <span className="text-[10px] text-slate-500">Renders: {count}</span>;
+};
+
+// 자식 컴포넌트: onClick prop이 변경될 때만 리렌더링
+// 실제로 onClick을 사용하지는 않지만, prop 변경 감지를 위해 받음
+const ExpensiveComponent: React.FC<{ onClick: () => void; label: string; color: string }> =
+  React.memo(({ onClick: _onClick, label, color }) => {
+    const renderCount = React.useRef(0);
+    renderCount.current += 1;
+
+    return (
+      <div className="bg-slate-800 p-3 rounded-lg text-center">
+        <div className={`w-16 h-16 ${color} rounded-full mx-auto mb-2`} />
+        <p className="text-[11px] text-slate-300 font-semibold mb-1">{label}</p>
+        <NoSSR>
+          <RenderIndicator count={renderCount.current} />
+        </NoSSR>
+      </div>
+    );
+  });
+
+ExpensiveComponent.displayName = 'ExpensiveComponent';
+
+const CallbackDemo: React.FC = React.memo(() => {
+  const [, forceUpdate] = useState(0);
+  const t = useTranslations();
+
+  // ❌ Without useCallback: 매번 새로운 함수 생성
+  const handleClickNormal = () => {
+    // Normal button clicked
+  };
+
+  // ✅ With useCallback: 한 번만 생성되는 함수
+  const handleClickOptimized = useCallback(() => {
+    // Optimized button clicked
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      {/* 부모 리렌더링 트리거 */}
+      <div className="text-center mb-4">
+        <Button
+          onClick={() => forceUpdate((prev) => prev + 1)}
+          variant="secondary"
+          size="sm"
+          fullWidth
+        >
+          {t('demo.useCallback.triggerRerender')}
+        </Button>
+        <p className="text-[10px] text-slate-400 mt-1">{t('demo.useCallback.clickToSee')}</p>
+      </div>
+
+      {/* 컴포넌트 비교 - 렌더링 횟수 확인 */}
+      <div className="grid grid-cols-2 gap-3">
+        <ExpensiveComponent
+          onClick={handleClickNormal}
+          label="❌ Without useCallback"
+          color="bg-red-500"
+        />
+        <ExpensiveComponent
+          onClick={handleClickOptimized}
+          label="✅ With useCallback"
+          color="bg-green-500"
+        />
+      </div>
+
+      {/* 설명 */}
+      <div className="bg-slate-800/50 p-2 rounded-lg text-[10px] text-slate-300 space-y-1">
+        <p className="font-semibold text-xs mb-1">💡 {t('demo.useCallback.difference')}:</p>
+        <p>• {t('demo.useCallback.whenClick')}:</p>
+        <p className="ml-3">• 🔴 {t('demo.useCallback.leftSide')}</p>
+        <p className="ml-3">• 🟢 {t('demo.useCallback.rightSide')}</p>
+      </div>
+    </div>
+  );
+});
+
+CallbackDemo.displayName = 'CallbackDemo';
+
 const demoComponents: Record<DemoType, React.FC> = {
   counter: CounterDemo,
   toggle: ToggleDemo,
   input: InputDemo,
   list: ListDemo,
+  callback: CallbackDemo,
 };
 
 export const MobileOptimizedDemo: React.FC<MobileOptimizedDemoProps> = React.memo(

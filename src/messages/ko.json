@@ -2,13 +2,16 @@
   "hero": {
     "title": "HOOKS",
     "subtitle": "React의 <span>미래</span>를 만나다",
-    "description": "React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요. 실시간 데모와 함께하는 인터랙티브 학습 가이드입니다."
+    "description": "React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요. 실시간 데모와 함께하는 인터랙티브 학습 가이드입니다.",
+    "getStarted": "시작하기",
+    "viewCode": "코드 보기"
   },
   "navigation": {
     "home": "홈",
     "hooks": "React Hooks",
     "optimization": "최적화",
-    "patterns": "고급 패턴"
+    "menuOpen": "네비게이션 메뉴 열기",
+    "tapToMove": "탭하여 섹션 간 이동"
   },
   "common": {
     "loading": "로딩 중...",
@@ -43,8 +46,44 @@
     "whyUseHooks": "왜 Hook을 사용할까?",
     "whyUseHooksDesc": "Hook을 사용하면 컴포넌트 간에 상태 로직을 재사용하기 쉽고, 복잡한 컴포넌트를 더 쉽게 이해할 수 있습니다.",
     "hookAdvantages": "Hook의 장점",
-    "hookAdvantagesDesc": "클래스 컴포넌트의 this 바인딩 문제가 없고, 컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다.",
-    "hookAdvantagesDesc.short": "컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다."
+    "hookAdvantagesDesc": {
+      "value": "클래스 컴포넌트의 this 바인딩 문제가 없고, 컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다.",
+      "short": "컴포넌트를 더 작은 함수로 나누어 테스트하기 쉽습니다."
+    },
+    "rules": {
+      "title": "Hooks 사용 규칙",
+      "dontTitle": "절대 하지 말아야 할 것",
+      "dont": {
+        "conditional": "조건문, 반복문, 중첩 함수 안에서 Hook 호출",
+        "regular": "일반 JavaScript 함수에서 Hook 호출",
+        "class": "클래스 컴포넌트에서 Hook 사용"
+      },
+      "doTitle": "올바른 사용법",
+      "do": {
+        "topLevel": "React 함수형 컴포넌트 최상위에서만 호출",
+        "customHook": "커스텀 Hook 최상위에서만 호출",
+        "sameOrder": "Hook 호출 순서는 항상 동일하게 유지"
+      },
+      "whyTitle": "왜 이런 규칙이 필요한가요?",
+      "whyDesc": "React는 Hook의 호출 순서에 의존하여 상태를 올바르게 연결합니다. 조건부 Hook 호출은 이 순서를 깨뜨리고 버그를 유발합니다."
+    },
+    "whenToUse": {
+      "desc2": "함수형 컴포넌트에서 상태 관리, 사이드 이펙트 처리, 컴포넌트 간 로직 공유가 필요할 때 사용합니다.",
+      "value": "언제 사용할까?"
+    },
+    "coreHooks": {
+      "title": "핵심 Hooks",
+      "description": "모든 React 개발자가 알아야 할 필수 Hook들입니다."
+    },
+    "optimization": {
+      "title": "최적화 기법",
+      "description": "더 나은 성능을 위한 React 애플리케이션 최적화 방법을 배워보세요."
+    },
+    "footer": {
+      "description": "React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요. 실시간 데모와 함께하는 인터랙티브 학습 가이드입니다.",
+      "madeWith": "Made with ❤️",
+      "forDevelopers": "React 개발자들을 위해"
+    }
   },
   "hooks": {
     "useState": {
@@ -93,6 +132,8 @@
     "runDemo": "데모 실행",
     "viewCode": "코드 보기",
     "result": "결과",
+    "timer": "타이머",
+    "seconds": "초",
     "useState": {
       "title": "useState 데모",
       "description": "상태 관리의 기본",
@@ -106,12 +147,20 @@
     "useCallback": {
       "title": "useCallback 데모",
       "description": "함수 메모이제이션",
-      "tip": "expensiveValue가 변경되지 않으면 자식 컴포넌트가 리렌더링되지 않습니다"
+      "tip": "expensiveValue가 변경되지 않으면 자식 컴포넌트가 리렌더링되지 않습니다",
+      "triggerRerender": "부모 컴포넌트 리렌더링 트리거",
+      "clickToSee": "클릭하면 아래 버튼들이 어떻게 반응하는지 확인하세요",
+      "difference": "차이점",
+      "whenClick": "\"부모 리렌더링 트리거\" 버튼을 클릭할 때마다",
+      "leftSide": "왼쪽: 렌더 횟수 증가 (매번 새 함수 생성)",
+      "rightSide": "오른쪽: 렌더 횟수 그대로 (함수 재사용)"
     },
     "useMemo": {
       "title": "useMemo 데모",
       "description": "값 메모이제이션",
-      "tip": "값 A나 B가 변경될 때만 계산이 실행됩니다"
+      "tip": "값 A나 B가 변경될 때만 계산이 실행됩니다",
+      "noItems": "표시할 항목이 없습니다",
+      "noFilteredItems": "필터와 일치하는 항목이 없습니다"
     },
     "useRef": {
       "title": "useRef 데모",
@@ -128,14 +177,70 @@
     "focusInput": "Input 포커스",
     "incrementRef": "Ref 증가",
     "showRefValue": "Ref 값 보기",
-    "refValueAlert": "현재 Ref 값: {value}"
+    "refValueAlert": "현재 Ref 값: {value}",
+    "decrement": "감소",
+    "reset": "초기화",
+    "incrementCount": "카운트 증가",
+    "startTimer": "타이머 시작",
+    "stopTimer": "타이머 중지",
+    "resetTimer": "타이머 리셋",
+    "allItems": "전체 항목",
+    "filteredItems": "필터된 항목",
+    "addItem": "항목 추가",
+    "filterPlaceholder": "항목 필터링...",
+    "removeItem": "제거",
+    "newItem": "새 항목",
+    "add": "추가",
+    "noItems": "아직 항목이 없습니다",
+    "delete": "삭제",
+    "decrease": "감소",
+    "click": "클릭하기"
   },
   "mobile": {
     "startButton": "시작하기",
     "swipeHint": "또는 좌측으로 스와이프",
     "beginnerHooks": "초보자를 위한 React Hooks",
     "meetFuture": "React의 미래를 만나다",
-    "learnEverything": "React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요."
+    "learnEverything": "React Hooks의 모든 것을 배우고, React 19의 혁신적인 기능들을 체험해보세요.",
+    "text": "텍스트",
+    "useState": {
+      "description": "useState Hook으로 컴포넌트 상태를 관리하세요. 상태 변경시 리렌더링이 발생합니다."
+    },
+    "useEffect": {
+      "description": "부수 효과와 생명주기 이벤트를 처리합니다. 렌더링 후 코드 실행이나 정리 작업에 사용하세요."
+    },
+    "useRef": {
+      "description": "DOM 요소에 직접 접근하고 렌더링 간에 유지되는 값을 저장합니다."
+    },
+    "useMemo": {
+      "description": "비용이 많이 드는 계산을 메모이제이션하여 성능을 최적화합니다."
+    },
+    "useCallback": {
+      "description": "콜백 함수를 메모이제이션하여 불필요한 리렌더링을 방지합니다."
+    },
+    "touchDemo": {
+      "title": "터치 인터랙티브 데모",
+      "description": "스와이프, 탭, 핀치 등의 터치 제스처로 데모와 상호작용해보세요."
+    },
+    "basicDemo": {
+      "title": "기본 데모",
+      "description": "간단한 대화형 예제로 이 Hook이 어떻게 작동하는지 확인해보세요."
+    },
+    "whatIsHook": {
+      "title": "Hook이란 무엇인가?",
+      "desc": "Hook은 함수형 컴포넌트에서 React의 state와 생명주기 기능을 '연결(hook into)'하는 특별한 함수입니다."
+    },
+    "whyUseHooks": {
+      "title": "왜 Hook을 사용하나오?",
+      "desc": "Hook은 컴포넌트를 더 깔끔하고 재사용 가능하며 테스트하기 쉽게 만들어줍니다. 클래스 컴포넌트의 복잡성을 제거합니다."
+    },
+    "hookAdvantages": {
+      "title": "Hook의 장점",
+      "desc": "더 적은 코드 작성, 컴포넌트 간 로직 공유 용이, 더 유지보수하기 쉬운 애플리케이션 구축."
+    },
+    "typingPlaceholder": "무언가 입력해보세요...",
+    "inputLabel": "입력한 내용:",
+    "noInput": "아직 입력된 내용이 없습니다"
   },
   "form": {
     "title": "Form Actions 데모",
@@ -146,7 +251,8 @@
     },
     "react19": {
       "benefits": "React 19의 장점",
-      "comparison": "기존 방식과의 차이"
+      "comparison": "기존 방식과의 차이",
+      "advantages": "React 19의 장점"
     },
     "benefits": {
       "autoReset": "자동 폼 리셋",
@@ -166,7 +272,7 @@
     },
     "submit": {
       "preparing": "제출 중...",
-      "button": "폼 제출하기"
+      "button": "제출"
     },
     "submitAria": "폼 제출",
     "name": "이름",
@@ -175,12 +281,17 @@
     "namePlaceholder": "이름을 입력하세요",
     "emailPlaceholder": "이메일을 입력하세요",
     "messagePlaceholder": "메시지를 입력하세요",
-    "submit": "제출",
     "submitting": "제출 중...",
     "successMessage": "폼이 성공적으로 제출되었습니다!",
     "errorMessage": "필수 필드를 모두 입력해주세요.",
     "required": "필수",
-    "actionDescription": "<strong>useActionState</strong>와 <strong>Form Actions</strong>로 폼 처리가 훨씬 간단해졌습니다. 자동 폼 리셋, 에러 처리, pending 상태를 자동으로 관리합니다."
+    "actionDescription": "<strong>useActionState</strong>와 <strong>Form Actions</strong>는 폼 처리를 훨씬 간단하게 만듭니다. 자동으로 폼 리셋, 에러 처리, 그리고 pending 상태를 관리합니다.",
+    "advantages": {
+      "autoReset": "자동 폼 리셋",
+      "errorHandling": "내장 에러 처리",
+      "pendingState": "Pending 상태 자동 관리",
+      "optimisticUpdate": "낙관적 업데이트 지원"
+    }
   },
   "whyHooks": {
     "title": "Hooks가 필요한 이유",
@@ -244,7 +355,27 @@
   "optimization": {
     "metrics": {
       "title": "주요 성능 메트릭",
-      "description": "성능 최적화를 이해하기 위해 알아야 할 핵심 지표들을 설명합니다."
+      "description": "성능 최적화를 이해하기 위해 알아야 할 핵심 지표들을 설명합니다.",
+      "renderCount": {
+        "title": "Render Count",
+        "desc": "적을수록 좋습니다. 마치 그림을 그릴 때 전체를 지우고 다시 그리는 것보다 필요한 부분만 수정하는 것이 효율적입니다."
+      },
+      "executionTime": {
+        "title": "Execution Time",
+        "desc": "복잡한 계산 결과를 저장해두면 매번 다시 계산하지 않아도 됩니다. 계산기 결과를 메모해두는 것과 같습니다."
+      },
+      "uiResponsiveness": {
+        "title": "UI Responsiveness",
+        "desc": "타이핑할 때 글자가 바로 나타나야 사용하기 편합니다. 스마트폰이 터치에 바로 반응하는 것처럼 빨라야 합니다."
+      },
+      "memoryManagement": {
+        "title": "Memory Management",
+        "desc": "사용하지 않는 것들을 제때 정리해야 합니다. 책상 정리를 하지 않으면 공간이 부족해지는 것과 같습니다."
+      },
+      "renderCountTitle": "렌더 횟수",
+      "executionTimeTitle": "실행 시간",
+      "uiResponsivenessTitle": "UI 반응성",
+      "memoryManagementTitle": "메모리 관리"
     },
     "renderCount": {
       "title": "Render Count 최적화",
@@ -257,7 +388,16 @@
       "beforeOptimization": "최적화 전",
       "afterOptimization": "최적화 후 (React.memo)",
       "parentInefficient": "부모가 바뀔 때마다 자식도 다시 그려짐 (비효율적)",
-      "propsReuseEfficient": "Props가 같으면 재사용 (효율적) - React 19에서는 자동!"
+      "propsReuseEfficient": "Props가 같으면 재사용 (효율적) - React 19에서는 자동!",
+      "whenParentChanges": "부모가 바뀌 때마다 자식도 다시 그림",
+      "regardlessOfProps": "Props 변경 여부와 관계없음",
+      "performanceDegradation": "불필요한 렌더링으로 성능 저하",
+      "everyTimeRerendering": "매번 re-rendering 발생",
+      "parentReRender": "Parent Re-render",
+      "renderCountLabel": "Render Count",
+      "onlyPropsChangeRerendering": "Props 변경시만 re-rendering",
+      "renderingCount": "렌더링 횟수",
+      "unnecessaryRendersPrevented": "{count}번의 불필요한 렌더링이 방지되었습니다!"
     },
     "executionTime": {
       "title": "Execution Time 최적화",
@@ -279,7 +419,12 @@
       "afterOptimization": "최적화 후 (useMemo)",
       "primeSlow": "큰 소수 판별을 매번 다시 계산 (느림)",
       "cacheUseFast": "한 번 계산하고 캐시 사용 (빠름)",
-      "cacheUse": "캐시 사용"
+      "cacheUse": "캐시 사용",
+      "calculationTimeLabel": "계산 시간",
+      "performanceImprovement": "{percent}% 성능 향상!",
+      "useMemoCore": "useMemo의 핵심: ",
+      "useMemoDesc": "복잡한 계산을 매번 반복하면 앱이 느려집니다. 한 번 계산한 결과를 저장해두고 재사용하면 훨씬 빠릅니다.",
+      "cachedResult": "캐시된 결과"
     },
     "uiResponsiveness": {
       "title": "UI Responsiveness 최적화",
@@ -302,7 +447,16 @@
       "optimized": {
         "desc": "점들이 고정됨"
       },
-      "noInput": "아직 입력 안함"
+      "noInput": "아직 입력 안함",
+      "core": "UI 반응성의 핵심: ",
+      "coreDesc": "타이핑할 때 글자가 늦게 나타나면 답답합니다. 불필요한 작업을 줄이면 사용자 입력에 즉시 반응할 수 있습니다.",
+      "drawDotsEveryType": "타이핑할 때마다 100개 점을 다시 그림",
+      "unnecessaryDOMManipulation": "불필요한 DOM 조작",
+      "laggyInputExperience": "버벅거리는 입력 경험",
+      "dotsNotRedrawn": "점들은 변경 없어서 다시 그리지 않음",
+      "onlyNecessaryUpdates": "필요한 부분만 업데이트",
+      "smoothTypingExperience": "부드러운 타이핑 경험",
+      "redrawEveryTyping": "타이핑할 때마다 100개 점을 다시 그림 (버벅거림)"
     },
     "memoryManagement": {
       "title": "Memory Management 최적화",
@@ -310,8 +464,8 @@
       "memo": {
         "desc": "이벤트 리스너와 타이머를 적절히 정리하여 메모리 누수를 방지합니다."
       },
-      "useMemoCore": "useEffect cleanup의 핵심: ",
-      "useMemoDesc": "useEffect cleanup으로 memory leak을 방지합니다. 사용하지 않는 것을 계속 메모리에 두면 앱이 느려집니다.",
+      "useMemoCore": "useEffect 정리(cleanup)의 핵심: ",
+      "useMemoDesc": "useEffect 정리(cleanup)로 메모리 누수를 방지합니다. 사용하지 않는 것을 계속 메모리에 두면 앱이 느려집니다.",
       "createListener": "리스너 생성",
       "removeListener": "리스너 제거",
       "listenerCount": "개",
@@ -341,41 +495,135 @@
       "optimized": {
         "desc": "실제 사용 중인 것만"
       },
-      "none": "아직 없음"
-    }
-  },
-  "advanced": {
-    "title": "고급 패턴",
-    "description": "React의 강력한 기능들을 활용한 고급 패턴들을 배워보세요.",
-    "formActions": {
-      "title": "Form Actions",
-      "description": "React 19의 새로운 폼 처리 방식"
+      "none": "아직 없음",
+      "explanation": "사용하지 않는 것은 정리해야 메모리가 부족하지 않습니다. 마치 집에 쓰레기를 계속 쌓아두면 공간이 부족해지는 것과 같습니다."
     },
-    "serverComponents": {
-      "title": "Server Components",
-      "description": "서버에서 실행되는 React 컴포넌트"
+    "workingPrinciple": {
+      "before": "Before Optimization:",
+      "after": "최적화 후 (React.memo):",
+      "afterBullet1": "Props 변경시만 자식 리렌더링",
+      "afterBullet2": "이전 결과를 재사용",
+      "afterBullet3": "성능 크게 향상",
+      "afterUseMemo": "최적화 후 (useMemo):",
+      "reRenderEveryTime": "부모가 바뀔 때마다 자식도 다시 그림",
+      "noMatterPropsChange": "Props 변경 여부와 관계없음",
+      "unnecessaryReRender": "불필요한 렌더링으로 성능 저하",
+      "onlyWhenPropsChange": "Props 변경시만 자식 리렌더링",
+      "reusePreviousResult": "이전 결과를 재사용",
+      "efficientPerformance": "효율적인 성능",
+      "recalculateEveryTime": "매번 계산을 처음부터 실행",
+      "duplicateCalculation": "동일한 입력에 대해 중복 계산",
+      "wasteResources": "사용자 경험 저하",
+      "firstCalculationOnly": "첫 번째만 계산, 이후는 캐시 사용",
+      "recalculateWhenDepsChange": "의존성이 변경될 때만 재계산",
+      "saveCalculationTime": "즉시 응답으로 UX 향상",
+      "listenerKeepStacking": "이벤트 리스너가 계속 쌌임",
+      "notRemovedFromMemory": "메모리에서 제거되지 않음",
+      "memoryLeakOccur": "Memory Leak 발생!",
+      "oneListener": "하나의 리스너만 유지",
+      "prevListenerRemove": "이전 리스너는 제거",
+      "efficientMemory": "효율적인 메모리 관리",
+      "title": "동작 원리"
     },
-    "suspense": {
-      "title": "Suspense & Error Boundaries",
-      "description": "비동기 상태와 에러 처리"
+    "performanceComparisonResult": "성능 비교 결과",
+    "noInput": "입력 없음",
+    "noneYet": "아직 없음",
+    "reactMemoDemoTitle": "React.memo 최적화 (실시간 데모)",
+    "renderingOptimizationGuide": "렌더링 최적화 가이드",
+    "realtimeFeedback": "실시간 피드백",
+    "demoBox": {
+      "uiResponsivenessOptimization": "UI 반응성 최적화",
+      "memoryManagementOptimization": "메모리 관리 최적화",
+      "keyMetrics": "주요 성능 지표",
+      "renderCountOptimization": "렌더 횟수 최적화",
+      "executionTimeOptimization": "실행 시간 최적화"
     },
-    "concurrentFeatures": {
-      "title": "Concurrent Features",
-      "description": "React 18+ 동시성 기능"
-    }
+    "code": {
+      "comment": {
+        "memoExample": "Deps가 바뀔 때만 계산해요",
+        "expensiveCalculation": "무거운 계산 함수 (성능 테스트용)"
+      }
+    },
+    "reactMemo": {
+      "core": "React.memo의 핵심: ",
+      "coreDesc": "Count 버튼을 클릭하면 부모 컴포넌트만 리렌더링되고, Expensive 버튼을 클릭하면 부모와 자식 컴포넌트 모두 리렌더링됩니다. React.memo는 props가 변경되지 않으면 이전 렌더링 결과를 재사용하여 성능을 향상시킵니다.",
+      "detailedExplanation": "React.memo는 컴포넌트를 렌더링하기 전에 이전 props와 새로운 props를 비교(얕은 비교)하는 <strong>고차 컴포넌트(HOC)</strong>입니다. props가 동일하면 <strong>렌더링을 건너뛰고 이전 결과를 재사용</strong>합니다.",
+      "countButton": "Count 버튼",
+      "expensiveButton": "Expensive 버튼",
+      "countButtonEffect": "📊 Count Button Effect",
+      "expensiveButtonEffect": "📊 Expensive Button Effect",
+      "countClicked": "회 클릭됨",
+      "propsChanged": "Props 변경됨!",
+      "interactive": "인터랙티브 테스트",
+      "clickCountMultiple": "Count 버튼을 여러 번 클릭해보세요",
+      "checkRenderCount": "Render Count가 변하지 않는 것을 확인하세요",
+      "clickExpensive": "Expensive 버튼을 클릭해보세요",
+      "checkRenderIncrease": "Render Count가 증가하는 것을 확인하세요",
+      "howItWorks": "어떻게 동작할까요?",
+      "magic": "React.memo의 마법: ",
+      "useMemoExecutionCount": "useMemo가 실행된 횟수",
+      "parentOnlyRerendered": "부모만 리렌더링됨",
+      "countButtonTitle": "Count Button Effect:",
+      "countButtonBullet1": "부모 컴포넌트만 리렌더링",
+      "countButtonBullet2": "자식 컴포넌트는 props 변경 없음",
+      "countButtonBullet3": "React.memo로 인해 리렌더링 방지",
+      "expensiveButtonTitle": "Expensive 버튼:",
+      "expensiveButtonBullet1": "부모 컴포넌트 리렌더링",
+      "expensiveButtonBullet2": "expensiveValue props 변경됨",
+      "expensiveButtonBullet3": "자식 컴포넌트도 리렌더링",
+      "notClickedYet": "아직 클릭 안함",
+      "countChangedExpensiveValueSame": "Count가 바뀌어도 expensiveValue는 그대로",
+      "expensiveValueChangedUseMemoRerun": "expensiveValue가 바뀌면 useMemo도 재실행",
+      "coreExplanation": "부모 컴포넌트가 리렌더링되어도 자식은 props가 변경되지 않으면 리렌더링되지 않습니다.",
+      "tryItBelow": "아래에서 직접 체험해보세요!",
+      "parentChildBothRerendered": "부모 & 자식 모두 재렌더링"
+    },
+    "testGuide": {
+      "title": "단계별 테스트 가이드",
+      "step1": "Count 버튼을 여러 번 클릭해보세요",
+      "step2": "Render Count가 변하지 않는 것을 확인하세요",
+      "step3": "Expensive 버튼을 클릭해보세요",
+      "step4": "Render Count가 증가하는 것을 확인하세요"
+    },
+    "useMemo": {
+      "guideTitle": "useMemo 최적화 가이드",
+      "guideDescription": "의존성이 변경되지 않으면 계산을 다시 하지 않습니다. Expensive Value를 변경해보면 계산이 실행되는 것을 Console에서 확인할 수 있습니다.",
+      "consoleMessage": "Console 메시지:",
+      "performanceTip": "💡 Performance Tip",
+      "performanceTipDesc": "useMemo는 계산 결과를 \"기억\"합니다. expensiveValue가 변경되지 않으면 이전 계산 결과를 재사용하여 불필요한 연산을 방지합니다."
+    },
+    "guide": {
+      "goodExample": "✅ Good Example",
+      "useUniqueId": "고유 ID를 key로 사용:",
+      "badExample": "❌ Bad Example",
+      "useArrayIndex": "배열 인덱스를 key로 사용:",
+      "keyPointTitle": "💡 Key Point",
+      "keyPointDesc": "React에서 key는 컴포넌트의 \"신분증\" 역할을 합니다. 고유한 key를 사용하면 React가 어떤 항목이 변경되었는지 정확히 파악하여 불필요한 리렌더링을 방지할 수 있습니다."
+    },
+    "testIt": "테스트해보세요!",
+    "dotsFixed": "점들이 고정됨",
+    "dotsBlinking": "점들이 깜빡임"
   },
   "serverComponents": {
     "title": "Server Components",
     "benefits": {
       "title": "Server Components의 장점",
-      "zeroBundle": "Zero Bundle Size",
-      "zeroBundle.desc": "서버 컴포넌트 코드는 클라이언트로 전송되지 않음",
-      "directBackend": "직접적인 백엔드 접근",
-      "directBackend.desc": "데이터베이스나 파일 시스템에 직접 접근 가능",
-      "autoCodeSplitting": "자동 코드 분할",
-      "autoCodeSplitting.desc": "클라이언트 컴포넌트는 자동으로 코드 분할됨",
-      "improvedSecurity": "향상된 보안",
-      "improvedSecurity.desc": "민감한 데이터나 로직이 클라이언트에 노출되지 않음"
+      "zeroBundle": {
+        "value": "Zero Bundle Size",
+        "desc": "서버 컴포넌트 코드는 클라이언트로 전송되지 않음"
+      },
+      "directBackend": {
+        "value": "직접적인 백엔드 접근",
+        "desc": "데이터베이스나 파일 시스템에 직접 접근 가능"
+      },
+      "autoCodeSplitting": {
+        "value": "자동 코드 분할",
+        "desc": "클라이언트 컴포넌트는 자동으로 코드 분할됨"
+      },
+      "improvedSecurity": {
+        "value": "향상된 보안",
+        "desc": "민감한 데이터나 로직이 클라이언트에 노출되지 않음"
+      }
     },
     "code": {
       "serverComponent": "Server Component 예시",
@@ -436,27 +684,35 @@
     "pleaseWait": "잠시만 기다려주세요"
   },
   "react19": {
+    "title": "React 19",
+    "subtitle": "새로운 기능",
     "newFeatures": {
       "title": "React 19의 새로운 기능",
       "description": "React 19는 성능과 개발자 경험을 크게 향상시키는 혁신적인 기능들을 제공합니다."
     },
-    "actionsAndUseTransition": "Actions와 useTransition",
-    "actionsAndUseTransition.subtitle": "비동기 상태 관리의 혁신",
+    "actionsAndUseTransition": {
+      "value": "Actions와 useTransition",
+      "subtitle": "비동기 상태 관리의 혁신"
+    },
     "actions": {
       "description": "<strong>Actions</strong>는 React 19의 가장 혁신적인 기능 중 하나로, 폼 제출과 데이터 변경을 간단하게 처리할 수 있습니다. ",
       "autoManagement": "pending 상태, 에러 처리, 낙관적 업데이트를 자동으로 관리합니다."
     },
     "newWay": "// React 19의 새로운 방식",
-    "formActionsAndUseActionState": "Form Actions와 useActionState",
-    "formActionsAndUseActionState.subtitle": "폼 처리의 패러다임 전환",
+    "formActionsAndUseActionState": {
+      "value": "Form Actions와 useActionState",
+      "subtitle": "폼 처리의 패러다임 전환"
+    },
     "formActions": {
       "withUseActionState": "<strong>useActionState</strong>는 폼 액션의 상태를 추적하고 관리합니다. ",
-      "simplifiedDesc": "폼 제출, 로딩 상태, 에러 처리가 모두 하나의 Hook으로 간단해집니다."
+      "simplifiedDesc": "폼 처리가 훨씬 간단해졌습니다. 자동 폼 리셋, 에러 처리, pending 상태를 자동으로 관리합니다."
     },
-    "useHook": "use Hook",
-    "useHook.subtitle": "Promise와 Context를 위한 새로운 방법",
+    "useHook": {
+      "value": "use Hook",
+      "subtitle": "Promise와 Context를 위한 새로운 방법"
+    },
     "use": {
-      "description": "<strong>use</strong>는 Promise나 Context를 컴포넌트에서 읽을 수 있는 새로운 Hook입니다. "
+      "description": "새로운 <strong>use() Hook</strong>으로 Promise를 직접 읽을 수 있습니다. 조건문 안에서도 사용 가능한 유일한 Hook입니다."
     },
     "code": {
       "comment": {
@@ -468,45 +724,92 @@
         "preinit": "스크립트 미리 초기화",
         "preload": "리소스 미리 로드",
         "prefetch": "DNS 미리 조회",
-        "preconnect": "미리 연결"
+        "preconnect": "미리 연결",
+        "autoMemo": "자동으로 메모화됨",
+        "autoCallback": "자동으로 useCallback 처리",
+        "autoMemoComponent": "React.memo 불필요"
       },
       "beforeReact19": "React 19 이전",
-      "withReact19": "React 19",
-      "comment.autoMemo": "자동으로 메모화됨",
-      "comment.autoCallback": "자동으로 useCallback 처리",
-      "comment.autoMemoComponent": "React.memo 불필요"
+      "withReact19": "React 19"
     },
-    "useFormStatusAndUseOptimistic": "useFormStatus와 useOptimistic",
-    "useFormStatusAndUseOptimistic.subtitle": "더 나은 사용자 경험을 위한 Hook",
+    "useFormStatusAndUseOptimistic": {
+      "value": "useFormStatus와 useOptimistic",
+      "subtitle": "더 나은 사용자 경험을 위한 Hook"
+    },
     "formHooks": {
-      "description": "이 Hook들은 <strong>폼의 상태를 실시간으로 추적</strong>하고 <strong>낙관적 업데이트</strong>를 쉽게 구현할 수 있게 해줍니다."
+      "description": "<strong>useFormStatus</strong>로 폼의 pending 상태를 쉽게 관리하고, <strong>useOptimistic</strong>으로 즉시 UI 업데이트를 구현할 수 있습니다."
     },
-    "newFormHooks": "// 새로운 Form Hooks",
-    "serverComponentsAndReactCompiler": "Server Components와 React Compiler",
-    "serverComponentsAndReactCompiler.subtitle": "성능 최적화의 새로운 차원",
+    "newFormHooks": "🎉 새로운 Form Hooks:",
+    "serverComponentsAndReactCompiler": {
+      "value": "Server Components와 React Compiler",
+      "subtitle": "성능 최적화의 새로운 차원"
+    },
     "compiler": {
       "description": "<strong>React Compiler</strong>는 컴포넌트를 자동으로 최적화합니다. "
     },
     "noLongerNeeded": "// 더 이상 필요 없음!",
-    "resourcePreloadingAPIs": "리소스 프리로딩 API",
-    "resourcePreloadingAPIs.subtitle": "더 빠른 페이지 로딩",
+    "resourcePreloadingAPIs": {
+      "value": "리소스 프리로딩 API",
+      "subtitle": "더 빠른 페이지 로딩"
+    },
     "resources": {
       "description": "새로운 리소스 API를 통해 <strong>스크립트, 스타일시트, 폰트</strong> 등을 미리 로드할 수 있습니다."
     },
     "newResourceAPIs": "// 새로운 리소스 API",
     "upgrade": {
       "guideTitle": "React 19 업그레이드 가이드",
-      "step1": "1단계:",
-      "step1.desc": "React 18.3.0으로 먼저 업그레이드",
-      "step2": "2단계:",
-      "step2.desc": "StrictMode 경고 해결",
-      "step3": "3단계:",
-      "step3.desc": "타입스크립트 5.1+ 업그레이드",
-      "step4": "4단계:",
-      "step4.desc": "React 19로 업그레이드",
-      "step5": "5단계:",
-      "step5.desc": "새로운 기능 점진적 도입",
+      "step1": {
+        "value": "1단계:",
+        "desc": "React 18.3.0으로 먼저 업그레이드"
+      },
+      "step2": {
+        "value": "2단계:",
+        "desc": "StrictMode 경고 해결"
+      },
+      "step3": {
+        "value": "3단계:",
+        "desc": "타입스크립트 5.1+ 업그레이드"
+      },
+      "step4": {
+        "value": "4단계:",
+        "desc": "React 19로 업그레이드"
+      },
+      "step5": {
+        "value": "5단계:",
+        "desc": "새로운 기능 점진적 도입"
+      },
       "tip": "React Compiler는 선택사항입니다. 기존 코드도 정상 작동합니다!"
     }
+  },
+  "touch": {
+    "scrollHint": "← 좌우로 스와이프하여 더 보기 →",
+    "useTip": {
+      "title": "터치 사용 팁",
+      "gesture": "제스처를 사용하여 자연스럽게 상호작용",
+      "tab": "버튼을 탭하여 액션 실행",
+      "pinch": "데모에서 핀치로 확대/축소",
+      "drag": "드래그하여 항목 재정렬"
+    },
+    "noGesture": "제스처가 감지되지 않음",
+    "swipeHint": "아무 방향으로나 스와이프해보세요",
+    "rightSwipe": "오른쪽으로 스와이프 →",
+    "leftSwipe": "← 왼쪽으로 스와이프",
+    "downSwipe": "아래로 스와이프 ↓",
+    "upSwipe": "위로 스와이프 ↑",
+    "tap": "탭!",
+    "swipeRightTo": "오른쪽으로 스와이프하여 뒤로 가기 →",
+    "swipeLeftTo": "← 왼쪽으로 스와이프하여 계속하기",
+    "swipeDownTo": "아래로 스와이프하여 새로고침 ↓",
+    "swipeUpTo": "위로 스와이프하여 더 보기 ↑",
+    "click": "클릭하여 상호작용",
+    "touch": "터치",
+    "touchGestureHint": "탭하거나 스와이프해보세요",
+    "swipeOrDragHint": "스와이프하거나 드래그하여 상호작용",
+    "pinch": "핀치",
+    "scale": "배율",
+    "pinchHint": "핀치로 확대/축소",
+    "drag": "드래그",
+    "dragHint": "원을 드래그해보세요",
+    "touchMouseSupport": "터치와 마우스 모두 지원"
   }
 }

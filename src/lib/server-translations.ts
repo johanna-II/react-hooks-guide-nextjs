@@ -12,7 +12,7 @@ const translationCache = new Map<string, Record<string, string>>();
  * 서버사이드에서 모든 텍스트를 미리 번역
  * React의 cache 함수로 래핑하여 동일 요청에서 중복 호출 방지
  */
-export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
+export const getServerTranslations = cache(async (locale: 'en' | 'ko') => {
   const cacheKey = `server_translations:${locale}`;
 
   // 메모리 캐시 확인
@@ -40,9 +40,15 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
     return {}; // 빈 객체 반환 (클라이언트에서 처리)
   }
 
+  // 한국어일 경우 원본 텍스트 반환
+  if (locale === 'ko') {
+    translationCache.set(cacheKey, koreanTexts);
+    return koreanTexts;
+  }
+
   try {
     const deeplClient = getDeepLClient(apiKey, apiUrl);
-    const targetLang = locale === 'en' ? 'EN-US' : 'JA';
+    const targetLang = 'EN-US';
 
     // 모든 텍스트를 배열로 변환
     const entries = Object.entries(koreanTexts);
@@ -55,12 +61,8 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
     // Convert results to object
     const translations: Record<string, string> = {};
     keys.forEach((key, index) => {
-      // 영어 번역인 경우 문장 첫 글자 대문자 처리
-      const translatedText =
-        locale === 'en'
-          ? capitalizeEnglishSentences(translatedTexts[index])
-          : translatedTexts[index];
-      translations[key] = translatedText;
+      // 영어 번역이므로 문장 첫 글자 대문자 처리
+      translations[key] = capitalizeEnglishSentences(translatedTexts[index]);
     });
 
     // 메모리 캐시에 저장
@@ -91,7 +93,7 @@ export const getServerTranslations = cache(async (locale: 'en' | 'ja') => {
 /**
  * 특정 키들만 번역
  */
-export const getServerTranslationsByKeys = cache(async (locale: 'en' | 'ja', keys: string[]) => {
+export const getServerTranslationsByKeys = cache(async (locale: 'en' | 'ko', keys: string[]) => {
   const cacheKey = `server_translations_keys:${locale}:${keys.sort().join(',')}`;
 
   // 메모리 캐시 확인
@@ -123,9 +125,19 @@ export const getServerTranslationsByKeys = cache(async (locale: 'en' | 'ja', key
     return result;
   }
 
+  // 한국어일 경우 원본 텍스트 반환
+  if (locale === 'ko') {
+    const result: Record<string, string> = {};
+    keys.forEach((key) => {
+      result[key] = koreanTexts[key] || key;
+    });
+    translationCache.set(cacheKey, result);
+    return result;
+  }
+
   try {
     const deeplClient = getDeepLClient(apiKey, apiUrl);
-    const targetLang = locale === 'en' ? 'EN-US' : 'JA';
+    const targetLang = 'EN-US';
 
     // 요청된 키의 텍스트만 추출
     const textsToTranslate = keys.map((key) => koreanTexts[key] || key);

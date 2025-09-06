@@ -32,7 +32,7 @@ const InputWithRef: React.FC = React.memo(() => {
         <div className="fixed top-4 right-4 z-50 animate-pulse">
           <Card variant="bordered" className="bg-slate-800 border-green-500/50 px-4 py-3">
             <p className="text-green-400 text-sm font-medium">
-              {t('demo.refValueAlert').replace('{value}', countRef.current.toString())}
+              {t('demo.refValueAlert', { value: countRef.current })}
             </p>
           </Card>
         </div>
@@ -48,7 +48,7 @@ const InputWithRef: React.FC = React.memo(() => {
             className="w-full px-3 py-2 bg-slate-700/50 border border-slate-600/50 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-green-500/50"
           />
           <p className="text-center text-slate-400 text-sm">
-            {t('demo.refCountDisplay').replace('{count}', displayCount.toString())}
+            {t('demo.refCountDisplay', { count: displayCount })}
           </p>
         </div>
       </Card>

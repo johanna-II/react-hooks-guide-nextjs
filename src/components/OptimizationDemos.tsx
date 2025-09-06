@@ -76,7 +76,9 @@ export default function OptimizationDemos() {
             <h5 className="text-lg font-semibold text-blue-400 mb-2">
               {t('optimization.metrics.renderCount.title')}
             </h5>
-            <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.renderCount')}</p>
+            <p className="text-sm text-slate-300 mb-2">
+              {t('optimization.metrics.renderCountTitle')}
+            </p>
             <p className="text-xs text-slate-400">{t('optimization.metrics.renderCount.desc')}</p>
           </div>
 
@@ -84,7 +86,9 @@ export default function OptimizationDemos() {
             <h5 className="text-lg font-semibold text-green-400 mb-2">
               {t('optimization.metrics.executionTime.title')}
             </h5>
-            <p className="text-sm text-slate-300 mb-2">{t('optimization.metrics.executionTime')}</p>
+            <p className="text-sm text-slate-300 mb-2">
+              {t('optimization.metrics.executionTimeTitle')}
+            </p>
             <p className="text-xs text-slate-400">{t('optimization.metrics.executionTime.desc')}</p>
           </div>
 
@@ -93,7 +97,7 @@ export default function OptimizationDemos() {
               {t('optimization.metrics.uiResponsiveness.title')}
             </h5>
             <p className="text-sm text-slate-300 mb-2">
-              {t('optimization.metrics.uiResponsiveness')}
+              {t('optimization.metrics.uiResponsivenessTitle')}
             </p>
             <p className="text-xs text-slate-400">
               {t('optimization.metrics.uiResponsiveness.desc')}
@@ -105,7 +109,7 @@ export default function OptimizationDemos() {
               {t('optimization.metrics.memoryManagement.title')}
             </h5>
             <p className="text-sm text-slate-300 mb-2">
-              {t('optimization.metrics.memoryManagement')}
+              {t('optimization.metrics.memoryManagementTitle')}
             </p>
             <p className="text-xs text-slate-400">
               {t('optimization.memoryManagement.explanation')}
@@ -128,7 +132,7 @@ export default function OptimizationDemos() {
         {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-blue-400 mb-3">
-            {t('optimization.workingPrinciple')}
+            {t('optimization.workingPrinciple.title')}
           </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
@@ -136,9 +140,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.renderCount.whenParentChanges')}</li>
-                <li>??{t('optimization.renderCount.regardlessOfProps')}</li>
-                <li>??{t('optimization.renderCount.performanceDegradation')}</li>
+                <li>• {t('optimization.renderCount.whenParentChanges')}</li>
+                <li>• {t('optimization.renderCount.regardlessOfProps')}</li>
+                <li>• {t('optimization.renderCount.performanceDegradation')}</li>
               </ul>
             </div>
             <div>
@@ -146,15 +150,15 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.after')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.workingPrinciple.afterBullet1')}</li>
-                <li>??{t('optimization.workingPrinciple.afterBullet2')}</li>
-                <li>??{t('optimization.workingPrinciple.afterBullet3')}</li>
+                <li>✓ {t('optimization.workingPrinciple.afterBullet1')}</li>
+                <li>✓ {t('optimization.workingPrinciple.afterBullet2')}</li>
+                <li>✓ {t('optimization.workingPrinciple.afterBullet3')}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6" suppressHydrationWarning>
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
               <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
@@ -237,10 +241,9 @@ export default function OptimizationDemos() {
           </div>
           <p className="text-xs text-slate-400 mt-3 text-center">
             {nonOptRenders > optRenders
-              ? t('optimization.renderCount.unnecessaryRendersPrevented').replace(
-                  '{count}',
-                  (nonOptRenders - optRenders).toString()
-                )
+              ? t('optimization.renderCount.unnecessaryRendersPrevented', {
+                  count: nonOptRenders - optRenders,
+                })
               : t('optimization.testIt')}
           </p>
         </div>
@@ -259,7 +262,7 @@ export default function OptimizationDemos() {
         {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-green-400 mb-3">
-            {t('optimization.workingPrinciple')}
+            {t('optimization.workingPrinciple.title')}
           </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
@@ -267,9 +270,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.workingPrinciple.recalculateEveryTime')}</li>
-                <li>??{t('optimization.workingPrinciple.duplicateCalculation')}</li>
-                <li>??{t('optimization.workingPrinciple.wasteResources')}</li>
+                <li>• {t('optimization.workingPrinciple.recalculateEveryTime')}</li>
+                <li>• {t('optimization.workingPrinciple.duplicateCalculation')}</li>
+                <li>• {t('optimization.workingPrinciple.wasteResources')}</li>
               </ul>
             </div>
             <div>
@@ -277,15 +280,15 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.afterUseMemo')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.workingPrinciple.firstCalculationOnly')}</li>
-                <li>??{t('optimization.workingPrinciple.recalculateWhenDepsChange')}</li>
-                <li>??{t('optimization.workingPrinciple.saveCalculationTime')}</li>
+                <li>✓ {t('optimization.workingPrinciple.firstCalculationOnly')}</li>
+                <li>✓ {t('optimization.workingPrinciple.recalculateWhenDepsChange')}</li>
+                <li>✓ {t('optimization.workingPrinciple.saveCalculationTime')}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6" suppressHydrationWarning>
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
               <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
@@ -381,10 +384,9 @@ export default function OptimizationDemos() {
           {nonOptTime > 0 && optTime > 0 && (
             <p className="text-xs text-slate-400 mt-3 text-center">
               {nonOptTime > optTime
-                ? t('optimization.executionTime.performanceImprovement').replace(
-                    '{percent}',
-                    (((nonOptTime - optTime) / nonOptTime) * 100).toFixed(1)
-                  )
+                ? t('optimization.executionTime.performanceImprovement', {
+                    percent: (((nonOptTime - optTime) / nonOptTime) * 100).toFixed(1),
+                  })
                 : t('optimization.testIt')}
             </p>
           )}
@@ -404,7 +406,7 @@ export default function OptimizationDemos() {
         {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-purple-400 mb-3">
-            {t('optimization.workingPrinciple')}
+            {t('optimization.workingPrinciple.title')}
           </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
@@ -412,9 +414,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.workingPrinciple.before')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.uiResponsiveness.drawDotsEveryType')}</li>
-                <li>??{t('optimization.uiResponsiveness.unnecessaryDOMManipulation')}</li>
-                <li>??{t('optimization.uiResponsiveness.laggyInputExperience')}</li>
+                <li>• {t('optimization.uiResponsiveness.drawDotsEveryType')}</li>
+                <li>• {t('optimization.uiResponsiveness.unnecessaryDOMManipulation')}</li>
+                <li>• {t('optimization.uiResponsiveness.laggyInputExperience')}</li>
               </ul>
             </div>
             <div>
@@ -422,15 +424,15 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.uiResponsiveness.afterOptimization')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.uiResponsiveness.dotsNotRedrawn')}</li>
-                <li>??{t('optimization.uiResponsiveness.onlyNecessaryUpdates')}</li>
-                <li>??{t('optimization.uiResponsiveness.smoothTypingExperience')}</li>
+                <li>✓ {t('optimization.uiResponsiveness.dotsNotRedrawn')}</li>
+                <li>✓ {t('optimization.uiResponsiveness.onlyNecessaryUpdates')}</li>
+                <li>✓ {t('optimization.uiResponsiveness.smoothTypingExperience')}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6" suppressHydrationWarning>
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
               <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
@@ -538,7 +540,7 @@ export default function OptimizationDemos() {
         {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-orange-400 mb-3">
-            {t('optimization.workingPrinciple')}
+            {t('optimization.workingPrinciple.title')}
           </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
@@ -546,9 +548,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.memoryManagement.noCleanup')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.workingPrinciple.listenerKeepStacking')}</li>
-                <li>??{t('optimization.workingPrinciple.notRemovedFromMemory')}</li>
-                <li>??{t('optimization.workingPrinciple.memoryLeakOccur')}</li>
+                <li>• {t('optimization.workingPrinciple.listenerKeepStacking')}</li>
+                <li>• {t('optimization.workingPrinciple.notRemovedFromMemory')}</li>
+                <li>• {t('optimization.workingPrinciple.memoryLeakOccur')}</li>
               </ul>
             </div>
             <div>
@@ -556,15 +558,15 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.memoryManagement.withCleanup')}:</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.memoryManagement.cleanupOnUnmount')}</li>
-                <li>??{t('optimization.workingPrinciple.efficientMemory')}</li>
-                <li>??{t('optimization.memoryManagement.cleanResourceCleanup')}</li>
+                <li>✓ {t('optimization.memoryManagement.cleanupOnUnmount')}</li>
+                <li>✓ {t('optimization.workingPrinciple.efficientMemory')}</li>
+                <li>✓ {t('optimization.memoryManagement.cleanResourceCleanup')}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6">
+        <div className="grid sm:grid-cols-2 gap-6" suppressHydrationWarning>
           <div className="backdrop-blur-xl bg-red-500/5 border border-red-500/20 rounded-xl p-4">
             <h5 className="font-bold text-lg mb-4 flex items-center">
               <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse" />
@@ -673,10 +675,9 @@ export default function OptimizationDemos() {
           </div>
           {nonOptListeners > optListeners && (
             <p className="text-xs text-slate-400 mt-3 text-center">
-              {t('optimization.memoryManagement.noCleanupWarning').replace(
-                '{count}',
-                (nonOptListeners - optListeners).toString()
-              )}
+              {t('optimization.memoryManagement.noCleanupWarning', {
+                count: nonOptListeners - optListeners,
+              })}
             </p>
           )}
         </div>
@@ -687,6 +688,9 @@ export default function OptimizationDemos() {
         <p className="text-slate-300 leading-relaxed mb-4">
           <strong className="text-blue-400">{t('optimization.reactMemo.core')}</strong>
           {t.rich('optimization.reactMemo.detailedExplanation', {
+            strong: (chunks: React.ReactNode) => (
+              <strong className="text-blue-400">{chunks}</strong>
+            ),
             span: (chunks: React.ReactNode) => {
               if (chunks === 'Count 버튼') return <span className="text-green-400">{chunks}</span>;
               if (chunks === 'Expensive 버튼')
@@ -699,7 +703,7 @@ export default function OptimizationDemos() {
         {/* ?숈옉 ?먮━ ?ㅻ챸 */}
         <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50 mb-6">
           <h5 className="text-lg font-semibold text-blue-400 mb-3">
-            {t('optimization.workingPrinciple')}
+            {t('optimization.workingPrinciple.title')}
           </h5>
           <div className="grid sm:grid-cols-2 gap-4 text-sm">
             <div>
@@ -707,9 +711,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.reactMemo.countButtonTitle')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.reactMemo.countButtonBullet1')}</li>
-                <li>??{t('optimization.reactMemo.countButtonBullet2')}</li>
-                <li>??{t('optimization.reactMemo.countButtonBullet3')}</li>
+                <li>• {t('optimization.reactMemo.countButtonBullet1')}</li>
+                <li>• {t('optimization.reactMemo.countButtonBullet2')}</li>
+                <li>• {t('optimization.reactMemo.countButtonBullet3')}</li>
               </ul>
             </div>
             <div>
@@ -717,9 +721,9 @@ export default function OptimizationDemos() {
                 <strong>{t('optimization.reactMemo.expensiveButtonTitle')}</strong>
               </p>
               <ul className="text-slate-400 space-y-1 text-xs">
-                <li>??{t('optimization.reactMemo.expensiveButtonBullet1')}</li>
-                <li>??{t('optimization.reactMemo.expensiveButtonBullet2')}</li>
-                <li>??{t('optimization.reactMemo.expensiveButtonBullet3')}</li>
+                <li>• {t('optimization.reactMemo.expensiveButtonBullet1')}</li>
+                <li>• {t('optimization.reactMemo.expensiveButtonBullet2')}</li>
+                <li>• {t('optimization.reactMemo.expensiveButtonBullet3')}</li>
               </ul>
             </div>
           </div>
@@ -744,14 +748,14 @@ export default function OptimizationDemos() {
         {/* ?ㅼ떆媛?寃곌낵 ?쒖떆 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-green-400 mb-2">??Memoized Value</p>
+            <p className="text-sm font-semibold text-green-400 mb-2">✅ Memoized Value</p>
             <p className="text-2xl font-bold text-white">{memoizedValue}</p>
             <p className="text-xs text-slate-400 mt-1">
-              expensiveValue 횞 2 = {expensiveValue} 횞 2 = {memoizedValue}
+              expensiveValue × 2 = {expensiveValue} × 2 = {memoizedValue}
             </p>
           </div>
           <div className="bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
-            <p className="text-sm font-semibold text-blue-400 mb-2">?봽 Render Count</p>
+            <p className="text-sm font-semibold text-blue-400 mb-2">📊 Render Count</p>
             <p className="text-2xl font-bold text-white">{isClient ? renderCount : '...'}</p>
             <p className="text-xs text-slate-400 mt-1">
               {t('optimization.reactMemo.useMemoExecutionCount')}
@@ -830,6 +834,9 @@ export default function OptimizationDemos() {
           <p className="text-sm text-slate-300 leading-relaxed">
             <strong className="text-blue-400">{t('optimization.reactMemo.magic')}</strong>
             {t.rich('optimization.reactMemo.detailedExplanation', {
+              strong: (chunks: React.ReactNode) => (
+                <strong className="text-blue-400">{chunks}</strong>
+              ),
               span: (chunks: React.ReactNode) => {
                 if (chunks === 'Count 버튼')
                   return <span className="text-green-400">{chunks}</span>;

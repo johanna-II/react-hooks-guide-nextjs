@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useTranslations } from '@/hooks/useTranslations';
 
@@ -285,56 +285,56 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
       switch (demoType) {
         case 'gesture':
           return (
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3 sm:space-y-4">
               <div
-                className={`w-24 h-24 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold cursor-pointer select-none transition-transform duration-100 ${
+                className={`w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center text-white text-lg sm:text-2xl font-bold cursor-pointer select-none transition-transform duration-100 ${
                   isPressed ? 'scale-95' : 'scale-100'
                 }`}
               >
                 {t('touch.touch')}
               </div>
-              <p className="text-base font-medium text-white transition-all duration-200">
+              <p className="text-sm sm:text-base font-medium text-white transition-all duration-200">
                 {gesture}
               </p>
-              <p className="text-xs text-slate-400">{t('touch.touchGestureHint')}</p>
+              <p className="text-[11px] sm:text-xs text-slate-400">{t('touch.touchGestureHint')}</p>
             </div>
           );
 
         case 'swipe':
           return (
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3 sm:space-y-4">
               <div
-                className={`w-28 h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center text-white text-sm font-bold cursor-pointer select-none transition-transform duration-100 ${
+                className={`w-24 h-14 sm:w-28 sm:h-16 mx-auto bg-gradient-to-r from-green-500 to-blue-500 rounded-xl flex items-center justify-center text-white text-xs sm:text-sm font-bold cursor-pointer select-none transition-transform duration-100 ${
                   isPressed ? 'scale-95' : 'scale-100'
                 }`}
               >
                 {swipeDirection}
               </div>
-              <p className="text-xs text-slate-400">{t('touch.swipeOrDragHint')}</p>
+              <p className="text-[11px] sm:text-xs text-slate-400">{t('touch.swipeOrDragHint')}</p>
             </div>
           );
 
         case 'pinch':
           return (
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3 sm:space-y-4">
               <div
-                className="w-32 h-32 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-lg font-bold transition-transform duration-200"
+                className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white text-sm sm:text-base md:text-lg font-bold transition-transform duration-200"
                 style={{ transform: `scale(${scale})` }}
               >
                 {t('touch.pinch')}
               </div>
-              <p className="text-base font-medium text-white">
+              <p className="text-sm sm:text-base font-medium text-white">
                 {t('touch.scale')}: {scale.toFixed(2)}x
               </p>
-              <p className="text-xs text-slate-400">{t('touch.pinchHint')}</p>
+              <p className="text-[11px] sm:text-xs text-slate-400">{t('touch.pinchHint')}</p>
             </div>
           );
 
         case 'drag':
           return (
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-3 sm:space-y-4">
               <div
-                className="relative w-full h-40 bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden"
+                className="relative w-full h-32 sm:h-36 md:h-40 bg-slate-800/50 rounded-2xl border border-slate-700/50 overflow-hidden"
                 ref={containerRef}
                 data-interactive
                 style={{ touchAction: 'none' }}
@@ -344,14 +344,14 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
               >
                 <div
                   ref={dragElementRef}
-                  className="absolute w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white font-bold cursor-move select-none touch-manipulation"
+                  className="absolute w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold cursor-move select-none touch-manipulation"
                   data-interactive
                   onTouchStart={(e) => e.stopPropagation()}
                   onTouchMove={(e) => e.stopPropagation()}
                   onTouchEnd={(e) => e.stopPropagation()}
                   style={{
-                    left: `${position.x - 32}px`,
-                    top: `${position.y - 32}px`,
+                    left: `${position.x - 24}px`,
+                    top: `${position.y - 24}px`,
                     transform: isDragging ? 'scale(1.1)' : 'scale(1)',
                     transition: isDragging ? 'transform 0.1s' : 'transform 0.1s, left 0s, top 0s',
                   }}
@@ -359,7 +359,7 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
                   {t('touch.drag')}
                 </div>
               </div>
-              <p className="text-xs text-slate-400">{t('touch.dragHint')}</p>
+              <p className="text-[11px] sm:text-xs text-slate-400">{t('touch.dragHint')}</p>
             </div>
           );
 
@@ -369,9 +369,12 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
     };
 
     return (
-      <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700/50" data-interactive>
-        <h4 className="text-sm font-bold text-white mb-1.5">{title}</h4>
-        <p className="text-xs text-slate-300 mb-3">{description}</p>
+      <div
+        className="bg-slate-800/50 p-3 sm:p-4 rounded-xl border border-slate-700/50"
+        data-interactive
+      >
+        <h4 className="text-xs sm:text-sm font-bold text-white mb-1 sm:mb-1.5">{title}</h4>
+        <p className="text-[11px] sm:text-xs text-slate-300 mb-2 sm:mb-3">{description}</p>
 
         <div
           ref={containerRef}
@@ -382,9 +385,11 @@ export const TouchOptimizedDemo: React.FC<TouchDemoProps> = React.memo(
           {renderDemo()}
         </div>
 
-        {/* ?곗튂 ?뚰듃 */}
-        <div className="mt-3 p-2.5 bg-slate-900/50 rounded-lg">
-          <p className="text-[10px] text-slate-400 text-center">{t('touch.touchMouseSupport')}</p>
+        {/* 터치 힌트 */}
+        <div className="mt-2 sm:mt-3 p-2 sm:p-2.5 bg-slate-900/50 rounded-lg">
+          <p className="text-[9px] sm:text-[10px] text-slate-400 text-center">
+            {t('touch.touchMouseSupport')}
+          </p>
         </div>
       </div>
     );

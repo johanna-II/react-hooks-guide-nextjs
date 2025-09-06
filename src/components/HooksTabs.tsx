@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTranslations } from '@/hooks/useTranslations';
 
@@ -112,7 +112,7 @@ return (
 
         {/* Code Example */}
         <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50 mb-6">
-          <h4 className="text-lg font-semibold text-blue-400 mb-3">?뮲 {t('hooks.codeExample')}</h4>
+          <h4 className="text-lg font-semibold text-blue-400 mb-3">📄 {t('hooks.codeExample')}</h4>
           <pre className="text-sm text-slate-300 font-mono overflow-x-auto bg-slate-800/50 p-4 rounded-lg border border-slate-600/50">
             <code className="language-typescript">{currentExample.code}</code>
           </pre>
@@ -122,7 +122,7 @@ return (
         {currentExample.demo && (
           <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50">
             <h4 className="text-lg font-semibold text-green-400 mb-3">
-              ?렜 {t('hooks.realTimeDemo')}
+              🚀 {t('hooks.realTimeDemo')}
             </h4>
             <div className="p-4 bg-slate-800/50 rounded-lg">{currentExample.demo}</div>
           </div>
@@ -139,7 +139,7 @@ function UseStateDemo() {
   const t = useTranslations();
 
   return (
-    <div className="space-y-4" data-lpignore="true" data-form-type="other">
+    <div className="space-y-4" data-lpignore="true" data-form-type="other" suppressHydrationWarning>
       <div className="text-center">
         <p className="text-2xl font-bold text-white mb-2">
           {t('demo.count')}: {count}
@@ -211,7 +211,7 @@ function UseEffectDemo() {
           Increment
         </button>
       </div>
-      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.browserTabNotice')}</div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.browserTabNotice')}</div>
     </div>
   );
 }
@@ -292,7 +292,7 @@ function UseCallbackDemo() {
           </button>
         </div>
       </div>
-      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.optimizationTip')}</div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.optimizationTip')}</div>
     </div>
   );
 }
@@ -342,7 +342,7 @@ function UseMemoDemo() {
           {t('hooks.calculationCount')}: {computeCount}
         </p>
       </div>
-      <div className="text-xs text-slate-500 text-center">?뮕 {t('hooks.memoTip')}</div>
+      <div className="text-xs text-slate-500 text-center">💡 {t('hooks.memoTip')}</div>
     </div>
   );
 }

@@ -4,6 +4,5 @@
  */
 
 export { HeroSection } from './HeroSection';
-export { WhyHooksSection } from './WhyHooksSection';
 export { NavigationBar } from './NavigationBar';
-export type { WhyHooksItem } from './WhyHooksSection';
+export { WhyHooksSection } from './WhyHooksSection';
